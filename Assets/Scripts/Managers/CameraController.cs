@@ -3,9 +3,28 @@ using UnityEngine.InputSystem;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("Move")]
     [SerializeField] private float moveSpeed = 15f;
 
-    void Update()
+    [Header("Zoom")]
+    [SerializeField] private Camera targetCamera;
+    [SerializeField] private float zoomSpeed = 0.2f;
+    [SerializeField] private float minFOV = 20f;
+    [SerializeField] private float maxFOV = 70f;
+
+    private void Awake()
+    {
+        if (targetCamera == null)
+            targetCamera = Camera.main;
+    }
+
+    private void Update()
+    {
+        MoveCamera();
+        ZoomCamera();
+    }
+
+    private void MoveCamera()
     {
         Vector2 move = Vector2.zero;
 
@@ -21,8 +40,23 @@ public class CameraController : MonoBehaviour
         if (Keyboard.current.dKey.isPressed)
             move.x += 1;
 
-        Vector3 direction = new Vector3(move.x, 0, move.y).normalized;
+        Vector3 direction = new Vector3(move.x, 0f, move.y).normalized;
 
         transform.position += direction * moveSpeed * Time.deltaTime;
+    }
+
+    private void ZoomCamera()
+    {
+        float scroll = Mouse.current.scroll.ReadValue().y;
+
+        if (Mathf.Abs(scroll) < 0.01f)
+            return;
+
+        targetCamera.fieldOfView -= scroll * zoomSpeed;
+        targetCamera.fieldOfView = Mathf.Clamp(
+            targetCamera.fieldOfView,
+            minFOV,
+            maxFOV
+        );
     }
 }

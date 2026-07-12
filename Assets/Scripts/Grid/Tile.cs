@@ -10,8 +10,15 @@ public class Tile : MonoBehaviour
 
     public bool IsWalkable = true;
 
+    public GameObject PlacedObject;
+
     public void SetColor(Color color)
     {
         GetComponent<Renderer>().material.color = color;
+    }
+
+    public bool CanPlaceWall()
+    {
+        return Type == TileType.Floor;
     }
 }
