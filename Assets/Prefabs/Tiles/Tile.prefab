@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4740382757808733213
 Transform:
@@ -128,3 +128,5 @@ MonoBehaviour:
   X: 0
   Y: 0
   Type: 0
+  IsWalkable: 1
+  PlacedObject: {fileID: 0}

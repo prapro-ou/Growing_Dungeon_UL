@@ -1,5 +1,4 @@
-using System.Runtime.InteropServices;
-using UnityEngine;
+using UnityEngine; // 不要な System.Runtime.InteropServices は削除しています
 
 public class PreviewManager : MonoBehaviour
 {
@@ -18,11 +17,17 @@ public class PreviewManager : MonoBehaviour
 
     private void Start()
     {
-        wallPreview = Instantiate(wallPreviewPrefab, transform);
-        wallPreview.SetActive(false);
+        if (wallPreviewPrefab != null)
+        {
+            wallPreview = Instantiate(wallPreviewPrefab, transform);
+            wallPreview.SetActive(false);
+        }
 
-        monsterPreview = Instantiate(monsterPreviewPrefab, transform);
-        monsterPreview.SetActive(false);
+        if (monsterPreviewPrefab != null)
+        {
+            monsterPreview = Instantiate(monsterPreviewPrefab, transform);
+            monsterPreview.SetActive(false);
+        }
     }
 
     public void MovePreview(Vector3 position)
@@ -31,7 +36,6 @@ public class PreviewManager : MonoBehaviour
             return;
 
         currentPreview.SetActive(true);
-
         currentPreview.transform.position = position;
     }
 
@@ -41,6 +45,21 @@ public class PreviewManager : MonoBehaviour
             return;
 
         currentPreview.SetActive(false);
+    }
+
+    /// <summary>
+    /// すべてのプレビューを非表示にし、参照をリセットする（BuildMenuUIのClearPreview呼び出しに対応）
+    /// </summary>
+    public void ClearPreview()
+    {
+        if (wallPreview != null)
+            wallPreview.SetActive(false);
+
+        if (monsterPreview != null)
+            monsterPreview.SetActive(false);
+
+        currentPreview = null;
+        previewRenderer = null;
     }
 
     public void SetPreview(BuildMode mode)
@@ -55,12 +74,14 @@ public class PreviewManager : MonoBehaviour
         {
             case BuildMode.Wall:
                 currentPreview = wallPreview;
-                previewRenderer = wallPreview.GetComponentInChildren<MeshRenderer>();
+                if (wallPreview != null)
+                    previewRenderer = wallPreview.GetComponentInChildren<Renderer>();
                 break;
 
             case BuildMode.Monster:
                 currentPreview = monsterPreview;
-                previewRenderer = monsterPreview.GetComponentInChildren<SpriteRenderer>();
+                if (monsterPreview != null)
+                    previewRenderer = monsterPreview.GetComponentInChildren<Renderer>();
                 break;
 
             default:
@@ -68,6 +89,5 @@ public class PreviewManager : MonoBehaviour
                 previewRenderer = null;
                 break;
         }
-        
     }
 }
