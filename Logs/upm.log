@@ -1,0 +1,27 @@
+[2026-07-15T04:48:25.127Z][INFO] Command-line: 'C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.1f1\\Editor\\Data\\Resources\\PackageManager\\Server\\UnityPackageManager.exe' server -s 37424 --ipc-path Unity-Upm-37424 -l 2 --log-file C:\\Users\\Kouta\\Documents\\Growing_Dungeon/Logs/upm.log
+[2026-07-15T04:48:25.155Z][INFO] IPC server started (IPC path=Unity-Upm-37424).
+[2026-07-15T04:48:25.155Z][INFO] Hint: To connect to this UPM instance, launch Unity with the command-line parameter -upmIpcPath Upm-37424.
+[2026-07-15T04:48:27.044Z][INFO] project:list-packages <-- Request received
+params: {}
+[2026-07-15T04:48:27.124Z][INFO] config:project:get-registries <-- Request received
+params: {}
+[2026-07-15T04:48:27.129Z][INFO] project:list-packages <-- Request received
+params: {}
+[2026-07-15T04:48:27.138Z][INFO] config:project:get-registries --> 200 (14 ms)
+[2026-07-15T04:48:27.164Z][INFO] project:list-packages --> 200 (120 ms)
+[2026-07-15T04:48:27.240Z][INFO] project:list-packages --> 200 (111 ms)
+[2026-07-15T04:48:28.762Z][INFO] project:list-packages <-- Request received
+params: {}
+[2026-07-15T04:48:28.778Z][INFO] project:list-packages <-- Request received
+params: {}
+[2026-07-15T04:48:28.874Z][INFO] project:list-packages --> 200 (112 ms)
+[2026-07-15T04:48:28.885Z][INFO] project:list-packages --> 200 (107 ms)
+[2026-07-15T04:48:30.113Z][INFO] project:list-packages <-- Request received
+params: {}
+[2026-07-15T04:48:30.186Z][INFO] project:list-packages --> 200 (73 ms)
+[2026-07-15T04:48:30.227Z][INFO] config:project:get-registries <-- Request received
+params: {}
+[2026-07-15T04:48:30.230Z][INFO] config:project:get-registries --> 200 (3 ms)
+[2026-07-15T04:48:31.817Z][INFO] project:list-packages <-- Request received
+params: {}
+[2026-07-15T04:48:31.906Z][INFO] project:list-packages --> 200 (89 ms)
