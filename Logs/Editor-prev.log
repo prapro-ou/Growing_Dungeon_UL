@@ -1,0 +1,775 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.5/staging' branch; Version is '6000.5.1f1 (0d9463e84828) revision 889955'; Using compiler version '194234433'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Kouta" at "2026-07-08T04:23:08.7310914Z"
+OS: 'Windows 11  (10.0.26200) Core' Language: 'ja' Physical Memory: 31912 MB
+BatchMode: 0, IsHumanControllingUs: 1, StartBugReporterOnCrash: 1, Is64bit: 1
+System  architecture: x64
+Process architecture: x64
+Date: 2026-07-08T04:23:08Z
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.5.1f1\Editor\Unity.exe
+-projectpath
+C:\Users\Kouta\Documents\Growing_Dungeon
+-acceptSoftwareTermsForThisRunOnly
+-useHub
+-hubIPC
+-cloudEnvironment
+production
+-licensingIpc
+LicenseClient-Kouta
+-hubSessionId
+fe6902fa-afc3-467d-b078-4cb5eecf5d34
+-accessToken
+U3aZnTeiF7Nm7ugtvQ1mhz3dqPftabtCbineWVD12xk00ef
+Successfully changed project path to: C:\Users\Kouta\Documents\Growing_Dungeon
+C:/Users/Kouta/Documents/Growing_Dungeon
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gfx=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-main-allocator-mimalloc-enabled=0"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+Player connection [13764]  Target information:
+
+Player connection [13764]  * "[IP] 192.168.11.3 [Port] 55504 [Flags] 2 [Guid] 1111448522 [EditorId] 1111448522 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-NPHUPNE) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [13764] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [13764] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Licensing::Client] Error: HandshakeResponse reported an error:
+	ResponseCode: 505
+	ResponseStatus: Unsupported protocol version '1.18.1'.
+[Licensing::Module] Error: Failed to handshake to channel: "LicenseClient-Kouta"
+[Licensing::IpcConnector] LicenseClient-Kouta channel disconnected successfully.
+[Licensing::IpcConnector] Channel LicenseClient-Kouta-6000.5.1 doesn't exist
+[Licensing::Module] Successfully launched the LicensingClient (PId: 9756)
+[Package Manager] Connected to IPC stream "Upm-6164" after 0.0 seconds.
+[Licensing::Module] Licensing is not yet initialized.
+Starting IPC server.
+Waiting for clients to connect on \\.\pipe\Unity-LicenseClient-Kouta-6000.5.1, press Ctrl-C to exit.
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Kouta-6000.5.1" at "2026-07-08T04:23:12.7123669Z"
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 9756, path: "C:/Program Files/Unity/Hub/Editor/6000.5.1f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.18.1+9fbee8e
+  Session Id:              092987397e0444c2a054980b5dfc621f
+  Correlation Id:          ee7131190a6d9285c381873b2baa9cbd
+  External correlation Id: 8393443094585683046
+  Machine Id:              WaDJ2MrckvVXPk6cNGfdNLT8WoY=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-Kouta-6000.5.1" (connect: 2.91s, validation: 0.17s, handshake: 0.10s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-Kouta-6000.5.1-notifications" at "2026-07-08T04:23:12.9812136Z"
+[Licensing::Module] Connected to LicensingClient (PId: 9756, launch time: 0.03, total connection time: 3.18s)
+[Licensing::Client] Successfully updated the access token
+[Licensing::Module] Successfully updated the access token U3aZnTeiF7...
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: 15669559301559-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.01
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] Licensing Background thread has ended after 4.27s
+[Licensing::Module] Licensing is initialized (took 2.97s).
+[Licensing::Client] Successfully resolved entitlement details
+Library Redirect Path: Library/
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Artifact Garbage Collection - Removed 1 unused hashed content files
+Initialize engine version: 6000.5.1f1 (0d9463e84828)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.5.1f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/Kouta/Documents/Growing_Dungeon/Assets
+[D3D12 Device Filter] Vendor Name: NVIDIA
+[D3D12 Device Filter] Device Name: NVIDIA GeForce RTX 3070
+[D3D12 Device Filter] Driver Version: 32.0.15.9621
+[D3D12 Device Filter] Feature Level: 12.2
+[D3D12 Device Filter] Graphics Memory: 8017 MB
+[D3D12 Device Filter] Processor Count: 16
+[D3D12 Device Filter] Device Type: Discrete
+GfxDevice: creating device client; kGfxThreadingModeSplitJobs
+d3d12: failed to query info queue interface (0x80004002).
+Direct3D:
+    Version:         Direct3D 12 [level 12.2]
+    Renderer:        NVIDIA GeForce RTX 3070 (ID=0x2488)
+    Vendor:          NVIDIA
+    VRAM:            8017 MB
+    App VRAM Budget: 7249 MB
+    Driver:          32.0.15.9621
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.5.1f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.5.1f1/Editor/Data/BCLExtensions/runtime/netstandard2.1'
+Mono path[2] = 'C:/Program Files/Unity/Hub/Editor/6000.5.1f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.5.1f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56164
+CodeReloadManager initialized
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.5.1f1/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.5.1f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002265 seconds.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Package Manager log level set to [2]
+ScheduleIndexationOnStartup MainProcess:False IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.255 seconds
+Domain Reload Profiling: 589ms
+	BeginReloadAssembly (84ms)
+	RebuildCommonClasses (3ms)
+	RebuildNativeTypeToScriptingClass (15ms)
+	initialDomainReloadingComplete (40ms)
+	LoadAllAssembliesAndSetupDomain (190ms)
+		LoadAssemblies (82ms)
+		AnalyzeDomain (142ms)
+			TypeCache.Refresh (141ms)
+				TypeCache.ScanAssembly (131ms)
+	FinalizeReload (257ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (53ms)
+			ProcessInitializeOnLoadAttributes (56ms)
+			ProcessInitializeOnLoadMethodAttributes (99ms)
+[Licensing::Client] Successfully resolved entitlement details
+Application.AssetDatabase Initial Refresh Start
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 57 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.ai.navigation@2.0.13 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.ai.navigation@42d896194035)
+    com.unity.collab-proxy@2.12.4 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.collab-proxy@0b1559bcd34e)
+    com.unity.ide.rider@3.0.38 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.ide.rider@1f60b3138684)
+    com.unity.ide.visualstudio@2.0.26 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.ide.visualstudio@a99d56dec63f)
+    com.unity.inputsystem@1.19.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.inputsystem@21a28c3a6c83)
+    com.unity.timeline@1.8.12 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.timeline@8cd8509afae5)
+    com.unity.visualscripting@1.9.11 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.visualscripting@8bed5ad90189)
+    com.unity.searcher@4.9.4 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.searcher@d45a78918735)
+    com.unity.burst@1.8.29 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.burst@6bb9aca3ef38)
+    com.unity.nuget.mono-cecil@1.11.6 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+    com.unity.test-framework.performance@3.5.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.test-framework.performance@8b56083ec0f0)
+  Built-in packages:
+    com.unity.multiplayer.center@1.0.1 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.multiplayer.center@b860850997d0)
+    com.unity.render-pipelines.universal@17.5.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.render-pipelines.universal@be00b5bbd9a1)
+    com.unity.test-framework@1.7.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.test-framework@f3e6c9a02477)
+    com.unity.ugui@2.5.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.ugui@4f9b15fd1386)
+    com.unity.modules.accessibility@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.accessibility)
+    com.unity.modules.adaptiveperformance@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.adaptiveperformance)
+    com.unity.modules.ai@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.physics2d)
+    com.unity.modules.physicscore2d@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.physicscore2d)
+    com.unity.modules.screencapture@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.terrainphysics)
+    com.unity.modules.tilemap@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.tilemap)
+    com.unity.modules.ui@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vectorgraphics@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.vectorgraphics)
+    com.unity.modules.vehicles@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.video)
+    com.unity.modules.wind@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.modules.hierarchycore)
+    com.unity.ext.nunit@2.1.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.ext.nunit@44f7d31723bd)
+    com.unity.render-pipelines.core@17.5.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.render-pipelines.core@d7ce3ed2cd80)
+    com.unity.shadergraph@17.5.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.shadergraph@2df19e8719bc)
+    com.unity.render-pipelines.universal-config@17.5.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.render-pipelines.universal-config@fdda01c80fe3)
+    com.unity.collections@6.5.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.collections@a43cabe808ca)
+    com.unity.mathematics@1.4.0 (location: C:\Users\Kouta\Documents\Growing_Dungeon\Library\PackageCache\com.unity.mathematics@981956d94fb6)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.01 seconds
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:80
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: C:\Users\Kouta\Documents\Growing_Dungeon
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping - application/grpc -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/Ping'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/Ping - 200 - application/grpc 89.3200ms
+Starting: C:\Program Files\Unity\Hub\Editor\6000.5.1f1\Editor\Data\Tools\BuildPipeline\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/Kouta/Documents/Growing_Dungeon
+info: Microsoft.AspNetCore.Hosting.Diagnostics[1]
+      Request starting HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors - application/grpc -
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.runtime.interopservices.windowsruntime has duplicate hint path. Ignoring "C:\Program Files\Unity\Hub\Editor\6000.5.1f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Runtime.InteropServices.WindowsRuntime.dll" in favor of "C:\Program Files\Unity\Hub\Editor\6000.5.1f1\Editor\Data\NetStandard\Extensions\2.0.0\System.Runtime.InteropServices.WindowsRuntime.dll"
+warn: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Assembly system.componentmodel.composition has duplicate hint path. Ignoring "C:\Program Files\Unity\Hub\Editor\6000.5.1f1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\System.ComponentModel.Composition.dll" in favor of "C:\Program Files\Unity\Hub\Editor\6000.5.1f1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.ComponentModel.Composition.dll"
+info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Unity.Burst.Cecil, Version=0.11.6.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e with Library\PackageCache\com.unity.burst@6bb9aca3ef38\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll
+info: Unity.ILPP.Runner.PostProcessingAssemblyLoadContext[0]
+      Resolved Mono.Cecil, Version=0.11.5.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e with Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff\Mono.Cecil.dll
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'gRPC - /UnityILPP.PostProcessing/ConfigurePostProcessors'
+info: Microsoft.AspNetCore.Hosting.Diagnostics[2]
+      Request finished HTTP/2 POST http://ilpp/UnityILPP.PostProcessing/ConfigurePostProcessors - 200 - application/grpc 65.5546ms
+ExitCode: 0 Duration: 0s305ms
+[722/915    0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra build success (0.25 seconds), 1 items updated, 915 evaluated
+AssetDatabase: script compilation time: 4.279142s
+Begin MonoManager ReloadAssembly
+Total cache size 64323176
+Total cache size after purge 64323176, took 00:00:00.0750717
+Refreshing native plugins compatible for Editor in 3.19 ms, found 4 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.814 seconds
+Domain Reload Profiling: 2398ms
+	BeginReloadAssembly (146ms)
+		DisableScriptedObjects (15ms)
+		CreateAndSetChildDomain (40ms)
+	RebuildCommonClasses (6ms)
+	RebuildNativeTypeToScriptingClass (11ms)
+	initialDomainReloadingComplete (31ms)
+	LoadAllAssembliesAndSetupDomain (390ms)
+		LoadAssemblies (230ms)
+		AnalyzeDomain (150ms)
+			TypeCache.Refresh (103ms)
+				TypeCache.ScanAssembly (97ms)
+			BuildScriptInfoCaches (41ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (1815ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (52ms)
+			ProcessInitializeOnLoadAttributes (1334ms)
+			ProcessInitializeOnLoadMethodAttributes (172ms)
+			AfterProcessingInitializeOnLoad (3ms)
+		AwakeInstancesAfterBackupRestoration (13ms)
+Starting new worker id: 0 with log in C:/Users/Kouta/Documents/Growing_Dungeon/Logs/AssetImportWorkerHW0.log
+
+Asset Pipeline Refresh (id=a8212adf1a2424345a1d4195a860ba0d): Total: 7.135 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=2164 ms
+		Asset DB Callback time: managed=36 ms, native=12 ms
+		Scripting: domain reloads=1, domain reload time=611 ms, compile time=4280 ms, other=29 ms
+		Project Asset Count: scripts=1307, non-scripts=2259
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 13.504ms
+	ApplyChangesToAssetFolders: 0.442ms
+	Scan: 56.273ms
+	Collect global state as custom dependencies: 2.097ms
+	CategorizeScriptCompilationAssets: 54.376ms
+	ProcessAssetsWithTransientArtifactChanges: 45.481ms
+	CategorizeAssets: 30.769ms
+	CompileScripts: 4279.988ms
+	ImportOutOfDateAssets: 1857.304ms (1827.553ms without children)
+		UnloadImportedAssets: 3.559ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.396ms
+		ImportSchedulerStart: 25.771ms
+	PostProcessAllAssets: 36.937ms
+		MonoPostProcessAllAssets: 36.877ms
+			SyncVS.PostprocessSyncProject 7.480ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 6.991ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 1.348ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 1.108ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 0.580ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.225ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.213ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 0.169ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.141ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.101ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.101ms
+	UnloadStreamsBegin: 2.364ms
+	PersistCurrentRevisions: 0.137ms
+	GenerateScriptTypeHashes: 0.894ms
+	GenerateScriptTypeSerializationHashes: 1.622ms
+	Untracked: 751.355ms
+
+Application.AssetDatabase Initial Refresh End
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.03 seconds
+Scanning for USB devices : 6.306ms
+Initializing Unity extensions:
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-Growing_Dungeon
+Unloading 24 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Stage1.unity'
+	Deserialize:            1.298 ms
+	Integration:            186.641 ms
+	Integration of assets:  0.001 ms
+	Thread Wait Time:       0.016 ms
+	Total Operation Time:   187.956 ms
+Unloading 6440 unused Assets / (5.9 MB). Loaded Objects now: 7348.
+Memory consumption went from 406.4 MB to 400.6 MB.
+Total: 9.868100 ms (FindLiveObjects: 0.922400 ms CreateObjectMapping: 1.242300 ms MarkObjects: 4.147900 ms  DeleteObjects: 3.549300 ms)
+
+[LAYOUT] About to load UserSettings\Layouts\default-6000.dwlt, keepMainWindow=False
+Worker ready: AssetImportWorkerHW0 0
+[LAYOUT] About to save layout C:\Users\Kouta\Documents\Growing_Dungeon\UserSettings\Layouts\default-6000.dwlt
+[LAYOUT] About to save layout C:/Users/Kouta/AppData/Roaming/Unity/Editor-5.x/Preferences\Layouts\current\default-6000.dwlt
+[MODES] ModeService[default].InitializeCurrentMode
+[MODES] ModeService[default].RaiseModeChanged(default, default)
+<RI> Initializing input.
+Using Windows.Gaming.Input
+[Project] Loading completed in 17.908 seconds
+	Project init time: 				14.076 seconds
+		Template init time: 		0.000 seconds
+		Package Manager init time: 		2.973 seconds
+		Asset Database init time: 		0.189 seconds
+		Global illumination init time: 	0.029 seconds
+		Assemblies load time: 			0.658 seconds
+		Unity extensions init time: 	0.024 seconds
+		Asset Database refresh time: 	7.135 seconds
+	Scene opening time: 			0.938 seconds
+##utp:{"type":"ProjectInfo","version":2,"phase":"Immediate","time":1783484606632,"processId":6164,"projectLoad":17.9082365,"projectInit":14.0760181,"templateInit":0.0,"packageManagerInit":2.9734637,"assetDatabaseInit":0.1894371,"globalIlluminationInit":0.0289891,"assembliesLoad":0.6581858,"unityExtensionsInit":0.0243838,"assetDatabaseRefresh":7.1349583,"sceneOpening":0.9383316}
+##utp:{"type":"EditorInfo","version":2,"phase":"Immediate","time":1783484606632,"processId":6164,"editorVersion":"6000.5.1f1 (0d9463e84828)","branch":"6000.5/staging","buildType":"Release","platform":"Windows"}
+Asset Pipeline Refresh (id=033b2e23030c4914b81ba6ad9ad854c1): Total: 0.056 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Client] Successfully updated the access token
+[Licensing::Module] Successfully updated access token: "U3aZnTei"... (expires: 2026-07-08T06:21:41Z)
+Created GICache directory at C:/Users/Kouta/AppData/LocalLow/Unity/Caches/GiCache. Took: 0.012s, timestamps: [23.366 - 23.378]
+UPID Received '5fdeb208-ce31-42ad-92e0-6f09ef230cea'.
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2037 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2046 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2051 ms: Could not connect to server
+Asset Pipeline Refresh (id=5bdc946e9c8f98a4c8d26449294dbb83): Total: 0.003 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Start Indexing on Editor startup
+[Indexing] Starting Initial Indexing for Assets
+Request Asset Garbage Collect because used heap size increased from 400.9 MB to 0.64 GB, exceeding the threshold of 256.0 MB.
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 110 unused Assets / (17.1 MB). Loaded Objects now: 8397.
+Memory consumption went from 0.64 GB to 0.62 GB.
+Total: 12.641100 ms (FindLiveObjects: 0.433600 ms CreateObjectMapping: 0.488900 ms MarkObjects: 7.840100 ms  DeleteObjects: 3.878000 ms)
+
+Reloading assemblies for play mode.
+Reloading assemblies after forced synchronous recompile.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+ScheduleIndexationOnStartup MainProcess:True IndexOnStartup:True
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.972 seconds
+Domain Reload Profiling: 1665ms
+	BeginReloadAssembly (539ms)
+		DisableScriptedObjects (52ms)
+		CreateAndSetChildDomain (337ms)
+	RebuildCommonClasses (6ms)
+	RebuildNativeTypeToScriptingClass (10ms)
+	initialDomainReloadingComplete (34ms)
+	LoadAllAssembliesAndSetupDomain (103ms)
+		LoadAssemblies (74ms)
+		AnalyzeDomain (12ms)
+			TypeCache.Refresh (4ms)
+			ResolveRequiredComponents (5ms)
+	FinalizeReload (972ms)
+		SetupLoadedEditorAssemblies (0ms)
+			BeforeProcessingInitializeOnLoad (52ms)
+			ProcessInitializeOnLoadAttributes (235ms)
+			ProcessInitializeOnLoadMethodAttributes (82ms)
+			AfterProcessingInitializeOnLoad (3ms)
+		AwakeInstancesAfterBackupRestoration (349ms)
+No restricted APIs configured; Validation skipped.
+Checking 23 assemblies for restricted APIs found 0 usage(s) in 2 ms
+
+Asset Pipeline Refresh (id=2db451855707adb459472ccf9b3dea2f): Total: 2.447 seconds - Initiated by StopAssetImportingV2(ForceSynchronousImport | ForceDomainReload)
+	(Values over 0.05ms)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=1158 ms
+		Asset DB Callback time: managed=427 ms, native=141 ms
+		Scripting: domain reloads=1, domain reload time=719 ms, compile time=1 ms, other=0 ms
+		Project Asset Count: scripts=1307, non-scripts=2259
+		Asset File Changes: new=0, changed=0, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokePackagesCallback: 0.900ms
+	ApplyChangesToAssetFolders: 0.235ms
+	Collect global state as custom dependencies: 1.439ms
+	ProcessAssetsWithTransientArtifactChanges: 99.801ms
+	CategorizeAssets: 30.660ms
+	CompileScripts: 0.732ms
+	ImportOutOfDateAssets: 998.000ms (980.586ms without children)
+		CollectScriptTypesHashes: 1.147ms
+		ReloadNativeAssets: 0.709ms
+		UnloadImportedAssets: 1.423ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 0.287ms
+		ImportSchedulerStart: 14.980ms
+	PostProcessAllAssets: 560.961ms
+		AssemblyValidation.PostprocessAllAssets 13.288ms
+		PostProcessCallbackCreateDeferredMaterials 11.443ms
+		PostprocessAssetsUpdateCachedIcon 10.892ms
+		ShaderAssetModifiedCallback 5.936ms
+		SpeedTreeImporter.PostprocessAllAssets 4.241ms
+		RaytracingShaderImportPostprocess 4.069ms
+		ComputeShaderImportPostprocess 3.851ms
+		LocalizationDatabase.AssetDatabasePostprocessCallback 2.918ms
+		BlockShaderImporter.PostprocessAllAssets 1.765ms
+		XRBuildSystem.XRAssetImported 0.299ms
+		MonoPostProcessAllAssets: 424.986ms
+			SyncVS.PostprocessSyncProject 138.217ms
+			ShaderGraphAssetPostProcessor.OnPostprocessAllAssets 108.097ms
+			AssetPostprocessor.OnPostprocessAllAssets 32.365ms
+			PostProcessor.OnPostprocessAllAssets 20.485ms
+			MaterialPostprocessor.OnPostprocessAllAssets 18.846ms
+			InputActionJsonNameModifierAssetProcessor.OnPostprocessAllAssets 18.688ms
+			InputActionAssetPostprocessor.OnPostprocessAllAssets 18.508ms
+			TextAssetPostProcessor.OnPostprocessAllAssets 11.485ms
+			AssetChangedListener.OnPostprocessAllAssets 8.516ms
+			UniversalRenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 6.409ms
+			BuilderAssetPostprocessor.OnPostprocessAllAssets 3.607ms
+			SpeedTree9Postprocessor.OnPostprocessAllAssets 3.509ms
+			RenderPipelineGlobalSettingsPostprocessor.OnPostprocessAllAssets 2.783ms
+			WindowAssetPostprocessingWatcher.OnPostprocessAllAssets 1.148ms
+			RetainedModeAssetPostprocessor.OnPostprocessAllAssets 1.110ms
+			ArtifactBrowserPostProcessor.OnPostprocessAllAssets 0.319ms
+			ProjectSettingsPostprocessor.OnPostprocessAllAssets 0.294ms
+			StyleCatalogPostProcessor.OnPostprocessAllAssets 0.290ms
+			ShaderReflectionAssetPostProcessor.OnPostprocessAllAssets 0.282ms
+			UVCSAssetPostprocessor.OnPostprocessAllAssets 0.264ms
+			SampleDependencyImporterPostProcessor.OnPostprocessAllAssets 0.256ms
+			ReferencedClipsPostProcessor.OnPostprocessAllAssets 0.217ms
+			SpeedTreePostProcessor.OnPostprocessAllAssets 0.200ms
+			TMPro_TexturePostProcessor.OnPostprocessAllAssets 0.195ms
+			AudioMixerPostprocessor.OnPostprocessAllAssets 0.172ms
+			AssetEvents.OnPostprocessAllAssets 0.131ms
+			SamplePostprocessor.OnPostprocessAllAssets 0.125ms
+			TerrainToolbarOverlayPostProcessor.OnPostprocessAllAssets 0.115ms
+			AssetDatabaseCallbacks.OnPostprocessAllAssets 0.088ms
+			ConfigAssetsTracker.OnPostprocessAllAssets 0.074ms
+			ScenarioDriftAssetsTracker.OnPostprocessAllAssets 0.063ms
+	PostAssetChangesProfiler: 7.748ms
+	GatherAllCurrentPrimaryImportResultRevisions: 0.077ms
+	UnloadStreamsBegin: 1.099ms
+	PersistCurrentRevisions: 0.070ms
+	GenerateScriptTypeHashes: 2.051ms
+	GenerateScriptTypeSerializationHashes: 3.367ms
+	Untracked: 741.394ms
+
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            0.508 ms
+	Integration:            196.552 ms
+	Integration of assets:  0.001 ms
+	Thread Wait Time:       0.009 ms
+	Total Operation Time:   197.070 ms
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Client] Successfully resolved entitlement details
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2054 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2059 ms: Could not connect to server
+Unloading 7 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Temp/__Backupscenes/0.backup'
+	Deserialize:            0.478 ms
+	Integration:            167.891 ms
+	Integration of assets:  0.001 ms
+	Thread Wait Time:       0.018 ms
+	Total Operation Time:   168.388 ms
+Unloading 5786 unused Assets / (7.2 MB). Loaded Objects now: 8382.
+Memory consumption went from 0.61 GB to 0.60 GB.
+Total: 10.776700 ms (FindLiveObjects: 0.704500 ms CreateObjectMapping: 1.112500 ms MarkObjects: 7.845600 ms  DeleteObjects: 1.113300 ms)
+
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2003 ms: Could not connect to server
+TrimDiskCacheJob: Current cache size 0mb
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2048 ms: Could not connect to server
+Asset Pipeline Refresh (id=2aef0da428cdc1048a1325d9443d7353): Total: 0.005 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Starting new worker id: 1 with log in C:/Users/Kouta/Documents/Growing_Dungeon/Logs/AssetImportWorkerHW1.log
+[Worker0] Imported GUID: 657cefaa1f8dbe941a5ab9b23e58793f - Path: Assets/GridManager.cs - Importer: PreviewImporter -> (ImportResultId: 'e188a4d078e13954ae846dea9078a71d') in 0.0168292 seconds
+Worker ready: AssetImportWorkerHW1 1
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2049 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2033 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2016 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2045 ms: Could not connect to server
+Asset Pipeline Refresh (id=b22fa6c903efa7e409e7ddba74577ab5): Total: 0.005 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2025 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2045 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Asset Pipeline Refresh (id=4d55fa8f1d569c143881f8e5d34b9935): Total: 0.003 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2016 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2016 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2020 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2034 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2033 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2028 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2029 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Asset Pipeline Refresh (id=cf75178586fca134892352d2a694922d): Total: 0.003 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2006 ms: Could not connect to server
+[Worker0] Imported GUID: 8f2f0656737e70c4c88666fa41200fb6 - Path: Assets/Stage1.unity - Importer: ScriptedImporter/UnityEditor.QuickSearchModule:UnityEditor.Search:ASIAI0B -> (ImportResultId: '796a1c2fc167ca84e8593257cc76ff62') in 0.0491172 seconds
+[Worker1] Imported GUID: 657cefaa1f8dbe941a5ab9b23e58793f - Path: Assets/GridManager.cs - Importer: ScriptedImporter/UnityEditor.QuickSearchModule:UnityEditor.Search:ASIAI0B -> (ImportResultId: '5236fe3178e38113846488315d3c3c52') in 0.0572654 seconds
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2015 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2027 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2009 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2042 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2020 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2020 ms: Could not connect to server
+Asset Pipeline Refresh (id=a08e817b7733fce47b07d2839b04d714): Total: 0.006 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2046 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2045 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2045 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2048 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2014 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2015 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2037 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2033 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2039 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2045 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2047 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2016 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2065 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2029 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2028 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2013 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 3718 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2034 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Asset Pipeline Refresh (id=c76cb9ec454c9f54a80134cded8b746c): Total: 0.004 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2014 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2054 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2044 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2498 ms: Could not connect to server
+[Licensing::Client] Successfully resolved entitlement details
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2051 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2038 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2029 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2040 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2055 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2058 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2043 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2040 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2053 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2027 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2037 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2034 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2053 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2046 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2055 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2056 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2040 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2048 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2026 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2023 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2052 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2042 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2039 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2042 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2054 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2056 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2042 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2056 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2051 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2016 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2024 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2047 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2047 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2054 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2051 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2037 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2051 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2038 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2048 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2056 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2029 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2046 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2061 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2044 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2052 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2030 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2020 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2045 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2044 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2043 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2028 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2039 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2039 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2054 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2041 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2043 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2051 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2044 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2034 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2060 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2035 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2025 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2036 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2020 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2051 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2041 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2039 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2007 ms: Could not connect to server
+Project ID request failed, Reason: The requested URL returned error: 401 (401).
+Unknown Unity Connect error (400). Please contact support at support@unity.com while processing request "https://services.unity.com/api/unity/legacy/v1/projects/5fdeb208-ce31-42ad-92e0-6f09ef230cea", HTTP error code 401
+.[Licensing::Client] Successfully updated the access token
+[Licensing::Module] Successfully updated access token: "hMb25TBY"... (expires: 2026-07-08T08:21:09Z)
+Project ID request failed, Reason: The requested URL returned error: 401 (401).
+Unknown Unity Connect error (400). Please contact support at support@unity.com while processing request "https://services.unity.com/api/unity/legacy/v1/projects/5fdeb208-ce31-42ad-92e0-6f09ef230cea", HTTP error code 401
+.Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2005 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2038 ms: Could not connect to server
+[Licensing::Client] Successfully resolved entitlement details
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2046 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2054 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2055 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2054 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2031 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2046 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2032 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2012 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2037 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2044 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2026 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2020 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2047 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2050 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2051 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2045 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2047 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2044 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2040 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2041 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2046 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2059 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2049 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2045 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2044 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2044 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2043 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2054 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2052 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2056 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2044 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2046 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2050 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2057 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2056 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2035 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2044 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2046 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2057 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2040 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2046 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2038 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2053 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2043 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2062 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2061 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2050 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2041 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2055 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2054 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2050 ms: Could not connect to server
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2054 ms: Could not connect to server
+Asset Pipeline Refresh (id=1ed11ea0e3893ef47b72ef1ecf9e4590): Total: 0.008 seconds - Initiated by RefreshV2(AllowForceSynchronousImport)
+MonoPathRemapper: Attempts to remap: 64833; Successful remaps: 36544
+Curl error 7: Failed to connect to cdp.cloud.unity3d.com port 443 after 2047 ms: Could not connect to server
+Serialized file version minimum: 23, current 23
+[LAYOUT] About to save layout C:\Users\Kouta\Documents\Growing_Dungeon\UserSettings\Layouts\default-6000.dwlt
+[LAYOUT] About to save layout C:/Users/Kouta/AppData/Roaming/Unity/Editor-5.x/Preferences\Layouts\current\default-6000.dwlt
+Input System module state changed to: ShutdownInProgress.
+Input Polling Thread exited.
+Input System module state changed to: Shutdown.
+[Physics::Module] Cleanup current backend.
+[Physics::Module] Id: 0xf2b8ea05
+[Licensing::IpcConnector] LicenseClient-Kouta-6000.5.1-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-Kouta-6000.5.1 channel disconnected successfully.
+Shut down.
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+CodeReloadManager destroyed
+debugger-agent: Unable to listen on 5104
+Checking for leaked weakptr:
+  Found no leaked weakptrs.
+[Package Manager] Server process was shutdown
+##utp:{"type":"MemoryLeaks","version":2,"phase":"Immediate","time":1783494435644,"processId":6164,"allocatedMemory":52602688,"memoryLabels":[{"Default":214809},{"Permanent":15516},{"NewDelete":68493},{"Thread":4207776},{"Manager":822024},{"VertexData":8},{"Geometry":816},{"Texture":24},{"Shader":864689},{"Material":24},{"GfxDevice":63416},{"GfxThread":7680},{"Animation":952},{"Audio":1168},{"FreeType":8},{"FontEngine":736},{"Physics":2146},{"Physics2D":16},{"Serialization":244112},{"Input":45280},{"JobScheduler":256},{"TextLib":61302},{"Mono":48},{"MonoCode":128},{"ScriptingNativeRuntime":1596700},{"BaseObject":1721530},{"Resource":1208},{"Renderer":3080},{"Transform":4685},{"File":12912},{"WebCam":616},{"Culling":32},{"Terrain":11442},{"Wind":24},{"STL":40},{"String":10618},{"StaticString":3808},{"Utility":2673970},{"Curl":1436},{"PoolAlloc":2360},{"AI":80},{"TypeTree":17165},{"CodeReload":448},{"RuntimeInitializeOnLoadManager":64},{"Sprites":102},{"SpriteAtlas":120},{"GI":7816},{"Director":8296},{"CloudService":7816},{"WebRequest":848},{"VR":47114},{"SceneManager":608},{"Video":208},{"LazyScriptCache":32},{"NativeArray":33052408},{"Camera":17},{"Secure":265},{"SerializationCache":1576},{"APIUpdating":10320},{"Subsystems":336},{"VirtualTexturing":57888},{"StaticSafetyDebugInfo":278528},{"Analytics":552},{"Hierarchy":1176},{"UIElements":1278688},{"CoreStats":13688},{"Identifiers":13536},{"Gui":267855},{"EditorUtility":213367},{"VersionControl":8},{"Undo":931},{"AssetDatabase":4602300},{"AssetImporter":40},{"EditorGi":328},{"UnityConnect":36215},{"Upm":1988},{"UpmDiagnostics":8},{"AssetCompliance":64},{"DrivenProperties":72},{"LocalIPC":211},{"ProfilerEditor":9746},{"CoreBusinessMetrics":2892},{"Windowing":456},{"Licensing":664},{"AssetReference":32},{"IPCStream":32}]}
