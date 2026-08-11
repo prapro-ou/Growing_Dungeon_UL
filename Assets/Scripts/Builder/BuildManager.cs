@@ -1,25 +1,41 @@
+using System.Collections;
+using Unity.Burst.Intrinsics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 // aiueo
 public class BuildManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject wallPrefab;
+    [Header("wallPrefab")]
+    [SerializeField] private GameObject wallPrefab;
 
-    [SerializeField]
-    private GameObject monsterPrefab;
+    [Header("monsterPrefab")]
+    [SerializeField] private GameObject spiderPrefab;
+    [SerializeField] private GameObject goblinPrefab;
+    [SerializeField] private GameObject gargoylePrefab;
+    [SerializeField] private GameObject skeletonPrefab;
+    [SerializeField] private GameObject daemonPrefab;
+    [SerializeField] private GameObject golemPrefab;
 
-    [SerializeField]
-    private PreviewManager previewManager;
+    [Header("trapPrefab")]
+    [SerializeField] private GameObject trapPrefab;
 
+    [Header("preview")]
+    [SerializeField] private PreviewManager previewManager;
+
+    [Header("Mode and Type")]
     public BuildMode CurrentMode = BuildMode.None;
+    public MonsterType CurrentMonsterType = MonsterType.None;
 
     public void Start()
     {
-        SetBuildMode(BuildMode.Wall);
+        SetBuildMode(BuildMode.None);
     }
 
+    /// <summary>
+    ///  タイルがクリックされたときのBuildMode検出
+    /// </summary>
+    /// <param name="tile"></param>
     public void OnTileClicked(Tile tile)
     {
         switch (CurrentMode)
@@ -32,11 +48,20 @@ public class BuildManager : MonoBehaviour
                 PlaceMonster(tile);
                 break;
 
+            case BuildMode.Trap:
+                PlaceTrap(tile);
+                break;
+
+            case BuildMode.Treasure:
+                PlaceTreasure(tile);
+                break;
+
             case BuildMode.Erase:
                 EraseObject(tile);
                 break;
         }
     }
+
 
     private void PlaceWall(Tile tile)
     {
@@ -64,10 +89,43 @@ public class BuildManager : MonoBehaviour
     {
         if (!tile.CanPlace(BuildMode.Monster))
             return;
-        
-        tile.Type = TileType.Monster;
 
         Vector3 position = tile.transform.position;
+
+        GameObject monsterPrefab = null;
+
+        // MonsterTypeにあわせたPrefabに変更
+        switch(CurrentMonsterType)
+        {
+            case MonsterType.Spider:
+                monsterPrefab = spiderPrefab;
+                break;
+
+            case MonsterType.Goblin:
+                monsterPrefab = goblinPrefab;
+                break;
+
+            case MonsterType.Gargoyle:
+                monsterPrefab = gargoylePrefab;
+                break;
+
+            case MonsterType.Skeleton:
+                monsterPrefab = skeletonPrefab;
+                break;
+
+            case MonsterType.Daemon:
+                monsterPrefab = daemonPrefab;
+                break;
+
+            case MonsterType.Golem:
+                monsterPrefab = golemPrefab;
+                break;
+        }
+
+        if (monsterPrefab == null)
+            return;
+
+        tile.Type = TileType.Monster;
 
         GameObject monster = Instantiate(
             monsterPrefab,
@@ -79,6 +137,32 @@ public class BuildManager : MonoBehaviour
         monster.GetComponent<PlaceableObject>().Initialize(tile);
 
         tile.PlacedObject = monster;
+    }
+
+    private void PlaceTrap(Tile tile)
+    {
+        if (!tile.CanPlace(BuildMode.Trap))
+            return;
+        
+        Vector3 position = tile.transform.position;
+
+        tile.Type = TileType.Trap;
+
+        GameObject trap = Instantiate(
+            trapPrefab,
+            position,
+            trapPrefab.transform.rotation,
+            transform
+        );
+
+        trap.GetComponent<PlaceableObject>().Initialize(tile);
+
+        tile.PlacedObject = trap;
+    }
+
+    private void PlaceTreasure(Tile tile)
+    {
+        
     }
 
     private void EraseObject(Tile tile)
@@ -101,5 +185,18 @@ public class BuildManager : MonoBehaviour
         CurrentMode = mode;
 
         previewManager.SetPreview(mode);
+    }
+
+    public void SetMonsterType(MonsterType type)
+    {
+        CurrentMonsterType = type;
+
+        if (type == MonsterType.None)
+        {
+            SetBuildMode(BuildMode.None);
+            return;
+        }
+
+        SetBuildMode(BuildMode.Monster);
     }
 }
