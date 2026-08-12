@@ -4,11 +4,14 @@ using TMPro;
 
 public class BuildMenuUI : MonoBehaviour
 {
+    [SerializeField] private ChangeMenuUI changeMenuUI;
+
+    [Header("Manager")]
     [SerializeField] private BuildManager buildManager;
     [SerializeField] private PreviewManager previewManager;
     [SerializeField] private GameManager gameManager; // GameManagerを参照
 
-    [Header("Buttons")]
+    [Header("Build Buttons")]
     [SerializeField] private Button wallButton;
     [SerializeField] private Button trapButton;
     [SerializeField] private Button monsterButton;
@@ -32,6 +35,11 @@ public class BuildMenuUI : MonoBehaviour
         UpdateReadyButtonColor();
     }
 
+    private void OnEnable()
+    {
+        UpdateButtonColors();
+    }
+
     public void Wall()
     {
         if (isReady) return;
@@ -50,6 +58,8 @@ public class BuildMenuUI : MonoBehaviour
     {
         if (isReady) return;
         buildManager.SetBuildMode(BuildMode.Monster);
+
+        changeMenuUI.ShowMonsterMenu();
         UpdateButtonColors();
     }
 

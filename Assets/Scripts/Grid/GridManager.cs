@@ -52,6 +52,8 @@ public class GridManager : MonoBehaviour
                     transform
                 );
 
+                tile.name = $"Tile_{x}_{y}";
+
                 tile.X = x;
                 tile.Y = y;
 

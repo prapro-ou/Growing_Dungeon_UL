@@ -1,4 +1,3 @@
-// aiueo
 public enum BuildMode
 {
     None,
@@ -7,4 +6,28 @@ public enum BuildMode
     Monster,
     Treasure,
     Erase
+}
+
+public enum WallType
+{
+    WoodenWall,
+    StoneWall,
+    IronWall
+}
+
+public enum MonsterType
+{
+    None,
+    Spider,
+    Goblin,
+    Gargoyle,
+    Skeleton,
+    Daemon,
+    Golem
+}
+
+public enum TreasureType
+{
+    MainTreasure,
+    SubTreasure
 }

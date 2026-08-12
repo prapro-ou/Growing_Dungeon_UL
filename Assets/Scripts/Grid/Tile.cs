@@ -17,26 +17,21 @@ public class Tile : MonoBehaviour
         GetComponent<Renderer>().material.color = color;
     }
 
-    public bool CanPlaceWall()
-    {
-        return Type == TileType.Floor;
-    }
-
     public bool CanPlace(BuildMode mode)
     {
         switch (mode)
         {
             case BuildMode.Wall:
-                return CanPlaceWall();
+                return Type == TileType.Floor;
 
             case BuildMode.Monster:
-                return CanPlaceWall();
+                return Type == TileType.Floor;
 
             case BuildMode.Trap:
-                return CanPlaceWall();
+                return Type == TileType.Floor;
 
             case BuildMode.Treasure:
-                return CanPlaceWall();
+                return Type == TileType.Floor;
 
             default:
                 return false;
