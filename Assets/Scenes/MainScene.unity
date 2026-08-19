@@ -347,6 +347,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 971810666}
+        m_TargetAssemblyTypeName: WaveManager, Assembly-CSharp
+        m_MethodName: StartNextWave
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &107631360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1050,9 +1062,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d682aa75b588148bcc7eab70527928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemyPrefab: {fileID: 4623277252540530292, guid: f764eb198ee57954b90f042cbc6b4478, type: 3}
+  gridManager: {fileID: 306169169}
+  adventurerData: {fileID: 0}
+  defaultRank: 0
   targetGoal: {fileID: 1406284877}
-  spawnInterval: 2
 --- !u!4 &693293209
 Transform:
   m_ObjectHideFlags: 0
@@ -1937,6 +1950,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57768811cadbfa94c82a71907396e25c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildMenuUI
+  changeMenuUI: {fileID: 0}
   buildManager: {fileID: 1846025067}
   previewManager: {fileID: 1271326314}
   gameManager: {fileID: 1022165579}
@@ -1976,6 +1990,88 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &971810665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 971810667}
+  - component: {fileID: 971810666}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &971810666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971810665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b349ec90953f76447a40f1d0b0b923f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  spawner: {fileID: 693293208}
+  readyButton: {fileID: 107631359}
+  waveList:
+  - waveName: Wave1
+    subWaves:
+    - enemyRank: 0
+      enemiesPerMinute: 15
+      totalEnemiesToSpawn: 5
+      delayBeforeNextSubWave: 3
+    - enemyRank: 1
+      enemiesPerMinute: 30
+      totalEnemiesToSpawn: 2
+      delayBeforeNextSubWave: 0
+  - waveName: Wave2
+    subWaves:
+    - enemyRank: 0
+      enemiesPerMinute: 20
+      totalEnemiesToSpawn: 5
+      delayBeforeNextSubWave: 3
+    - enemyRank: 1
+      enemiesPerMinute: 20
+      totalEnemiesToSpawn: 3
+      delayBeforeNextSubWave: 1
+    - enemyRank: 2
+      enemiesPerMinute: 20
+      totalEnemiesToSpawn: 1
+      delayBeforeNextSubWave: 0
+  currentPhase: 0
+  currentWaveIndex: 0
+  onPrepPhaseStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onWavePhaseStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onAllWavesCleared:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &971810667
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971810665}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.39974, y: -0, z: 0.39974}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1022165578
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,7 +2103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   currentPhase: 0
   gridManager: {fileID: 306169169}
-  enemySpawner: {fileID: 693293208}
+  waveManager: {fileID: 971810666}
   startBattleButton: {fileID: 107631359}
 --- !u!4 &1022165580
 Transform:
@@ -2019,6 +2115,121 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.42271, y: -0, z: 0.32298}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1099553150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1099553152}
+  - component: {fileID: 1099553151}
+  m_Layer: 0
+  m_Name: AdventurerData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1099553151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099553150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea93d71976196c140a5984706c3c5f56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdventurerData
+  rankStatuses:
+  - rank: 0
+    rankName: "\u30A2\u30A4\u30A2\u30F3"
+    maxHealth: 100
+    moveSpeed: 3.5
+    attackPower: 10
+    attackInterval: 1.2
+    prefab: {fileID: 3185209855928050848, guid: 7047fd6c763aaa54bad6c0ebd1d97d1a, type: 3}
+  - rank: 1
+    rankName: "\u30D6\u30ED\u30F3\u30BA"
+    maxHealth: 150
+    moveSpeed: 3.6
+    attackPower: 15
+    attackInterval: 1.1
+    prefab: {fileID: 3185209855928050848, guid: e793f4a12f303d84196d96ccf0c50809, type: 3}
+  - rank: 2
+    rankName: "\u30B7\u30EB\u30D0\u30FC"
+    maxHealth: 220
+    moveSpeed: 3.7
+    attackPower: 22
+    attackInterval: 1
+    prefab: {fileID: 3185209855928050848, guid: f81c8acbc9ec79448bc00075314bb02d, type: 3}
+  - rank: 3
+    rankName: "\u30B4\u30FC\u30EB\u30C9"
+    maxHealth: 320
+    moveSpeed: 3.8
+    attackPower: 32
+    attackInterval: 0.95
+    prefab: {fileID: 3185209855928050848, guid: 61aaaa798160a6443892e99323630837, type: 3}
+  - rank: 4
+    rankName: "\u30D7\u30E9\u30C1\u30CA"
+    maxHealth: 450
+    moveSpeed: 3.9
+    attackPower: 45
+    attackInterval: 0.9
+    prefab: {fileID: 3185209855928050848, guid: 572d04a696fa6ba49a1bdeeae682c032, type: 3}
+  - rank: 5
+    rankName: "\u30A8\u30E1\u30E9\u30EB\u30C9"
+    maxHealth: 600
+    moveSpeed: 4
+    attackPower: 60
+    attackInterval: 0.85
+    prefab: {fileID: 3185209855928050848, guid: 045a88d2caa02f34b952536878fb9398, type: 3}
+  - rank: 6
+    rankName: "\u30C0\u30A4\u30E4\u30E2\u30F3\u30C9"
+    maxHealth: 800
+    moveSpeed: 4.1
+    attackPower: 80
+    attackInterval: 0.8
+    prefab: {fileID: 3185209855928050848, guid: db6722f9d6fad5d47be2421f28274ce2, type: 3}
+  - rank: 7
+    rankName: "\u30DE\u30B9\u30BF\u30FC"
+    maxHealth: 1100
+    moveSpeed: 4.2
+    attackPower: 110
+    attackInterval: 0.75
+    prefab: {fileID: 3185209855928050848, guid: 4ab8dd9411c6c254aa02bc7ca96473dd, type: 3}
+  - rank: 8
+    rankName: "\u30B0\u30E9\u30DE\u30B9"
+    maxHealth: 1500
+    moveSpeed: 4.3
+    attackPower: 150
+    attackInterval: 0.7
+    prefab: {fileID: 3185209855928050848, guid: 9ba94c5946d6c5f47b8cf19164a8fafb, type: 3}
+  - rank: 9
+    rankName: "\u30C1\u30E3\u30EC\u30F3\u30B8\u30E3\u30FC"
+    maxHealth: 2000
+    moveSpeed: 4.5
+    attackPower: 200
+    attackInterval: 0.6
+    prefab: {fileID: 3185209855928050848, guid: 8d25fe3bd61806a4bbf646bbaaadab31, type: 3}
+--- !u!4 &1099553152
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1099553150}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3478,9 +3689,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildManager
   wallPrefab: {fileID: 719779850188982710, guid: de4be1d9228101946a20e2510cb0cbf5, type: 3}
-  monsterPrefab: {fileID: 4020522979794356724, guid: cafcea8a394479a4b9939afd7865adc3, type: 3}
+  spiderPrefab: {fileID: 0}
+  goblinPrefab: {fileID: 0}
+  gargoylePrefab: {fileID: 0}
+  skeletonPrefab: {fileID: 0}
+  daemonPrefab: {fileID: 0}
+  golemPrefab: {fileID: 0}
+  trapPrefab: {fileID: 0}
   previewManager: {fileID: 1271326314}
   CurrentMode: 1
+  CurrentMonsterType: 0
 --- !u!114 &1846025068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3930,3 +4148,5 @@ SceneRoots:
   - {fileID: 693293209}
   - {fileID: 1022165580}
   - {fileID: 882262169}
+  - {fileID: 971810667}
+  - {fileID: 1099553152}
