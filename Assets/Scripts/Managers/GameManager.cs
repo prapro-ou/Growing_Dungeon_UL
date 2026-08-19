@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     [Header("参照")]
     [SerializeField] private GridManager gridManager;
-    [SerializeField] private EnemySpawner enemySpawner;
+    [SerializeField] private WaveManager waveManager; // ★ EnemySpawner から WaveManager に変更
     [SerializeField] private Button startBattleButton; // 準備完了ボタン本体
 
     private void Start()
@@ -43,12 +43,6 @@ public class GameManager : MonoBehaviour
         currentPhase = GamePhase.Preparation;
         Debug.Log("【準備フェーズ】配置を完了させたら「準備完了」ボタンを押してください。");
 
-        // 敵のスポーン停止
-        if (enemySpawner != null)
-        {
-            enemySpawner.StopSpawning();
-        }
-
         // 準備フェーズなのでボタンを表示（有効化）する
         if (startBattleButton != null)
         {
@@ -76,10 +70,10 @@ public class GameManager : MonoBehaviour
             gridManager.RebuildNavMesh();
         }
 
-        // 2. 敵のスポーンを開始
-        if (enemySpawner != null)
+        // 2. ウェーブを開始！
+        if (waveManager != null)
         {
-            enemySpawner.StartSpawning();
+            waveManager.StartNextWave();
         }
     }
 }

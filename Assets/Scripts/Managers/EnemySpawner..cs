@@ -2,58 +2,79 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("生成する敵のプレハブ")]
-    public GameObject enemyPrefab;
+    [Header("参照")]
+    [SerializeField] private GridManager gridManager;
+    [SerializeField] private AdventurerData adventurerData;
 
-    [Header("敵が目指すゴール")]
+    [Header("デフォルト敵設定")]
+    [SerializeField] private AdventurerData.Rank defaultRank = AdventurerData.Rank.Iron;
     public Transform targetGoal;
 
-    [Header("生成間隔（秒）")]
-    public float spawnInterval = 2.0f;
-
-    private float timer = 0f;
-    private bool isSpawning = false; // スポーン中かどうかを管理するフラグ
-
-    void Update()
+    private void Start()
     {
-        // GameManager から StartSpawning() が呼ばれるまでスポーンしない
-        if (!isSpawning) return;
-
-        timer += Time.deltaTime;
-
-        if (timer >= spawnInterval)
+        if (gridManager == null)
         {
-            SpawnEnemy();
-            timer = 0f; // タイマーリセット
+            gridManager = Object.FindAnyObjectByType<GridManager>();
+        }
+
+        if (adventurerData == null)
+        {
+            adventurerData = Object.FindAnyObjectByType<AdventurerData>();
         }
     }
 
-    void SpawnEnemy()
+    /// <summary>
+    /// デフォルトランクの敵を生成する
+    /// </summary>
+    public GameObject SpawnEnemy()
     {
-        if (enemyPrefab == null) return;
+        return SpawnEnemyByRank(defaultRank);
+    }
 
-        // スポーン位置に敵を生成
-        GameObject enemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity);
-
-        // 敵のNavMeshAgentにゴールを設定する
-        UnityEngine.AI.NavMeshAgent agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
-        if (agent != null && targetGoal != null)
+    /// <summary>
+    /// 指定されたランクの敵を生成し、IntruderNavMesh のパトロールを開始させる
+    /// </summary>
+    public GameObject SpawnEnemyByRank(AdventurerData.Rank rank)
+    {
+        if (adventurerData == null)
         {
-            agent.SetDestination(targetGoal.position);
+            adventurerData = Object.FindAnyObjectByType<AdventurerData>();
+            if (adventurerData == null)
+            {
+                Debug.LogError($"[{gameObject.name}] AdventurerData がシーン内に見つかりません！");
+                return null;
+            }
         }
-    }
 
-    // GameManager から呼び出す関数（必ずクラスの内部 {} に入れます）
-    public void StartSpawning()
-    {
-        isSpawning = true;
-        timer = 0f; // 開始と同時にすぐスポーン処理を始められるようにリセット
-        Debug.Log("敵のスポーンを開始しました");
-    }
+        // 指定ランクのステータス情報（プレハブ等）を取得
+        AdventurerData.RankStatus status = adventurerData.GetStatus(rank);
 
-    public void StopSpawning()
-    {
-        isSpawning = false;
-        Debug.Log("敵のスポーンを停止しました");
+        if (status.prefab == null)
+        {
+            Debug.LogWarning($"[{gameObject.name}] {status.rankName} ({rank}) の プレハブ(prefab) が AdventurerData に設定されていません！");
+            return null;
+        }
+
+        // プレハブから敵を生成
+        GameObject enemy = Instantiate(status.prefab, transform.position, Quaternion.identity);
+        Vector3 goalPos = targetGoal != null ? targetGoal.position : Vector3.zero;
+
+        // IntruderNavMesh（移動・ステータス制御）を取得して発進させる
+        IntruderNavMesh intruder = enemy.GetComponent<IntruderNavMesh>();
+        if (intruder != null)
+        {
+            intruder.InitializeStatus(rank);
+            intruder.StartPatrol(gridManager, goalPos);
+        }
+        else
+        {
+            UnityEngine.AI.NavMeshAgent agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
+            if (agent != null && targetGoal != null)
+            {
+                agent.SetDestination(goalPos);
+            }
+        }
+
+        return enemy;
     }
-} // ★ クラスの閉じカッコは一番最後！
+}
