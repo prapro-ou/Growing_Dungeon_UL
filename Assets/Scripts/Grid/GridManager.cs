@@ -70,7 +70,12 @@ public class GridManager : MonoBehaviour
         // 左下 (0, 0) のタイル位置に SpawnPoint を移動
         if (spawnPoint != null && tiles[0, 0] != null)
         {
-            Vector3 pos = tiles[0, 0].transform.position;
+            Tile spawnTile = tiles[0, 0];
+
+            // タイルをSpawnに設定
+            spawnTile.Type = TileType.Spawn;
+
+            Vector3 pos = spawnTile.transform.position;
             pos.y += 0.5f; // 床から少し浮かす（元の高さに+0.5）
             spawnPoint.position = pos;
         }
