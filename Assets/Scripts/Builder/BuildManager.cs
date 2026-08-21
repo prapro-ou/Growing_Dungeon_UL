@@ -74,6 +74,24 @@ public class BuildManager : MonoBehaviour
         if (!tile.CanPlace(BuildMode.Wall))
             return;
         
+        // Wallコンポーネントを取得
+        Wall wallData = wallPrefab.GetComponent<Wall>();
+        if (wallData == null)
+        {
+            Debug.LogError("WallコンポーネントがPrefabについていません");
+            return;
+        }
+
+        // DPが足りるか確認
+        if (!dungeonPointManager.CanSpendDP(wallData.BuildCost))
+        {
+            Debug.Log("DPが足りません");
+            return;
+        }
+
+        // DPを消費
+        dungeonPointManager.SpendDP(wallData.BuildCost);
+
         tile.Type = TileType.Wall;
         tile.IsWalkable = false;
 
