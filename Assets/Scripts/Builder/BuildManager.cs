@@ -24,8 +24,9 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private GameObject mainTreasurePrefab;
     [SerializeField] private GameObject subTreasurePrefab;
 
-    [Header("preview")]
+    [Header("参照")]
     [SerializeField] private PreviewManager previewManager;
+    [SerializeField] private DungeonPointManager dungeonPointManager;
 
     [Header("Mode and Type")]
     public BuildMode CurrentMode = BuildMode.None;
@@ -129,6 +130,24 @@ public class BuildManager : MonoBehaviour
 
         if (monsterPrefab == null)
             return;
+
+        // Monsterコンポーネントを取得
+        Monster monsterData = monsterPrefab.GetComponent<Monster>();
+        if (monsterData == null)
+        {
+            Debug.LogError("MonsterコンポーネントがPrefabについていません");
+            return;
+        }
+
+        // DPが足りるか確認
+        if (!dungeonPointManager.CanSpendDP(monsterData.BuildCost))
+        {
+            Debug.Log("DPが足りません");
+            return;
+        }
+
+        // DPを消費
+        dungeonPointManager.SpendDP(monsterData.BuildCost);
 
         tile.Type = TileType.Monster;
 

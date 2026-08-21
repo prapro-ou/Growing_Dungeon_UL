@@ -192,7 +192,7 @@ MonoBehaviour:
   HP: 140
   Attak: 151
   Defense: 80
-  BuildCost: 0
+  BuildCost: 5
 --- !u!58 &2759251293698587947
 CircleCollider2D:
   m_ObjectHideFlags: 0

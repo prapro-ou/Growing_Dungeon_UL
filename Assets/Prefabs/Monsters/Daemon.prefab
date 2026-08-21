@@ -188,11 +188,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd79b9b65d6b244fa881360ca04d0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
-  MaxHP: 120
-  HP: 120
-  Attak: 50
-  Defense: 0
-  BuildCost: 0
+  MaxHP: 135
+  HP: 135
+  Attak: 249
+  Defense: 130
+  BuildCost: 20
 --- !u!114 &107918280337320869
 MonoBehaviour:
   m_ObjectHideFlags: 0
