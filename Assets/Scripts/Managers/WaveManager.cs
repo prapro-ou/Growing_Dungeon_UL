@@ -41,6 +41,7 @@ public class WaveManager : MonoBehaviour
     [Header("参照")]
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private Button readyButton;
+    [SerializeField] private GameObject buildMenu; // 設置メニュー全体のオブジェクト（MonsterMenuなど）
 
     [Header("ウェーブ設定")]
     [SerializeField] private List<WaveData> waveList = new List<WaveData>();
@@ -77,23 +78,30 @@ public class WaveManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 設置フェーズに入る
+    /// 設置フェーズに入る（Waveクリア時やゲーム開始時）
     /// </summary>
     public void EnterPrepPhase()
     {
         currentPhase = GamePhase.PrepPhase;
         Debug.Log($"<color=green>=== 設置フェーズ開始 (Wave {currentWaveIndex + 1} の準備) ===</color>");
 
+        // Readyボタンを有効化
         if (readyButton != null)
         {
             readyButton.interactable = true;
+        }
+
+        // 設置メニューを再表示・有効化する
+        if (buildMenu != null)
+        {
+            buildMenu.SetActive(true);
         }
 
         onPrepPhaseStart?.Invoke();
     }
 
     /// <summary>
-    /// Readyボタンから呼び出されるメソッド
+    /// Readyボタンから呼び出されるメソッド（戦闘開始）
     /// </summary>
     public void StartNextWave()
     {
@@ -110,6 +118,12 @@ public class WaveManager : MonoBehaviour
         if (readyButton != null)
         {
             readyButton.interactable = false;
+        }
+
+        // 戦闘中は設置メニューを非表示にする
+        if (buildMenu != null)
+        {
+            buildMenu.SetActive(false);
         }
 
         StartCoroutine(RunWaveSequence());
@@ -160,7 +174,9 @@ public class WaveManager : MonoBehaviour
 
         Debug.Log($"[{currentWave.waveName}] 全ての敵の生成が完了しました。残敵の全滅を待っています...");
 
-        // フィールド上の敵（IntruderNavMesh）が全滅するまで待機（引数なしに修正）
+        // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
+        // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
+    // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
         while (Object.FindObjectsByType<IntruderNavMesh>().Length > 0)
         {
             yield return new WaitForSeconds(0.5f);

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,9 +14,9 @@ public class IntruderNavMesh : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private float moveSpeed;
     [SerializeField] private int attackPower;
-    [SerializeField] private float attackInterval;
+    [SerializeField] private float attackInterval = 1.0f;
 
-    // 外部からステータスを確認・取得したい場合のプロパティ
+    // 外部プロパティ
     public string RankName => rankName;
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
@@ -27,9 +28,47 @@ public class IntruderNavMesh : MonoBehaviour
     private GridManager gridManager;
     private Vector3 targetGoalPosition;
 
+    // 攻撃対象（現在交戦中のモンスター）
+    private Monster currentTargetMonster;
+    private float attackTimer = 0f;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void Update()
+    {
+        // モンスターと交戦中の場合
+        if (currentTargetMonster != null)
+        {
+            attackTimer += Time.deltaTime;
+            if (attackTimer >= attackInterval)
+            {
+                AttackMonster(currentTargetMonster);
+                attackTimer = 0f;
+            }
+        }
+        else
+        {
+            // モンスターが倒されるか居なくなったら、ゴールへの移動を再開
+            if (agent != null && agent.isOnNavMesh && agent.isStopped)
+            {
+                agent.isStopped = false;
+                if (targetGoalPosition != Vector3.zero)
+                {
+                    agent.SetDestination(targetGoalPosition);
+                }
+            }
+        }
+    }
+
+    private void AttackMonster(Monster target)
+    {
+        if (target != null)
+        {
+            target.TakeDamage(attackPower);
+        }
     }
 
     /// <summary>
@@ -39,7 +78,6 @@ public class IntruderNavMesh : MonoBehaviour
     {
         currentRank = rank;
 
-        // シーン内の AdventurerData からステータスを取得
         AdventurerData dataManager = Object.FindAnyObjectByType<AdventurerData>();
         if (dataManager != null)
         {
@@ -52,13 +90,12 @@ public class IntruderNavMesh : MonoBehaviour
             attackPower = status.attackPower;
             attackInterval = status.attackInterval;
 
-            // NavMeshAgent の移動速度にも自動反映
             if (agent != null)
             {
                 agent.speed = moveSpeed;
             }
 
-            Debug.Log($"[{gameObject.name}] {rankName} ステータス初期化完了 (HP:{maxHealth}, Speed:{moveSpeed})");
+            Debug.Log($"[{gameObject.name}] {rankName} ステータス初期化完了 (HP:{maxHealth}, Atk:{attackPower}, Int:{attackInterval}s)");
         }
         else
         {
@@ -74,30 +111,25 @@ public class IntruderNavMesh : MonoBehaviour
         this.gridManager = grid;
         this.targetGoalPosition = goalPosition;
 
-        // まだ初期化されていない場合はデフォルトランクで初期化
         if (maxHealth == 0)
         {
             InitializeStatus(currentRank);
         }
 
-        // ゴールへ向けて移動開始
         if (agent != null && agent.isOnNavMesh)
         {
+            agent.isStopped = false;
             agent.SetDestination(targetGoalPosition);
-        }
-        else
-        {
-            Debug.LogWarning($"[{gameObject.name}] NavMeshAgent が有効でないか、NavMesh 上に配置されていません。");
         }
     }
 
     /// <summary>
-    /// 被ダメージ処理
+    /// 被ダメージ処理（HPは戦闘後も削れたまま維持）
     /// </summary>
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log($"[{rankName}] 被ダメージ: {damage} (残HP: {currentHealth}/{maxHealth})");
+        Debug.Log($"<color=yellow>[敵: {rankName}] 被ダメージ: {damage} (残HP: {currentHealth}/{maxHealth})</color>");
 
         if (currentHealth <= 0)
         {
@@ -107,7 +139,35 @@ public class IntruderNavMesh : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log($"[{rankName}] 撃破されました！");
+        Debug.Log($"<color=red>[敵: {rankName}] 撃破されました！</color>");
         Destroy(gameObject);
+    }
+
+    // 2D当たり判定：モンスターの攻撃範囲に入ったら足を止めて戦闘開始
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Monster monster = other.GetComponent<Monster>();
+        if (monster != null)
+        {
+            currentTargetMonster = monster;
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.isStopped = true; // 足を止めて殴り合い
+            }
+        }
+    }
+
+    // モンスターの範囲から出た場合（またはモンスターが破壊された場合）
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        Monster monster = other.GetComponent<Monster>();
+        if (monster != null && currentTargetMonster == monster)
+        {
+            currentTargetMonster = null;
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.isStopped = false; // 移動再開
+            }
+        }
     }
 }

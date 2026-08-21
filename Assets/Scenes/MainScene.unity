@@ -335,18 +335,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 916519590}
-        m_TargetAssemblyTypeName: BuildMenuUI, Assembly-CSharp
-        m_MethodName: ToggleReady
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 971810666}
         m_TargetAssemblyTypeName: WaveManager, Assembly-CSharp
         m_MethodName: StartNextWave
@@ -2846,6 +2834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   spawner: {fileID: 693293208}
   readyButton: {fileID: 107631359}
+  buildMenu: {fileID: 0}
   waveList:
   - waveName: Wave1
     subWaves:
@@ -2869,6 +2858,16 @@ MonoBehaviour:
       delayBeforeNextSubWave: 1
     - enemyRank: 2
       enemiesPerMinute: 20
+      totalEnemiesToSpawn: 1
+      delayBeforeNextSubWave: 0
+  - waveName: Wave Boss
+    subWaves:
+    - enemyRank: 4
+      enemiesPerMinute: 20
+      totalEnemiesToSpawn: 20
+      delayBeforeNextSubWave: 3
+    - enemyRank: 7
+      enemiesPerMinute: 60
       totalEnemiesToSpawn: 1
       delayBeforeNextSubWave: 0
   currentPhase: 0
