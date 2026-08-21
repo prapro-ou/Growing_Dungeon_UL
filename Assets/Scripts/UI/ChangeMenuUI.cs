@@ -9,6 +9,7 @@ public class ChangeMenuUI : MonoBehaviour
     [Header("Menu")]
     [SerializeField] private GameObject buildMenu;
     [SerializeField] private GameObject monsterMenu;
+    [SerializeField] private GameObject treasureMenu;
 
     private void Start()
     {
@@ -18,10 +19,11 @@ public class ChangeMenuUI : MonoBehaviour
     public void ShowBuildMenu()
     {
         if (buildMenu != null)
+        {
             buildMenu.SetActive(true);
-
-        if (buildMenu != null)
             monsterMenu.SetActive(false);
+            treasureMenu.SetActive(false);
+        }
     }
 
     public void ShowMonsterMenu()
@@ -31,5 +33,14 @@ public class ChangeMenuUI : MonoBehaviour
 
         if (monsterMenu != null)
             monsterMenu.SetActive(true);
+    }
+
+        public void ShowTreasureMenu()
+    {
+        if (buildMenu != null)
+            buildMenu.SetActive(false);
+
+        if (treasureMenu != null)
+            treasureMenu.SetActive(true);
     }
 }

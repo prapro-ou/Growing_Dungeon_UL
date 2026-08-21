@@ -67,6 +67,8 @@ public class BuildMenuUI : MonoBehaviour
     {
         if (isReady) return;
         buildManager.SetBuildMode(BuildMode.Treasure);
+
+        changeMenuUI.ShowTreasureMenu();
         UpdateButtonColors();
     }
 

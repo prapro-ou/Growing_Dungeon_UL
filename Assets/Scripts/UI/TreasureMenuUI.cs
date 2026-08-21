@@ -1,0 +1,58 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+public class TreasureMenuUI : MonoBehaviour
+{
+    [SerializeField] private ChangeMenuUI changeMenuUI;
+
+    [Header("Manager")]
+    [SerializeField] private BuildManager buildManager;
+
+    [Header("Treasure Buttons")]
+    [SerializeField] private Button MainTreasureButton;
+    [SerializeField] private Button SubTreasureButton;
+
+    [Header("Button Colors")]
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color selectedColor = new Color(0.3f, 0.7f, 1f);
+
+    private void OnEnable()
+    {
+        UpdateButtonColors();
+    }
+
+    public void MainTreasure()
+    {
+        buildManager.SetTreasureType(TreasureType.MainTreasure);
+        UpdateButtonColors();
+    }
+
+    public void SubTreasure()
+    {
+        buildManager.SetTreasureType(TreasureType.SubTreasure);
+        UpdateButtonColors();
+    }
+
+    public void Return()
+    {
+        buildManager.SetTreasureType(TreasureType.None);
+        changeMenuUI.ShowBuildMenu();
+    }
+
+    private void UpdateButtonColors()
+    {
+        SetButtonColor(MainTreasureButton, TreasureType.MainTreasure);
+        SetButtonColor(SubTreasureButton, TreasureType.SubTreasure);
+    }
+
+    private void SetButtonColor(Button button, TreasureType type)
+    {
+        if (button == null) return;
+
+        button.image.color =
+            (buildManager != null && buildManager.CurrentTreasureType == type)
+            ? selectedColor
+            : normalColor;
+    }
+}
+

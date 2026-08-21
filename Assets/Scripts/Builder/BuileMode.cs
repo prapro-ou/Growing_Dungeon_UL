@@ -28,6 +28,7 @@ public enum MonsterType
 
 public enum TreasureType
 {
+    None,
     MainTreasure,
     SubTreasure
 }

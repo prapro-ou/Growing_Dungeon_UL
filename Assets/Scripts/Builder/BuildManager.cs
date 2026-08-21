@@ -20,12 +20,17 @@ public class BuildManager : MonoBehaviour
     [Header("trapPrefab")]
     [SerializeField] private GameObject trapPrefab;
 
+    [Header("treasurePrefab")]
+    [SerializeField] private GameObject mainTreasurePrefab;
+    [SerializeField] private GameObject subTreasurePrefab;
+
     [Header("preview")]
     [SerializeField] private PreviewManager previewManager;
 
     [Header("Mode and Type")]
     public BuildMode CurrentMode = BuildMode.None;
     public MonsterType CurrentMonsterType = MonsterType.None;
+    public TreasureType CurrentTreasureType = TreasureType.None;
 
     public void Start()
     {
@@ -162,7 +167,40 @@ public class BuildManager : MonoBehaviour
 
     private void PlaceTreasure(Tile tile)
     {
-        
+        if (!tile.CanPlace(BuildMode.Treasure))
+            return;
+
+        Vector3 position = tile.transform.position;
+
+        GameObject treasurePrefab = null;
+
+        // TresureTypeにあわせたPrefabに変更
+        switch(CurrentTreasureType)
+        {
+            case TreasureType.MainTreasure:
+                treasurePrefab = mainTreasurePrefab;
+                break;
+
+            case TreasureType.SubTreasure:
+                treasurePrefab = subTreasurePrefab;
+                break;
+        }
+
+        if (treasurePrefab == null)
+            return;
+
+        tile.Type = TileType.Treasure;
+
+        GameObject treasure = Instantiate(
+            treasurePrefab,
+            position,
+            treasurePrefab.transform.rotation,
+            transform
+        );
+
+        treasure.GetComponent<PlaceableObject>().Initialize(tile);
+
+        tile.PlacedObject = treasure;  
     }
 
     private void EraseObject(Tile tile)
@@ -198,5 +236,18 @@ public class BuildManager : MonoBehaviour
         }
 
         SetBuildMode(BuildMode.Monster);
+    }
+
+    public void SetTreasureType(TreasureType type)
+    {
+        CurrentTreasureType = type;
+
+        if (type == TreasureType.None)
+        {
+            SetBuildMode(BuildMode.None);
+            return;
+        }
+
+        SetBuildMode(BuildMode.Treasure);
     }
 }

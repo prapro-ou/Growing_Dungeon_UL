@@ -4,6 +4,7 @@ public enum TileType
     Wall,
     Monster,
     Trap,
+    Treasure,
     Spawn,
     Exit
 }
