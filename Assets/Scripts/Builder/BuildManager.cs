@@ -45,7 +45,24 @@ public class BuildManager : MonoBehaviour
     /// <param name="tile"></param>
     public void OnTileClicked(Tile tile)
     {
-        // GamePhaseが建築モードでない場合設置しない
+        // 初期設置フェーズ
+        if (waveManager.currentPhase == WaveManager.GamePhase.InitialSetup)
+        {
+            switch (CurrentMode)
+            {
+                case BuildMode.Treasure:
+                    PlaceTreasure(tile);
+                    break;
+
+                case BuildMode.Erase:
+                    EraseTreasure(tile);
+                    break;
+            }
+
+            return;
+        }
+
+        // 通常の建築フェーズ以外は設置できない
         if (waveManager.currentPhase != WaveManager.GamePhase.PrepPhase)
             return;
 
@@ -63,13 +80,13 @@ public class BuildManager : MonoBehaviour
                 PlaceTrap(tile);
                 break;
 
-            case BuildMode.Treasure:
-                PlaceTreasure(tile);
-                break;
-
             case BuildMode.Erase:
                 EraseObject(tile);
                 break;
+
+            // 通常の建築フェーズでは宝箱は置かない
+            case BuildMode.Treasure:
+                return;
         }
     }
 
@@ -211,15 +228,62 @@ public class BuildManager : MonoBehaviour
 
     private void PlaceTreasure(Tile tile)
     {
+        // 初期設置フェーズ以外では宝箱を設置できない
+        if (waveManager.currentPhase != WaveManager.GamePhase.InitialSetup)
+        {
+            CurrentTreasureType = TreasureType.None;
+            SetBuildMode(BuildMode.None);
+            return;
+        }
+
         if (!tile.CanPlace(BuildMode.Treasure))
             return;
+
+        // 現在設置されている宝箱を取得
+        Treasure[] treasures = FindObjectsByType<Treasure>(
+            FindObjectsInactive.Exclude
+        );
+
+        int mainTreasureCount = 0;
+        int subTreasureCount = 0;
+
+        foreach (Treasure currentTreasure in treasures)
+        {
+            if (currentTreasure.isMainTreasure)
+            {
+                mainTreasureCount++;
+            }
+            else
+            {
+                subTreasureCount++;
+            }
+        }
+
+        // メイン宝箱は1個まで
+        if (CurrentTreasureType == TreasureType.MainTreasure)
+        {
+            if (mainTreasureCount >= 1)
+            {
+                Debug.Log("メイン宝箱は1個までです");
+                return;
+            }
+        }
+
+        // サブ宝箱は3個まで
+        if (CurrentTreasureType == TreasureType.SubTreasure)
+        {
+            if (subTreasureCount >= 3)
+            {
+                Debug.Log("サブ宝箱は3個までです");
+                return;
+            }
+        }
 
         Vector3 position = tile.transform.position;
 
         GameObject treasurePrefab = null;
 
-        // TresureTypeにあわせたPrefabに変更
-        switch(CurrentTreasureType)
+        switch (CurrentTreasureType)
         {
             case TreasureType.MainTreasure:
                 treasurePrefab = mainTreasurePrefab;
@@ -244,7 +308,25 @@ public class BuildManager : MonoBehaviour
 
         treasure.GetComponent<PlaceableObject>().Initialize(tile);
 
-        tile.PlacedObject = treasure;  
+        tile.PlacedObject = treasure;
+    }
+
+    private void EraseTreasure(Tile tile)
+    {
+        // 宝箱以外は削除しない
+        if (tile.Type != TileType.Treasure)
+            return;
+
+        if (tile.PlacedObject == null)
+            return;
+
+        Destroy(tile.PlacedObject);
+
+        tile.PlacedObject = null;
+        tile.Type = TileType.Floor;
+        tile.IsWalkable = true;
+
+        Debug.Log("初期設置中の宝箱を削除しました");
     }
 
     private void EraseObject(Tile tile)
@@ -252,6 +334,10 @@ public class BuildManager : MonoBehaviour
         if (tile.Type == TileType.Floor)
             return;
         
+        // 通常の建築フェーズでは宝箱を削除できない
+        if (tile.Type == TileType.Treasure)
+            return;
+
         if (tile.PlacedObject != null)
         {
             Destroy(tile.PlacedObject);
@@ -284,6 +370,16 @@ public class BuildManager : MonoBehaviour
 
     public void SetTreasureType(TreasureType type)
     {
+        Debug.Log($"SetTreasureType呼び出し: {type}");
+
+        // 初期設置フェーズ以外では宝箱を選択できない
+        if (waveManager.currentPhase != WaveManager.GamePhase.InitialSetup)
+        {
+            CurrentTreasureType = TreasureType.None;
+            SetBuildMode(BuildMode.None);
+            return;
+        }
+
         CurrentTreasureType = type;
 
         if (type == TreasureType.None)

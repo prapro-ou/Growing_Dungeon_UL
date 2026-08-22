@@ -85,8 +85,8 @@ public class CameraController : MonoBehaviour
         {
             transform.position = new Vector3(
                 transform.position.x,
-                30f,
-                -18f
+                35f,
+                -20f
             );
             transform.rotation = Quaternion.Euler(60f, 0f, 0f);
         }

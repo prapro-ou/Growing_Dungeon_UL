@@ -9,8 +9,9 @@ public class WaveManager : MonoBehaviour
 {
     public enum GamePhase
     {
-        PrepPhase, // 設置フェーズ（準備中）
-        WavePhase  // 戦闘フェーズ（ウェーブ実行中）
+        InitialSetup,  // 最初の宝箱設置
+        PrepPhase,     // Waveの建築
+        WavePhase    // Waveの侵略
     }
 
     [System.Serializable]
@@ -46,12 +47,13 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private Button readyButton;
     [SerializeField] private GameObject buildMenu; // 設置メニュー全体のオブジェクト（MonsterMenuなど）
+    [SerializeField] private GameObject treasureMenu;
 
     [Header("ウェーブ設定")]
     [SerializeField] private List<WaveData> waveList = new List<WaveData>();
 
     [Header("フェーズ状態")]
-    [SerializeField] public GamePhase currentPhase = GamePhase.PrepPhase;
+    [SerializeField] public GamePhase currentPhase = GamePhase.InitialSetup;
     public int currentWaveIndex = 0;
 
     [Header("イベント（UI通知用など）")]
@@ -65,7 +67,25 @@ public class WaveManager : MonoBehaviour
     private void Start()
     {
         EnsureSpawnerReference();
-        EnterPrepPhase();
+
+        // ゲーム開始時は宝箱設置フェーズ
+        currentPhase = GamePhase.InitialSetup;
+
+        Debug.Log("=== 初期宝箱設置フェーズ開始 ===");
+
+        // Readyボタンはまだ使えない
+        if (readyButton != null)
+        {
+            readyButton.interactable = false;
+        }
+
+        // 建築メニューもまだ使えない
+        if (buildMenu != null)
+        {
+            buildMenu.SetActive(false);
+        }
+
+        onPhaseChanged?.Invoke(currentPhase);
     }
 
     private bool EnsureSpawnerReference()
@@ -82,6 +102,61 @@ public class WaveManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    // 宝箱設置完了後呼び出す
+    public void FinishInitialSetup()
+    {
+        if (currentPhase != GamePhase.InitialSetup)
+            return;
+
+        if (!IsInitialTreasureSetupComplete())
+        {
+            Debug.LogWarning("メイン宝箱1個、サブ宝箱3個を設置してください。");
+            return;
+        }
+
+        Debug.Log("=== 初期宝箱設置完了 ===");
+
+        currentWaveIndex = 0;
+
+        // メニューボタンの表示変更
+        if (buildMenu != null)
+        {
+            buildMenu.SetActive(true);
+        }
+        if (treasureMenu != null)
+        {
+            treasureMenu.SetActive(false);
+        }
+
+
+        EnterPrepPhase();
+    }
+
+    // 宝箱の設置上限を確かめる
+    private bool IsInitialTreasureSetupComplete()
+    {
+        Treasure[] treasures = FindObjectsByType<Treasure>(
+            FindObjectsInactive.Exclude
+        );
+
+        int mainCount = 0;
+        int subCount = 0;
+
+        foreach (Treasure treasure in treasures)
+        {
+            if (treasure.isMainTreasure)
+            {
+                mainCount++;
+            }
+            else
+            {
+                subCount++;
+            }
+        }
+
+        return mainCount == 1 && subCount == 3;
     }
 
     /// <summary>

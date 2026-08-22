@@ -11,6 +11,7 @@ public class TreasureMenuUI : MonoBehaviour
     [Header("Treasure Buttons")]
     [SerializeField] private Button MainTreasureButton;
     [SerializeField] private Button SubTreasureButton;
+    [SerializeField] private Button TreasureEraseButton;
 
     [Header("Button Colors")]
     [SerializeField] private Color normalColor = Color.white;
@@ -33,16 +34,18 @@ public class TreasureMenuUI : MonoBehaviour
         UpdateButtonColors();
     }
 
-    public void Return()
+    public void Erase()
     {
         buildManager.SetTreasureType(TreasureType.None);
-        changeMenuUI.ShowBuildMenu();
+        buildManager.SetBuildMode(BuildMode.Erase);
+        UpdateButtonColors();
     }
 
     private void UpdateButtonColors()
     {
         SetButtonColor(MainTreasureButton, TreasureType.MainTreasure);
         SetButtonColor(SubTreasureButton, TreasureType.SubTreasure);
+        SetButtonColor(TreasureEraseButton, TreasureType.None);
     }
 
     private void SetButtonColor(Button button, TreasureType type)

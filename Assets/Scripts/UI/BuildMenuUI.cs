@@ -13,7 +13,6 @@ public class BuildMenuUI : MonoBehaviour
     [SerializeField] private Button wallButton;
     [SerializeField] private Button trapButton;
     [SerializeField] private Button monsterButton;
-    [SerializeField] private Button treasureButton;
     [SerializeField] private Button eraseButton;
 
     [Header("Button Colors")]
@@ -50,15 +49,6 @@ public class BuildMenuUI : MonoBehaviour
         changeMenuUI.ShowMonsterMenu();
         UpdateButtonColors();
     }
-
-    public void Treasure()
-    {
-        buildManager.SetBuildMode(BuildMode.Treasure);
-
-        changeMenuUI.ShowTreasureMenu();
-        UpdateButtonColors();
-    }
-
     public void Erase()
     {
         buildManager.SetBuildMode(BuildMode.Erase);
@@ -70,7 +60,6 @@ public class BuildMenuUI : MonoBehaviour
         SetButtonColor(wallButton, BuildMode.Wall);
         SetButtonColor(trapButton, BuildMode.Trap);
         SetButtonColor(monsterButton, BuildMode.Monster);
-        SetButtonColor(treasureButton, BuildMode.Treasure);
         SetButtonColor(eraseButton, BuildMode.Erase);
     }
 

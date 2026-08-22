@@ -7,6 +7,7 @@ public class GameStartManager : MonoBehaviour
     public GameObject titlePanel;    // TitlePanelを入れる
     public GameObject storyPanel;    // StoryPanelを入れる
     public GameObject buildMenu;     // Canvas内にあるBuildMenuを入れる
+    public GameObject treasureMenu;
 
     [Header("Story Settings")]
     public TextMeshProUGUI storyText; // セリフ用のText(TMP)を入れる
@@ -26,6 +27,10 @@ public class GameStartManager : MonoBehaviour
         if (buildMenu != null)
         {
             buildMenu.SetActive(false);
+        }
+        if (treasureMenu != null)
+        {
+            treasureMenu.SetActive(false);
         }
     }
 
@@ -64,10 +69,9 @@ public class GameStartManager : MonoBehaviour
     {
         storyPanel.SetActive(false); // ストーリーパネルを閉じる
 
-        // 隠していた BuildMenu を表示して本編を開始！
-        if (buildMenu != null)
+        if (treasureMenu != null)
         {
-            buildMenu.SetActive(true);
+            treasureMenu.SetActive(true);
         }
         
         Debug.Log("Game Started!");
