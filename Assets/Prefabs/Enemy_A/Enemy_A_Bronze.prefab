@@ -134,7 +134,7 @@ MonoBehaviour:
   maxHealth: 0
   moveSpeed: 0
   attackPower: 0
-  aiType: 0
+  aiType: 1
   attackRange: 1.5
   attackInterval: 0
   wanderRadius: 5

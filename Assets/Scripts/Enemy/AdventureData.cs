@@ -43,7 +43,7 @@ public class AdventurerData : MonoBehaviour
     public List<RankStatus> rankStatuses = new List<RankStatus>()
     {
         new RankStatus { rank = Rank.Iron,        rankName = "アイアン",       maxHealth = 100,  moveSpeed = 3.5f, attackPower = 10,  attackInterval = 1.2f, aiType = EnemyAIType.Aggressive },
-        new RankStatus { rank = Rank.Bronze,      rankName = "ブロンズ",       maxHealth = 150,  moveSpeed = 3.6f, attackPower = 15,  attackInterval = 1.1f, aiType = EnemyAIType.TreasureHunter },
+        new RankStatus { rank = Rank.Bronze,      rankName = "ブロンズ",       maxHealth = 150,  moveSpeed = 3.6f, attackPower = 15,  attackInterval = 1.1f, aiType = EnemyAIType.Aggressive },
         new RankStatus { rank = Rank.Silver,      rankName = "シルバー",       maxHealth = 220,  moveSpeed = 3.7f, attackPower = 22,  attackInterval = 1.0f, aiType = EnemyAIType.TreasureHunter },
         new RankStatus { rank = Rank.Gold,        rankName = "ゴールド",       maxHealth = 320,  moveSpeed = 3.8f, attackPower = 32,  attackInterval = 0.95f, aiType = EnemyAIType.TreasureHunter },
         new RankStatus { rank = Rank.Platinum,    rankName = "プラチナ",       maxHealth = 450,  moveSpeed = 3.9f, attackPower = 45,  attackInterval = 0.9f, aiType = EnemyAIType.TreasureHunter },

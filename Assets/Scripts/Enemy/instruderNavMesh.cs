@@ -53,6 +53,15 @@ public class IntruderNavMesh : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
+    private void Start()
+    {
+        // 敵ごとにランダムな移動間隔を設定
+        wanderChangeInterval = Random.Range(2f, 5f);
+
+        // 最初の移動開始タイミングもずらす
+        wanderTimer = Random.Range(0f, wanderChangeInterval);
+    }
+
     private void Update()
     {
         switch (aiType)
@@ -73,12 +82,14 @@ public class IntruderNavMesh : MonoBehaviour
 
     private void UpdateTreasureHunter()
     {
+        // 現在の宝箱が破壊された
         if (currentTargetTreasure == null)
         {
             currentTargetTreasure = FindNearestTreasure();
 
             if (currentTargetTreasure == null)
             {
+                // 宝箱がもうない
                 if (agent != null && agent.isOnNavMesh)
                 {
                     agent.isStopped = true;
@@ -86,6 +97,11 @@ public class IntruderNavMesh : MonoBehaviour
 
                 return;
             }
+
+            Debug.Log(
+                $"[{gameObject.name}] 次の宝箱へ向かいます: " +
+                $"{currentTargetTreasure.gameObject.name}"
+            );
         }
 
         // 一番近いモンスターを探す
@@ -207,6 +223,13 @@ public class IntruderNavMesh : MonoBehaviour
 
                 return;
             }
+
+            // 新しい宝箱を見つけたらすぐ向かう
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.isStopped = false;
+                agent.SetDestination(currentTargetTreasure.transform.position);
+            }
         }
 
         float treasureDistance = Vector3.Distance(
@@ -245,7 +268,9 @@ public class IntruderNavMesh : MonoBehaviour
 
     private void UpdateWanderer()
     {
-        // 近くのモンスターを探す
+        // =========================
+        // ① 近くのモンスターを探す
+        // =========================
         Monster nearestMonster = FindNearestMonster();
 
         if (nearestMonster != null)
@@ -274,20 +299,74 @@ public class IntruderNavMesh : MonoBehaviour
                 return;
             }
 
-            // モンスターが少し遠い場合はモンスターへ向かう
+            // モンスターが近くにいる → 近づく
             if (monsterDistance <= attackRange * 3f)
             {
                 if (agent != null && agent.isOnNavMesh)
                 {
                     agent.isStopped = false;
-                    agent.SetDestination(nearestMonster.transform.position);
+                    agent.SetDestination(
+                        nearestMonster.transform.position
+                    );
                 }
 
                 return;
             }
         }
 
-        // モンスターが近くにいない → ランダム移動
+        // =========================
+        // ② モンスターが近くにいない
+        //    → 宝箱を探す
+        // =========================
+
+        Treasure nearestTreasure = FindNearestTreasure();
+
+        if (nearestTreasure != null)
+        {
+            float treasureDistance = Vector3.Distance(
+                transform.position,
+                nearestTreasure.transform.position
+            );
+
+            // 宝箱が攻撃範囲内
+            if (treasureDistance <= attackRange)
+            {
+                if (agent != null && agent.isOnNavMesh)
+                {
+                    agent.isStopped = true;
+                }
+
+                attackTimer += Time.deltaTime;
+
+                if (attackTimer >= attackInterval)
+                {
+                    AttackTreasure(nearestTreasure);
+                    attackTimer = 0f;
+                }
+
+                return;
+            }
+
+            // 宝箱が近くにある → 宝箱へ向かう
+            if (treasureDistance <= attackRange * 3f)
+            {
+                if (agent != null && agent.isOnNavMesh)
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(
+                        nearestTreasure.transform.position
+                    );
+                }
+
+                return;
+            }
+        }
+
+        // =========================
+        // ③ 何も近くにいない
+        //    → ランダム移動
+        // =========================
+
         wanderTimer += Time.deltaTime;
 
         if (wanderTimer >= wanderChangeInterval)
@@ -316,21 +395,60 @@ public class IntruderNavMesh : MonoBehaviour
         );
 
         Treasure nearestTreasure = null;
-        float nearestDistance = Mathf.Infinity;
+        float shortestPathDistance = Mathf.Infinity;
+
+        NavMeshHit startHit;
+
+        if (!NavMesh.SamplePosition(
+            transform.position,
+            out startHit,
+            2.0f,
+            NavMesh.AllAreas))
+        {
+            return null;
+        }
 
         foreach (Treasure treasure in treasures)
         {
             if (treasure == null)
                 continue;
 
-            float distance = Vector3.Distance(
-                transform.position,
-                treasure.transform.position
+            NavMeshHit treasureHit;
+
+            if (!NavMesh.SamplePosition(
+                treasure.transform.position,
+                out treasureHit,
+                2.0f,
+                NavMesh.AllAreas))
+            {
+                continue;
+            }
+
+            NavMeshPath path = new NavMeshPath();
+
+            bool foundPath = NavMesh.CalculatePath(
+                startHit.position,
+                treasureHit.position,
+                NavMesh.AllAreas,
+                path
             );
 
-            if (distance < nearestDistance)
+            if (!foundPath || path.status != NavMeshPathStatus.PathComplete)
+                continue;
+
+            float pathDistance = 0f;
+
+            for (int i = 1; i < path.corners.Length; i++)
             {
-                nearestDistance = distance;
+                pathDistance += Vector3.Distance(
+                    path.corners[i - 1],
+                    path.corners[i]
+                );
+            }
+
+            if (pathDistance < shortestPathDistance)
+            {
+                shortestPathDistance = pathDistance;
                 nearestTreasure = treasure;
             }
         }
@@ -345,21 +463,62 @@ public class IntruderNavMesh : MonoBehaviour
         );
 
         Monster nearestMonster = null;
-        float nearestDistance = Mathf.Infinity;
+        float shortestPathDistance = Mathf.Infinity;
+
+        // 敵自身の位置をNavMesh上に補正
+        NavMeshHit startHit;
+
+        if (!NavMesh.SamplePosition(
+            transform.position,
+            out startHit,
+            2.0f,
+            NavMesh.AllAreas))
+        {
+            return null;
+        }
 
         foreach (Monster monster in monsters)
         {
             if (monster == null)
                 continue;
-            
-            float distance = Vector3.Distance(
-                transform.position,
-                monster.transform.position
+
+            // モンスターの位置をNavMesh上に補正
+            NavMeshHit monsterHit;
+
+            if (!NavMesh.SamplePosition(
+                monster.transform.position,
+                out monsterHit,
+                2.0f,
+                NavMesh.AllAreas))
+            {
+                continue;
+            }
+
+            NavMeshPath path = new NavMeshPath();
+
+            bool foundPath = NavMesh.CalculatePath(
+                startHit.position,
+                monsterHit.position,
+                NavMesh.AllAreas,
+                path
             );
 
-            if (distance < nearestDistance)
+            if (!foundPath || path.status != NavMeshPathStatus.PathComplete)
+                continue;
+
+            float pathDistance = 0f;
+
+            for (int i = 1; i < path.corners.Length; i++)
             {
-                nearestDistance = distance;
+                pathDistance += Vector3.Distance(
+                    path.corners[i - 1],
+                    path.corners[i]
+                );
+            }
+
+            if (pathDistance < shortestPathDistance)
+            {
+                shortestPathDistance = pathDistance;
                 nearestMonster = monster;
             }
         }
@@ -389,21 +548,18 @@ public class IntruderNavMesh : MonoBehaviour
         if (agent == null || !agent.isOnNavMesh)
             return;
 
-        Vector3 randomPosition = transform.position +
-                             Random.insideUnitSphere * wanderRadius;
-
-        randomPosition.y = transform.position.y;
+        Vector3 randomDirection = Random.insideUnitSphere * 10f;
+        randomDirection += transform.position;
 
         NavMeshHit hit;
 
         if (NavMesh.SamplePosition(
-            randomPosition,
+            randomDirection,
             out hit,
-            wanderRadius,
+            10f,
             NavMesh.AllAreas))
         {
-            wanderTarget = hit.position;
-            agent.SetDestination(wanderTarget);
+            agent.SetDestination(hit.position);
         }
     }
 

@@ -13,8 +13,6 @@ public class GridManager : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform spawnPoint; // HierarchyのSpawnPointをセット
-    [SerializeField] private Transform goalPoint;  // HierarchyのGoalPointをセット
-
     private Tile[,] tiles;
     private NavMeshSurface navMeshSurface;
 
@@ -27,7 +25,7 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         GenerateGrid();
-        SetSpawnAndGoal(); // グリッド生成後に位置を合わせる
+        SetSpawn(); // グリッド生成後に位置を合わせる
     }
 
     private void GenerateGrid()
@@ -65,7 +63,7 @@ public class GridManager : MonoBehaviour
         RebuildNavMesh();
     }
 
-    private void SetSpawnAndGoal()
+    private void SetSpawn()
     {
         // 左下 (0, 0) のタイル位置に SpawnPoint を移動
         if (spawnPoint != null && tiles[0, 0] != null)
@@ -78,14 +76,6 @@ public class GridManager : MonoBehaviour
             Vector3 pos = spawnTile.transform.position;
             pos.y += 0.5f; // 床から少し浮かす（元の高さに+0.5）
             spawnPoint.position = pos;
-        }
-
-        // 右上 (width-1, height-1) のタイル位置に GoalPoint を移動
-        if (goalPoint != null && tiles[width - 1, height - 1] != null)
-        {
-            Vector3 pos = tiles[width - 1, height - 1].transform.position;
-            pos.y += 0.5f; // ゴールの当たり判定も少し上に
-            goalPoint.position = pos;
         }
     }
 

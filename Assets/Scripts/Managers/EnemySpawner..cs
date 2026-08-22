@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.AI;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("参照")]
@@ -95,21 +95,63 @@ public class EnemySpawner : MonoBehaviour
         );
 
         Treasure nearestTreasure = null;
-        float nearestDistance = Mathf.Infinity;
+        float shortestPathDistance = Mathf.Infinity;
+
+        // 敵自身の位置をNavMesh上に補正
+        NavMeshHit startHit;
+
+        if (!NavMesh.SamplePosition(
+            enemyPosition,
+            out startHit,
+            2.0f,
+            NavMesh.AllAreas))
+        {
+            Debug.LogWarning("敵の位置がNavMesh上にありません");
+            return null;
+        }
 
         foreach (Treasure treasure in treasures)
         {
             if (treasure == null)
                 continue;
 
-            float distance = Vector3.Distance(
-                enemyPosition,
-                treasure.transform.position
+            // 宝箱の近くのNavMesh上の位置を取得
+            NavMeshHit treasureHit;
+
+            if (!NavMesh.SamplePosition(
+                treasure.transform.position,
+                out treasureHit,
+                2.0f,
+                NavMesh.AllAreas))
+            {
+                continue;
+            }
+
+            NavMeshPath path = new NavMeshPath();
+
+            bool foundPath = NavMesh.CalculatePath(
+                startHit.position,
+                treasureHit.position,
+                NavMesh.AllAreas,
+                path
             );
 
-            if (distance < nearestDistance)
+            if (!foundPath || path.status != NavMeshPathStatus.PathComplete)
+                continue;
+
+            float pathDistance = 0f;
+
+            for (int i = 1; i < path.corners.Length; i++)
             {
-                nearestDistance = distance;
+                pathDistance += Vector3.Distance(
+                    path.corners[i - 1],
+                    path.corners[i]
+                );
+            }
+
+            if (pathDistance < shortestPathDistance)
+            {
+                shortestPathDistance = pathDistance;
                 nearestTreasure = treasure;
             }
         }
