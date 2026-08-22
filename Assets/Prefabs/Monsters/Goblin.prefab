@@ -188,7 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Monster
   MaxHP: 140
   HP: 140
-  Attak: 151
+  Attak: 15
   Defense: 80
   BuildCost: 10
 --- !u!114 &-5912714197809220203

@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.IO.Compression;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,6 +14,7 @@ public class IntruderNavMesh : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private float moveSpeed;
     [SerializeField] private int attackPower;
+    [SerializeField] private AdventurerData.EnemyAIType aiType;
 
     [Header("攻撃設定")]
     [SerializeField] private float attackRange = 1.5f;
@@ -42,6 +42,12 @@ public class IntruderNavMesh : MonoBehaviour
 
     private float attackTimer = 0f;
 
+    // ランダム移動AI
+    private Vector3 wanderTarget;
+    private float wanderTimer = 0f;
+    [SerializeField] private float wanderRadius = 5f;
+    [SerializeField] private float wanderChangeInterval = 3f;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -49,10 +55,66 @@ public class IntruderNavMesh : MonoBehaviour
 
     private void Update()
     {
-        if (currentTargetTreasure == null)
-            return;
+        switch (aiType)
+        {
+            case AdventurerData.EnemyAIType.TreasureHunter:
+            UpdateTreasureHunter();
+            break;
 
-        // 宝箱との距離
+        case AdventurerData.EnemyAIType.Aggressive:
+            UpdateAggressive();
+            break;
+
+        case AdventurerData.EnemyAIType.Wanderer:
+            UpdateWanderer();
+            break;
+        }
+    }
+
+    private void UpdateTreasureHunter()
+    {
+        if (currentTargetTreasure == null)
+        {
+            currentTargetTreasure = FindNearestTreasure();
+
+            if (currentTargetTreasure == null)
+            {
+                if (agent != null && agent.isOnNavMesh)
+                {
+                    agent.isStopped = true;
+                }
+
+                return;
+            }
+        }
+
+        // 一番近いモンスターを探す
+        Monster nearestMonster = FindNearestMonster();
+
+        if (nearestMonster != null)
+        {
+            float monsterDistance = Vector3.Distance(
+                transform.position,
+                nearestMonster.transform.position
+            );
+
+            // モンスターが攻撃範囲内ならモンスターを攻撃
+            if (monsterDistance <= attackRange)
+            {
+                agent.isStopped = true;
+
+                attackTimer += Time.deltaTime;
+
+                if (attackTimer >= attackInterval)
+                {
+                    AttackMonster(nearestMonster);
+                    attackTimer = 0f;
+                }
+                return;
+            }
+        }
+
+        // モンスターが近くにいない場合は宝箱に向かう
         float distance = Vector3.Distance(
             transform.position,
             currentTargetTreasure.transform.position
@@ -87,6 +149,224 @@ public class IntruderNavMesh : MonoBehaviour
         }
     }
 
+    private void UpdateAggressive()
+    {
+        // 一番近いモンスターを探す
+        Monster nearestMonster = FindNearestMonster();
+
+        if (nearestMonster != null)
+        {
+            float distance = Vector3.Distance(
+                transform.position,
+                nearestMonster.transform.position
+            );
+
+            // モンスターが攻撃範囲内
+            if (distance <= attackRange)
+            {
+                if (agent != null && agent.isOnNavMesh)
+                {
+                    agent.isStopped = true;
+                }
+
+                attackTimer += Time.deltaTime;
+
+                if (attackTimer >= attackInterval)
+                {
+                    AttackMonster(nearestMonster);
+                    attackTimer = 0f;
+                }
+
+                return;
+            }
+
+            // モンスターが遠い → モンスターへ向かう
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.isStopped = false;
+                agent.SetDestination(
+                    nearestMonster.transform.position
+                );
+            }
+
+            return;
+        }
+
+        // モンスターが全部いなくなった
+        // 一番近い宝箱を探す
+        if (currentTargetTreasure == null)
+        {
+            currentTargetTreasure = FindNearestTreasure();
+
+            if (currentTargetTreasure == null)
+            {
+                if (agent != null && agent.isOnNavMesh)
+                {
+                    agent.isStopped = true;
+                }
+
+                return;
+            }
+        }
+
+        float treasureDistance = Vector3.Distance(
+            transform.position,
+            currentTargetTreasure.transform.position
+        );
+
+        // 宝箱が攻撃範囲内
+        if (treasureDistance <= attackRange)
+        {
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.isStopped = true;
+            }
+
+            attackTimer += Time.deltaTime;
+
+            if (attackTimer >= attackInterval)
+            {
+                AttackTreasure(currentTargetTreasure);
+                attackTimer = 0f;
+            }
+        }
+        // 宝箱へ向かう
+        else
+        {
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.isStopped = false;
+                agent.SetDestination(
+                    currentTargetTreasure.transform.position
+                );
+            }
+        }
+    }
+
+    private void UpdateWanderer()
+    {
+        // 近くのモンスターを探す
+        Monster nearestMonster = FindNearestMonster();
+
+        if (nearestMonster != null)
+        {
+            float monsterDistance = Vector3.Distance(
+                transform.position,
+                nearestMonster.transform.position
+            );
+
+            // モンスターが攻撃範囲内
+            if (monsterDistance <= attackRange)
+            {
+                if (agent != null && agent.isOnNavMesh)
+                {
+                    agent.isStopped = true;
+                }
+
+                attackTimer += Time.deltaTime;
+
+                if (attackTimer >= attackInterval)
+                {
+                    AttackMonster(nearestMonster);
+                    attackTimer = 0f;
+                }
+
+                return;
+            }
+
+            // モンスターが少し遠い場合はモンスターへ向かう
+            if (monsterDistance <= attackRange * 3f)
+            {
+                if (agent != null && agent.isOnNavMesh)
+                {
+                    agent.isStopped = false;
+                    agent.SetDestination(nearestMonster.transform.position);
+                }
+
+                return;
+            }
+        }
+
+        // モンスターが近くにいない → ランダム移動
+        wanderTimer += Time.deltaTime;
+
+        if (wanderTimer >= wanderChangeInterval)
+        {
+            SetRandomWanderTarget();
+            wanderTimer = 0f;
+        }
+
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.isStopped = false;
+
+            if (!agent.hasPath || agent.remainingDistance <= 0.5f)
+            {
+                SetRandomWanderTarget();
+            }
+        }
+    }
+
+
+
+    private Treasure FindNearestTreasure()
+    {
+        Treasure[] treasures = FindObjectsByType<Treasure>(
+            FindObjectsInactive.Exclude
+        );
+
+        Treasure nearestTreasure = null;
+        float nearestDistance = Mathf.Infinity;
+
+        foreach (Treasure treasure in treasures)
+        {
+            if (treasure == null)
+                continue;
+
+            float distance = Vector3.Distance(
+                transform.position,
+                treasure.transform.position
+            );
+
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestTreasure = treasure;
+            }
+        }
+
+        return nearestTreasure;
+    }
+
+    private Monster FindNearestMonster()
+    {
+        Monster[] monsters = FindObjectsByType<Monster>(
+            FindObjectsInactive.Exclude
+        );
+
+        Monster nearestMonster = null;
+        float nearestDistance = Mathf.Infinity;
+
+        foreach (Monster monster in monsters)
+        {
+            if (monster == null)
+                continue;
+            
+            float distance = Vector3.Distance(
+                transform.position,
+                monster.transform.position
+            );
+
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestMonster = monster;
+            }
+        }
+
+        return nearestMonster;
+    }
+
     private void AttackMonster(Monster target)
     {
         if (target != null)
@@ -100,6 +380,30 @@ public class IntruderNavMesh : MonoBehaviour
         if (target != null)
         {
             target.TakeDamage(attackPower);
+        }
+    }
+
+    /// ランダム移動先を決める関数
+    private void SetRandomWanderTarget()
+    {
+        if (agent == null || !agent.isOnNavMesh)
+            return;
+
+        Vector3 randomPosition = transform.position +
+                             Random.insideUnitSphere * wanderRadius;
+
+        randomPosition.y = transform.position.y;
+
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(
+            randomPosition,
+            out hit,
+            wanderRadius,
+            NavMesh.AllAreas))
+        {
+            wanderTarget = hit.position;
+            agent.SetDestination(wanderTarget);
         }
     }
 
@@ -121,6 +425,7 @@ public class IntruderNavMesh : MonoBehaviour
             moveSpeed = status.moveSpeed;
             attackPower = status.attackPower;
             attackInterval = status.attackInterval;
+            aiType = status.aiType;
 
             if (agent != null)
             {
