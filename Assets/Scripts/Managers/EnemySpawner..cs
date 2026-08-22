@@ -80,6 +80,7 @@ public class EnemySpawner : MonoBehaviour
         if (intruder != null)
         {
             intruder.InitializeStatus(rank);
+            intruder.SetTargetTreasure(nearestTreasure);
             intruder.StartPatrol(gridManager, goalPos);
         }
 

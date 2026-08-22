@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO.Compression;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,6 +15,9 @@ public class IntruderNavMesh : MonoBehaviour
     [SerializeField] private int maxHealth;
     [SerializeField] private float moveSpeed;
     [SerializeField] private int attackPower;
+
+    [Header("攻撃設定")]
+    [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float attackInterval = 1.0f;
 
     // 外部プロパティ
@@ -22,7 +26,6 @@ public class IntruderNavMesh : MonoBehaviour
     public int MaxHealth => maxHealth;
     public float MoveSpeed => moveSpeed;
     public int AttackPower => attackPower;
-    public float AttackInterval => attackInterval;
 
     private NavMeshAgent agent;
     private GridManager gridManager;
@@ -30,6 +33,13 @@ public class IntruderNavMesh : MonoBehaviour
 
     // 攻撃対象（現在交戦中のモンスター）
     private Monster currentTargetMonster;
+    // 破壊対象（最短の宝箱）
+    private Treasure currentTargetTreasure;
+    public void SetTargetTreasure(Treasure treasure)
+    {
+        currentTargetTreasure = treasure;
+    }
+
     private float attackTimer = 0f;
 
     private void Awake()
@@ -39,31 +49,53 @@ public class IntruderNavMesh : MonoBehaviour
 
     private void Update()
     {
-        // モンスターと交戦中の場合
-        if (currentTargetMonster != null)
+        if (currentTargetTreasure == null)
+            return;
+
+        // 宝箱との距離
+        float distance = Vector3.Distance(
+            transform.position,
+            currentTargetTreasure.transform.position
+        );
+
+        // 宝箱に十分近づいた
+        if (distance <= attackRange)
         {
+            if (agent != null && agent.isOnNavMesh)
+            {
+                agent.isStopped = true;
+            }
+
             attackTimer += Time.deltaTime;
+
             if (attackTimer >= attackInterval)
             {
-                AttackMonster(currentTargetMonster);
+                AttackTreasure(currentTargetTreasure);
                 attackTimer = 0f;
             }
         }
+        // まだ遠いので宝箱に向かう
         else
         {
-            // モンスターが倒されるか居なくなったら、ゴールへの移動を再開
-            if (agent != null && agent.isOnNavMesh && agent.isStopped)
+            if (agent != null && agent.isOnNavMesh)
             {
                 agent.isStopped = false;
-                if (targetGoalPosition != Vector3.zero)
-                {
-                    agent.SetDestination(targetGoalPosition);
-                }
+                agent.SetDestination(
+                    currentTargetTreasure.transform.position
+                );
             }
         }
     }
 
     private void AttackMonster(Monster target)
+    {
+        if (target != null)
+        {
+            target.TakeDamage(attackPower);
+        }
+    }
+
+    private void AttackTreasure(Treasure target)
     {
         if (target != null)
         {
@@ -141,33 +173,5 @@ public class IntruderNavMesh : MonoBehaviour
     {
         Debug.Log($"<color=red>[敵: {rankName}] 撃破されました！</color>");
         Destroy(gameObject);
-    }
-
-    // 2D当たり判定：モンスターの攻撃範囲に入ったら足を止めて戦闘開始
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Monster monster = other.GetComponent<Monster>();
-        if (monster != null)
-        {
-            currentTargetMonster = monster;
-            if (agent != null && agent.isOnNavMesh)
-            {
-                agent.isStopped = true; // 足を止めて殴り合い
-            }
-        }
-    }
-
-    // モンスターの範囲から出た場合（またはモンスターが破壊された場合）
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        Monster monster = other.GetComponent<Monster>();
-        if (monster != null && currentTargetMonster == monster)
-        {
-            currentTargetMonster = null;
-            if (agent != null && agent.isOnNavMesh)
-            {
-                agent.isStopped = false; // 移動再開
-            }
-        }
     }
 }
