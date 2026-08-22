@@ -34,6 +34,7 @@ public class GameStartManager : MonoBehaviour
     {
         titlePanel.SetActive(false);
         storyPanel.SetActive(true);
+        buildMenu.SetActive(false);
         currentLineIndex = 0;
         ShowCurrentLine();
     }

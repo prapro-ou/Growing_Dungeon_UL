@@ -8,7 +8,6 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("デフォルト敵設定")]
     [SerializeField] private AdventurerData.Rank defaultRank = AdventurerData.Rank.Iron;
-    public Transform targetGoal;
 
     private void Start()
     {
@@ -56,25 +55,64 @@ public class EnemySpawner : MonoBehaviour
         }
 
         // プレハブから敵を生成
-        GameObject enemy = Instantiate(status.prefab, transform.position, Quaternion.identity);
-        Vector3 goalPos = targetGoal != null ? targetGoal.position : Vector3.zero;
+        GameObject enemy = Instantiate (
+            status.prefab,
+            transform.position,
+            Quaternion.identity,
+            transform
+        );
+
+        // 一番近い宝箱を探す
+        Treasure nearestTreasure = FindNearestTreasure(enemy.transform.position);
+
+        if (nearestTreasure == null)
+        {
+            Debug.LogWarning("敵の目的地になる宝箱がありません");
+            return enemy;
+        }
+
+        // 宝箱を目的地にする
+        Vector3 goalPos = nearestTreasure.transform.position;
 
         // IntruderNavMesh（移動・ステータス制御）を取得して発進させる
         IntruderNavMesh intruder = enemy.GetComponent<IntruderNavMesh>();
+
         if (intruder != null)
         {
             intruder.InitializeStatus(rank);
             intruder.StartPatrol(gridManager, goalPos);
         }
-        else
+
+        return enemy;
+    }
+
+    /// 一番近い宝箱を探す関数
+    private Treasure FindNearestTreasure(Vector3 enemyPosition)
+    {
+        Treasure[] treasures = FindObjectsByType<Treasure>(
+            FindObjectsInactive.Exclude
+        );
+
+        Treasure nearestTreasure = null;
+        float nearestDistance = Mathf.Infinity;
+
+        foreach (Treasure treasure in treasures)
         {
-            UnityEngine.AI.NavMeshAgent agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
-            if (agent != null && targetGoal != null)
+            if (treasure == null)
+                continue;
+
+            float distance = Vector3.Distance(
+                enemyPosition,
+                treasure.transform.position
+            );
+
+            if (distance < nearestDistance)
             {
-                agent.SetDestination(goalPos);
+                nearestDistance = distance;
+                nearestTreasure = treasure;
             }
         }
 
-        return enemy;
+        return nearestTreasure;
     }
 }

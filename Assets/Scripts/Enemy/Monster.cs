@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -8,6 +9,14 @@ public class Monster : MonoBehaviour
     public int Attak = 20;
     public int Defense = 0;
     public int BuildCost = 10;
+
+    private Tile tile;
+
+    // 自身が設置されたタイルを記憶
+    public void SetTile(Tile tile)
+    {
+        this.tile = tile;
+    }
 
     private void Start()
     {
@@ -38,6 +47,14 @@ public class Monster : MonoBehaviour
     private void Die()
     {
         Debug.Log($"<color=red>[味方: {gameObject.name}] は倒されて破壊されました！</color>");
+
+        if (tile != null)
+        {
+            tile.Type = TileType.Floor;
+            tile.IsWalkable = true;
+            tile.PlacedObject = null;
+        }
+
         Destroy(gameObject);
     }
 }

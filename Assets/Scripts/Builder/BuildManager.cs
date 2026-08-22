@@ -183,6 +183,8 @@ public class BuildManager : MonoBehaviour
 
         monster.GetComponent<PlaceableObject>().Initialize(tile);
 
+        monster.GetComponent<Monster>().SetTile(tile);
+
         tile.PlacedObject = monster;
     }
 

@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3168382033533506714}
   - component: {fileID: -5638878350267447854}
+  - component: {fileID: -825151269419748182}
   m_Layer: 0
   m_Name: MainTreasure
   m_TagString: Untagged
@@ -157,3 +158,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af37160fd7b5354478375d67cfd56d1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaceableObject
+--- !u!114 &-825151269419748182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5081957028717652463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4cdbd0bdc62f5e4b8e2fb90729a8def, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Treasure
+  isMainTreasure: 1
