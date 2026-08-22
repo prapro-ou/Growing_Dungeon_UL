@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Attack : MonoBehaviour
 {
@@ -12,10 +13,15 @@ public class Attack : MonoBehaviour
     private float attackTimer = 0f;
     private Monster monsterData;
 
+    // 攻撃中か
+    private bool isAttacking = false;
+
+    private MonsterView monsterView;
+
     private void Awake()
     {
-        // 同じオブジェクトに付いているMonsterを取得
         monsterData = GetComponent<Monster>();
+        monsterView = GetComponent<MonsterView>();
     }
 
     private void Update()
@@ -37,7 +43,7 @@ public class Attack : MonoBehaviour
         // 攻撃範囲内なら攻撃
         if (distance <= attackRange)
         {
-            if (attackTimer >= attackInterval)
+            if (attackTimer >= attackInterval && !isAttacking)
             {
                 AttackTarget(target);
                 attackTimer = 0f;
@@ -77,20 +83,61 @@ public class Attack : MonoBehaviour
 
     private void AttackTarget(IntruderNavMesh target)
     {
-        if (target == null)
+        if (target == null || isAttacking)
             return;
 
-        int damage = monsterData != null
-            ? monsterData.Attak
-            : 20;
+        StartCoroutine(AttackCoroutine(target));
+    }
 
-        target.TakeDamage(damage);
+    private IEnumerator AttackCoroutine(IntruderNavMesh target)
+    {
+        isAttacking = true;
+
+        // 攻撃対象が消えていたら終了
+        if (target == null)
+        {
+            isAttacking = false;
+            yield break;
+        }
+
+        // 攻撃対象の方向を向く
+        if (monsterView != null)
+        {
+            monsterView.FaceTarget(
+                target.transform.position
+            );
+
+            // 攻撃モーション
+            yield return StartCoroutine(
+                monsterView.PlayAttack(
+                    target.transform.position
+                )
+            );
+        }
+        else
+        {
+            // MonsterViewがない場合
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        // モーション終了後にダメージ
+        if (target != null)
+        {
+            int damage = monsterData != null
+                ? monsterData.Attak
+                : 20;
+
+            target.TakeDamage(damage);
+        }
+
+        isAttacking = false;
     }
 
     // エディタ上で攻撃範囲を表示
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
+
         Gizmos.DrawWireSphere(
             transform.position,
             attackRange

@@ -31,6 +31,8 @@ public class IntruderNavMesh : MonoBehaviour
     private GridManager gridManager;
     private Vector3 targetGoalPosition;
 
+    private IntruderView intruderView;
+
     // 攻撃対象（現在交戦中のモンスター）
     private Monster currentTargetMonster;
     // 破壊対象（最短の宝箱）
@@ -54,6 +56,12 @@ public class IntruderNavMesh : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        intruderView = GetComponent<IntruderView>();
+    }
+
+    private void LateUpdate()
+    {
+        transform.rotation = Quaternion.identity;
     }
 
     private void Start()
@@ -80,6 +88,11 @@ public class IntruderNavMesh : MonoBehaviour
         case AdventurerData.EnemyAIType.Wanderer:
             UpdateWanderer();
             break;
+        }
+
+        if (intruderView != null)
+        {
+            intruderView.UpdateDirection(agent.velocity);
         }
     }
 
@@ -547,31 +560,27 @@ public class IntruderNavMesh : MonoBehaviour
             yield break;
         }
 
+        // 攻撃中は移動停止
         if (agent != null && agent.isOnNavMesh)
         {
             agent.isStopped = true;
         }
 
-        // 攻撃対象のモンスターからMonsterViewを取得
-        MonsterView monsterView =
-            target.GetComponent<MonsterView>();
-
-        if (monsterView != null)
+        // 自分自身の攻撃モーション
+        if (intruderView != null)
         {
-            // モンスターを攻撃している侵入者の方向を向かせる
-            monsterView.FaceTarget(transform.position);
+            intruderView.FaceTarget(
+                target.transform.position
+            );
 
-            // モンスターの攻撃モーション
             yield return StartCoroutine(
-                monsterView.PlayAttack(transform.position)
+                intruderView.PlayAttack(
+                    target.transform.position
+                )
             );
         }
         else
         {
-            Debug.LogWarning(
-                $"[{target.gameObject.name}] MonsterViewが見つかりません"
-            );
-
             yield return new WaitForSeconds(0.1f);
         }
 
@@ -581,6 +590,7 @@ public class IntruderNavMesh : MonoBehaviour
             target.TakeDamage(attackPower);
         }
 
+        // 攻撃間隔
         yield return new WaitForSeconds(attackInterval);
 
         isAttacking = false;
@@ -674,7 +684,17 @@ public class IntruderNavMesh : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log($"<color=yellow>[敵: {rankName}] 被ダメージ: {damage} (残HP: {currentHealth}/{maxHealth})</color>");
+
+        Debug.Log(
+            $"<color=yellow>[敵: {rankName}] 被ダメージ: {damage} " +
+            $"(残HP: {currentHealth}/{maxHealth})</color>"
+        );
+
+        // ダメージ演出
+        if (intruderView != null)
+        {
+            intruderView.PlayDamageFlash();
+        }
 
         if (currentHealth <= 0)
         {
