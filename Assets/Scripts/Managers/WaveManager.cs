@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,7 @@ public class WaveManager : MonoBehaviour
     }
 
     [Header("参照")]
+    [SerializeField] private GridManager gridManager;
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private Button readyButton;
     [SerializeField] private GameObject buildMenu; // 設置メニュー全体のオブジェクト（MonsterMenuなど）
@@ -47,13 +49,16 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private List<WaveData> waveList = new List<WaveData>();
 
     [Header("フェーズ状態")]
-    [SerializeField] private GamePhase currentPhase = GamePhase.PrepPhase;
+    [SerializeField] public GamePhase currentPhase = GamePhase.PrepPhase;
     public int currentWaveIndex = 0;
 
     [Header("イベント（UI通知用など）")]
     public UnityEvent onPrepPhaseStart;
     public UnityEvent onWavePhaseStart;
     public UnityEvent onAllWavesCleared;
+
+    // フェーズが変更されたときに通知
+    public event Action<GamePhase> onPhaseChanged;
 
     private void Start()
     {
@@ -65,7 +70,7 @@ public class WaveManager : MonoBehaviour
     {
         if (spawner == null)
         {
-            spawner = Object.FindAnyObjectByType<EnemySpawner>();
+            spawner = UnityEngine.Object.FindAnyObjectByType<EnemySpawner>();
         }
 
         if (spawner == null)
@@ -98,6 +103,7 @@ public class WaveManager : MonoBehaviour
         }
 
         onPrepPhaseStart?.Invoke();
+        onPhaseChanged?.Invoke(currentPhase);
     }
 
     /// <summary>
@@ -125,6 +131,12 @@ public class WaveManager : MonoBehaviour
         {
             buildMenu.SetActive(false);
         }
+        
+        // 1. 壁の配置に合わせて NavMesh を再構築
+        if (gridManager != null)
+        {
+            gridManager.RebuildNavMesh();
+        }
 
         StartCoroutine(RunWaveSequence());
     }
@@ -141,6 +153,7 @@ public class WaveManager : MonoBehaviour
     {
         currentPhase = GamePhase.WavePhase;
         onWavePhaseStart?.Invoke();
+        onPhaseChanged?.Invoke(currentPhase);
 
         WaveData currentWave = waveList[currentWaveIndex];
         Debug.Log($"<color=cyan>=== {currentWave.waveName} (Wave {currentWaveIndex + 1}/{waveList.Count}) 戦闘開始！ ===</color>");
@@ -177,7 +190,7 @@ public class WaveManager : MonoBehaviour
         // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
         // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
     // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
-        while (Object.FindObjectsByType<IntruderNavMesh>().Length > 0)
+        while (UnityEngine.Object.FindObjectsByType<IntruderNavMesh>().Length > 0)
         {
             yield return new WaitForSeconds(0.5f);
         }

@@ -12,10 +12,20 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float minFOV = 20f;
     [SerializeField] private float maxFOV = 70f;
 
+    [Header("参照")]
+    [SerializeField] private WaveManager waveManager;
+
     private void Awake()
     {
         if (targetCamera == null)
             targetCamera = Camera.main;
+    }
+
+    private void Start()
+    {
+        waveManager.onPhaseChanged += ChangePhase;
+
+        ChangePhase(waveManager.currentPhase);
     }
 
     private void Update()
@@ -58,5 +68,27 @@ public class CameraController : MonoBehaviour
             minFOV,
             maxFOV
         );
+    }
+
+    private void ChangePhase(WaveManager.GamePhase phase)
+    {
+        if (phase == WaveManager.GamePhase.PrepPhase)
+        {
+            transform.position = new Vector3(
+                transform.position.x,
+                40f,
+                0f
+            );
+            transform.rotation = Quaternion.Euler(90f, 0f, 0f);
+        }
+        else if (phase == WaveManager.GamePhase.WavePhase)
+        {
+            transform.position = new Vector3(
+                transform.position.x,
+                30f,
+                -18f
+            );
+            transform.rotation = Quaternion.Euler(60f, 0f, 0f);
+        }
     }
 }

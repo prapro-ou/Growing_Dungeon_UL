@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,10 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("フェーズ状態")]
-    public GamePhase currentPhase = GamePhase.Preparation;
+    [SerializeField] public GamePhase currentPhase = GamePhase.Preparation;
+
+    // フェーズが変わったときに通知
+    public event Action<GamePhase> OnPhaseChange;
 
     [Header("参照")]
     [SerializeField] private GridManager gridManager;
@@ -41,13 +45,13 @@ public class GameManager : MonoBehaviour
     public void SetPreparationPhase()
     {
         currentPhase = GamePhase.Preparation;
-        Debug.Log("【準備フェーズ】配置を完了させたら「準備完了」ボタンを押してください。");
 
-        // 準備フェーズなのでボタンを表示（有効化）する
-        if (startBattleButton != null)
+        if (waveManager != null)
         {
-            startBattleButton.gameObject.SetActive(true);
+            waveManager.EnterPrepPhase();
         }
+
+        OnPhaseChange?.Invoke(currentPhase);
     }
 
     /// <summary>
@@ -56,13 +60,8 @@ public class GameManager : MonoBehaviour
     public void SetBattlePhase()
     {
         currentPhase = GamePhase.Battle;
-        Debug.Log("【戦闘フェーズ】敵の攻撃開始！");
 
-        // 戦闘中はボタンを非表示にする
-        if (startBattleButton != null)
-        {
-            startBattleButton.gameObject.SetActive(false);
-        }
+        OnPhaseChange?.Invoke(currentPhase);
 
         // 1. 壁の配置に合わせて NavMesh を再構築
         if (gridManager != null)

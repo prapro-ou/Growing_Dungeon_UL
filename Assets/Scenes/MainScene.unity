@@ -679,13 +679,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 10, y: 30, z: -13}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 7.7, y: 40, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,6 +747,7 @@ MonoBehaviour:
   zoomSpeed: 0.5
   minFOV: 8
   maxFOV: 20
+  waveManager: {fileID: 971810666}
 --- !u!1 &381012741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2897,7 +2898,7 @@ MonoBehaviour:
   changeMenuUI: {fileID: 827461599}
   buildManager: {fileID: 1846025067}
   previewManager: {fileID: 1271326314}
-  gameManager: {fileID: 1022165579}
+  gameManager: {fileID: 0}
   wallButton: {fileID: 1953730001}
   trapButton: {fileID: 46446492}
   monsterButton: {fileID: 1266422220}
@@ -3096,9 +3097,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b349ec90953f76447a40f1d0b0b923f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  gridManager: {fileID: 306169169}
   spawner: {fileID: 693293208}
   readyButton: {fileID: 107631359}
-  buildMenu: {fileID: 0}
+  buildMenu: {fileID: 916519586}
   waveList:
   - waveName: Wave1
     subWaves:
@@ -3297,54 +3299,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021090665}
   m_CullTransparentMesh: 1
---- !u!1 &1022165578
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1022165580}
-  - component: {fileID: 1022165579}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1022165579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1022165578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 260a295200798d442b33cc368af8876a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  currentPhase: 0
-  gridManager: {fileID: 306169169}
-  waveManager: {fileID: 971810666}
-  startBattleButton: {fileID: 107631359}
---- !u!4 &1022165580
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1022165578}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.42271, y: -0, z: 0.32298}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1098782463
 GameObject:
   m_ObjectHideFlags: 0
@@ -4620,7 +4574,6 @@ GameObject:
   - component: {fileID: 1406284877}
   - component: {fileID: 1406284876}
   - component: {fileID: 1406284875}
-  - component: {fileID: 1406284874}
   m_Layer: 0
   m_Name: GoalPoint
   m_TagString: Enemy
@@ -4628,18 +4581,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1406284874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1406284873}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c575e45c748d4434285e07cf17209931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Goal
 --- !u!61 &1406284875
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7749,7 +7690,6 @@ SceneRoots:
   - {fileID: 755066722}
   - {fileID: 1406284877}
   - {fileID: 693293209}
-  - {fileID: 1022165580}
   - {fileID: 882262169}
   - {fileID: 971810667}
   - {fileID: 1099553152}
