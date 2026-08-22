@@ -270,7 +270,7 @@ public class WaveManager : MonoBehaviour
 
         // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
         // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
-    // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
+        // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
         while (UnityEngine.Object.FindObjectsByType<IntruderNavMesh>().Length > 0)
         {
             yield return new WaitForSeconds(0.5f);
@@ -288,6 +288,8 @@ public class WaveManager : MonoBehaviour
         {
             Debug.Log("<color=gold>=== 全ウェーブ完全クリア！ ===</color>");
             onAllWavesCleared?.Invoke();
+
+            GameManager.Instance.GameClear();
         }
     }
 }
