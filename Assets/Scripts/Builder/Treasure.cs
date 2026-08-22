@@ -11,6 +11,8 @@ public class Treasure : MonoBehaviour
 
     public int currentHP;
 
+    private bool isDead = false;
+
     private void Start()
     {
         currentHP = maxHP;
@@ -18,11 +20,14 @@ public class Treasure : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isDead)
+            return;
+
         currentHP -= damage;
 
         Debug.Log(
             $"<color=yellow>[宝箱] ダメージ:{damage}" +
-            $"残HP:{currentHP}/{maxHP}</color>"
+            $" 残HP:{currentHP}/{maxHP}</color>"
         );
 
         if (currentHP <= 0)
@@ -33,6 +38,11 @@ public class Treasure : MonoBehaviour
 
     private void Die()
     {
+        if (isDead)
+            return;
+
+        isDead = true;
+
         Debug.Log($"<color=red>[宝箱] {gameObject.name} が破壊されました</color>");
 
         // この宝箱が置かれているTileを取得
@@ -42,10 +52,18 @@ public class Treasure : MonoBehaviour
         {
             Tile tile = placeableObject.Tile;
 
-            // Tileをもとに戻す
             tile.Type = TileType.Floor;
             tile.IsWalkable = true;
             tile.PlacedObject = null;
+        }
+
+        // メイン宝箱ならゲームオーバー
+        if (isMainTreasure)
+        {
+            Debug.Log("<color=red>=== メイン宝箱が破壊されました！ゲームオーバー！ ===</color>");
+
+            GameManager.Instance.GameOver();
+            return;
         }
 
         Destroy(gameObject);

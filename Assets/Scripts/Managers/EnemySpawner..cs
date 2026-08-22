@@ -90,9 +90,12 @@ public class EnemySpawner : MonoBehaviour
     /// 一番近い宝箱を探す関数
     private Treasure FindNearestTreasure(Vector3 enemyPosition)
     {
+        // アクセスできる宝箱数の検知
         Treasure[] treasures = FindObjectsByType<Treasure>(
             FindObjectsInactive.Exclude
         );
+
+        Debug.Log($"現在のTreasure検出数: {treasures.Length}");
 
         Treasure nearestTreasure = null;
         float shortestPathDistance = Mathf.Infinity;
