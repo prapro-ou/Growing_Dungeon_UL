@@ -12,6 +12,9 @@ public class TileSelector : MonoBehaviour
     private BuildManager buildManager;
 
     [SerializeField]
+    private HoverHPUI hoverHPUI;
+
+    [SerializeField]
     private PreviewManager previewManager;
 
     private Highlightable currentHighlight;
@@ -24,6 +27,7 @@ public class TileSelector : MonoBehaviour
         if (EventSystem.current.IsPointerOverGameObject())
         {
             previewManager.HidePreview();
+            hoverHPUI.Hide();
 
             if (currentHighlight != null)
             {
@@ -57,7 +61,28 @@ public class TileSelector : MonoBehaviour
         if (!Physics.Raycast(ray, out RaycastHit hit))
         {
             previewManager.HidePreview();
+            hoverHPUI.Hide();
             return;
+        }
+
+        Monster monster = hit.collider.GetComponentInParent<Monster>();
+
+        if (monster != null)
+        {
+            hoverHPUI.ShowMonster(monster);
+        }
+        else
+        {
+            Treasure treasure = hit.collider.GetComponentInParent<Treasure>();
+
+            if (treasure != null)
+            {
+                hoverHPUI.ShowTreasure(treasure);
+            }
+            else
+            {
+                hoverHPUI.Hide();
+            }
         }
 
         Tile tile = hit.collider.GetComponent<Tile>();
@@ -106,10 +131,14 @@ public class TileSelector : MonoBehaviour
     {
         previewManager.HidePreview();
 
-        Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
+        Ray ray = mainCamera.ScreenPointToRay(
+            Mouse.current.position.ReadValue()
+        );
 
         if (!Physics.Raycast(ray, out RaycastHit hit))
         {
+            hoverHPUI.Hide();
+
             if (currentHighlight != null)
             {
                 currentHighlight.UnHighlight();
@@ -118,6 +147,34 @@ public class TileSelector : MonoBehaviour
 
             return;
         }
+
+        // =========================
+        // HP表示
+        // =========================
+
+        Monster monster = hit.collider.GetComponentInParent<Monster>();
+
+        if (monster != null)
+        {
+            hoverHPUI.ShowMonster(monster);
+        }
+        else
+        {
+            Treasure treasure = hit.collider.GetComponentInParent<Treasure>();
+
+            if (treasure != null)
+            {
+                hoverHPUI.ShowTreasure(treasure);
+            }
+            else
+            {
+                hoverHPUI.Hide();
+            }
+        }
+
+        // =========================
+        // 削除対象のハイライト
+        // =========================
 
         Highlightable highlight =
             hit.collider.GetComponentInParent<Highlightable>();
