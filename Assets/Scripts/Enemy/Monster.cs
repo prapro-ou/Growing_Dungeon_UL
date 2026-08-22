@@ -1,4 +1,4 @@
-using TMPro;
+using System.Collections;
 using UnityEngine;
 
 public class Monster : MonoBehaviour
@@ -12,10 +12,21 @@ public class Monster : MonoBehaviour
 
     private Tile tile;
 
+    [Header("ダメージ演出")]
+    [SerializeField] private float damageFlashTime = 0.1f;
+
+    private Renderer[] renderers;
+    private Color[] originalColors;
+    private Coroutine damageFlashCoroutine;
+
+    private MonsterView monsterView;
+
     // 自身が設置されたタイルを記憶
     public void SetTile(Tile tile)
     {
         this.tile = tile;
+
+        monsterView = GetComponent<MonsterView>();
     }
 
     private void Start()
@@ -25,10 +36,21 @@ public class Monster : MonoBehaviour
         {
             HP = MaxHP;
         }
+
+        // 自分と子オブジェクトのRendererを取得
+        renderers = GetComponentsInChildren<Renderer>();
+
+        // 元の色を保存
+        originalColors = new Color[renderers.Length];
+
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            originalColors[i] = renderers[i].material.color;
+        }
     }
 
     /// <summary>
-    /// モンスターがダメージを受ける処理（戦闘後もHPは削れたまま維持）
+    /// モンスターがダメージを受ける処理
     /// </summary>
     public void TakeDamage(int damage)
     {
@@ -36,7 +58,18 @@ public class Monster : MonoBehaviour
         int finalDamage = Mathf.Max(1, damage - Defense);
         HP -= finalDamage;
 
-        Debug.Log($"<color=cyan>[味方: {gameObject.name}] 被ダメージ: {finalDamage} (残HP: {HP}/{MaxHP})</color>");
+        Debug.Log(
+            $"<color=cyan>[味方: {gameObject.name}] " +
+            $"被ダメージ: {finalDamage} (残HP: {HP}/{MaxHP})</color>"
+        );
+
+        // ダメージ演出
+        if (damageFlashCoroutine != null)
+        {
+            StopCoroutine(damageFlashCoroutine);
+        }
+
+        damageFlashCoroutine = StartCoroutine(DamageFlash());
 
         if (HP <= 0)
         {
@@ -44,9 +77,40 @@ public class Monster : MonoBehaviour
         }
     }
 
+    private IEnumerator DamageFlash()
+    {
+        // 赤くする
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].material.color = Color.red;
+        }
+
+        // 0.1秒待つ
+        yield return new WaitForSeconds(damageFlashTime);
+
+        // 元の色に戻す
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].material.color = originalColors[i];
+        }
+
+        damageFlashCoroutine = null;
+    }
+
+    public void SetLookDirection(Vector3 targetPosition)
+    {
+        if (monsterView != null)
+        {
+            monsterView.FaceTarget(targetPosition);
+        }
+    }
+
     private void Die()
     {
-        Debug.Log($"<color=red>[味方: {gameObject.name}] は倒されて破壊されました！</color>");
+        Debug.Log(
+            $"<color=red>[味方: {gameObject.name}] " +
+            $"は倒されて破壊されました！</color>"
+        );
 
         if (tile != null)
         {

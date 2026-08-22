@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class IntruderNavMesh : MonoBehaviour
@@ -47,6 +47,9 @@ public class IntruderNavMesh : MonoBehaviour
     private float wanderTimer = 0f;
     [SerializeField] private float wanderRadius = 5f;
     [SerializeField] private float wanderChangeInterval = 3f;
+
+    // モンスター攻撃モーション関係
+    private bool isAttacking = false;
 
     private void Awake()
     {
@@ -528,10 +531,59 @@ public class IntruderNavMesh : MonoBehaviour
 
     private void AttackMonster(Monster target)
     {
+        if (target == null || isAttacking)
+            return;
+
+        StartCoroutine(AttackMonsterCoroutine(target));
+    }
+
+    private IEnumerator AttackMonsterCoroutine(Monster target)
+    {
+        isAttacking = true;
+
+        if (target == null)
+        {
+            isAttacking = false;
+            yield break;
+        }
+
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.isStopped = true;
+        }
+
+        // 攻撃対象のモンスターからMonsterViewを取得
+        MonsterView monsterView =
+            target.GetComponent<MonsterView>();
+
+        if (monsterView != null)
+        {
+            // モンスターを攻撃している侵入者の方向を向かせる
+            monsterView.FaceTarget(transform.position);
+
+            // モンスターの攻撃モーション
+            yield return StartCoroutine(
+                monsterView.PlayAttack(transform.position)
+            );
+        }
+        else
+        {
+            Debug.LogWarning(
+                $"[{target.gameObject.name}] MonsterViewが見つかりません"
+            );
+
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        // モーション終了後にダメージ
         if (target != null)
         {
             target.TakeDamage(attackPower);
         }
+
+        yield return new WaitForSeconds(attackInterval);
+
+        isAttacking = false;
     }
 
     private void AttackTreasure(Treasure target)

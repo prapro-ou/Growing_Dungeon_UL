@@ -16,11 +16,10 @@ public class HoverHPUI : MonoBehaviour
     [Header("表示位置")]
     [SerializeField] private Vector3 offset = new Vector3(0f, 1.5f, 0f);
 
-    private Image hpPanelImage;
+    [SerializeField] private Image hpPanelImage;
 
     private void Start()
     {
-        hpPanelImage = hpPanel.GetComponent<Image>();
         Hide();
     }
 
