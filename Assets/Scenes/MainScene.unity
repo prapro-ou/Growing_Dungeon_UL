@@ -2897,18 +2897,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildMenuUI
   changeMenuUI: {fileID: 827461599}
   buildManager: {fileID: 1846025067}
-  previewManager: {fileID: 1271326314}
-  gameManager: {fileID: 0}
   wallButton: {fileID: 1953730001}
   trapButton: {fileID: 46446492}
   monsterButton: {fileID: 1266422220}
   treasureButton: {fileID: 1960044956}
   eraseButton: {fileID: 676417596}
-  readyButton: {fileID: 107631359}
-  readyButtonText: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   selectedColor: {r: 0.3, g: 0.7, b: 1, a: 1}
-  readyColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &916519591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3098,6 +3093,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveManager
   gridManager: {fileID: 306169169}
+  buildManager: {fileID: 0}
+  previewManager: {fileID: 0}
   spawner: {fileID: 693293208}
   readyButton: {fileID: 107631359}
   buildMenu: {fileID: 916519586}
@@ -6413,6 +6410,7 @@ MonoBehaviour:
   subTreasurePrefab: {fileID: 592814285072341432, guid: eb05a4ab33435b74caf6d1ffbe455df1, type: 3}
   previewManager: {fileID: 1271326314}
   dungeonPointManager: {fileID: 1830692715}
+  waveManager: {fileID: 971810666}
   CurrentMode: 1
   CurrentMonsterType: 0
   CurrentTreasureType: 0

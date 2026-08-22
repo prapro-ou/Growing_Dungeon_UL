@@ -41,6 +41,8 @@ public class WaveManager : MonoBehaviour
 
     [Header("参照")]
     [SerializeField] private GridManager gridManager;
+    [SerializeField] private BuildManager buildManager;
+    [SerializeField] private PreviewManager previewManager;
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private Button readyButton;
     [SerializeField] private GameObject buildMenu; // 設置メニュー全体のオブジェクト（MonsterMenuなど）
@@ -132,11 +134,15 @@ public class WaveManager : MonoBehaviour
             buildMenu.SetActive(false);
         }
         
-        // 1. 壁の配置に合わせて NavMesh を再構築
+        // 壁の配置に合わせて NavMesh を再構築
         if (gridManager != null)
         {
             gridManager.RebuildNavMesh();
         }
+
+        // 準備完了：建築モード解除＆プレビュー消去
+        if (buildManager != null) buildManager.ClearBuildSelection();
+        if (previewManager != null) previewManager.ClearPreview();
 
         StartCoroutine(RunWaveSequence());
     }

@@ -27,6 +27,7 @@ public class BuildManager : MonoBehaviour
     [Header("参照")]
     [SerializeField] private PreviewManager previewManager;
     [SerializeField] private DungeonPointManager dungeonPointManager;
+    [SerializeField] private WaveManager waveManager;
 
     [Header("Mode and Type")]
     public BuildMode CurrentMode = BuildMode.None;
@@ -44,6 +45,10 @@ public class BuildManager : MonoBehaviour
     /// <param name="tile"></param>
     public void OnTileClicked(Tile tile)
     {
+        // GamePhaseが建築モードでない場合設置しない
+        if (waveManager.currentPhase != WaveManager.GamePhase.PrepPhase)
+            return;
+
         switch (CurrentMode)
         {
             case BuildMode.Wall:
@@ -286,5 +291,17 @@ public class BuildManager : MonoBehaviour
         }
 
         SetBuildMode(BuildMode.Treasure);
+    }
+
+    public void ClearBuildSelection()
+    {
+        CurrentMode = BuildMode.None;
+        CurrentMonsterType = MonsterType.None;
+        CurrentTreasureType = TreasureType.None;
+
+        if (previewManager != null)
+        {
+            previewManager.ClearPreview();
+        }
     }
 }
