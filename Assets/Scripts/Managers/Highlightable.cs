@@ -3,7 +3,9 @@ using UnityEngine;
 public class Highlightable : MonoBehaviour
 {
     private Renderer[] objectRenderers;
-    private Color[] originalColors;
+
+    // ハイライトする直前の色
+    private Color[] highlightColors;
 
     private bool isHighlighted;
 
@@ -11,21 +13,7 @@ public class Highlightable : MonoBehaviour
     {
         objectRenderers = GetComponentsInChildren<Renderer>(true);
 
-        originalColors = new Color[objectRenderers.Length];
-
-        for (int i = 0; i < objectRenderers.Length; i++)
-        {
-            Material material = objectRenderers[i].material;
-
-            if (material.HasProperty("_BaseColor"))
-            {
-                originalColors[i] = material.GetColor("_BaseColor");
-            }
-            else if (material.HasProperty("_Color"))
-            {
-                originalColors[i] = material.GetColor("_Color");
-            }
-        }
+        highlightColors = new Color[objectRenderers.Length];
     }
 
     public void Highlight()
@@ -35,7 +23,23 @@ public class Highlightable : MonoBehaviour
 
         isHighlighted = true;
 
-        Color color = Color.red;
+        // 現在の色を保存
+        for (int i = 0; i < objectRenderers.Length; i++)
+        {
+            Material material = objectRenderers[i].material;
+
+            if (material.HasProperty("_BaseColor"))
+            {
+                highlightColors[i] = material.GetColor("_BaseColor");
+            }
+            else if (material.HasProperty("_Color"))
+            {
+                highlightColors[i] = material.GetColor("_Color");
+            }
+        }
+
+        // 赤くする
+        Color redColor = Color.red;
 
         for (int i = 0; i < objectRenderers.Length; i++)
         {
@@ -43,13 +47,13 @@ public class Highlightable : MonoBehaviour
 
             if (material.HasProperty("_BaseColor"))
             {
-                color.a = originalColors[i].a;
-                material.SetColor("_BaseColor", color);
+                redColor.a = highlightColors[i].a;
+                material.SetColor("_BaseColor", redColor);
             }
             else if (material.HasProperty("_Color"))
             {
-                color.a = originalColors[i].a;
-                material.SetColor("_Color", color);
+                redColor.a = highlightColors[i].a;
+                material.SetColor("_Color", redColor);
             }
         }
     }
@@ -61,17 +65,18 @@ public class Highlightable : MonoBehaviour
 
         isHighlighted = false;
 
+        // ハイライトする前の色に戻す
         for (int i = 0; i < objectRenderers.Length; i++)
         {
             Material material = objectRenderers[i].material;
 
             if (material.HasProperty("_BaseColor"))
             {
-                material.SetColor("_BaseColor", originalColors[i]);
+                material.SetColor("_BaseColor", highlightColors[i]);
             }
             else if (material.HasProperty("_Color"))
             {
-                material.SetColor("_Color", originalColors[i]);
+                material.SetColor("_Color", highlightColors[i]);
             }
         }
     }

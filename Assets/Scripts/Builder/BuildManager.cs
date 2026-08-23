@@ -1,7 +1,5 @@
-using System.Collections;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 // aiueo
 public class BuildManager : MonoBehaviour
@@ -33,6 +31,10 @@ public class BuildManager : MonoBehaviour
     public BuildMode CurrentMode = BuildMode.None;
     public MonsterType CurrentMonsterType = MonsterType.None;
     public TreasureType CurrentTreasureType = TreasureType.None;
+
+    // 元のマテリアルの色を保存
+    private Dictionary<Renderer, Color> originalColors =
+        new Dictionary<Renderer, Color>();
 
     public void Start()
     {
@@ -128,6 +130,16 @@ public class BuildManager : MonoBehaviour
 
         wall.GetComponent<PlaceableObject>().Initialize(tile);
 
+        PlacedObjectInfo info = wall.GetComponent<PlacedObjectInfo>();
+
+        if (info != null)
+        {
+            info.Initialize(
+                waveManager.currentWaveIndex,
+                wallData.BuildCost
+            );
+        }
+
         tile.PlacedObject = wall;
     }
 
@@ -174,7 +186,17 @@ public class BuildManager : MonoBehaviour
 
         monster.GetComponent<Monster>().SetTile(tile);
 
-        tile.PlacedObject = monster;
+        PlacedObjectInfo info = monster.GetComponent<PlacedObjectInfo>();
+
+        if (info != null)
+        {
+            info.Initialize(
+                waveManager.currentWaveIndex,
+                monsterData.BuildCost
+            );
+        }
+
+    tile.PlacedObject = monster;
     }
 
     private void PlaceTrap(Tile tile)
@@ -305,13 +327,27 @@ public class BuildManager : MonoBehaviour
     {
         if (tile.Type == TileType.Floor)
             return;
-        
-        // 通常の建築フェーズでは宝箱を削除できない
+
+        // 宝箱は削除しない
         if (tile.Type == TileType.Treasure)
             return;
 
         if (tile.PlacedObject != null)
         {
+            PlacedObjectInfo info =
+                tile.PlacedObject.GetComponent<PlacedObjectInfo>();
+
+            // 今WAVEで設置したものだけDPを返す
+            if (info != null &&
+                info.IsPlacedThisWave(waveManager.currentWaveIndex))
+            {
+                dungeonPointManager.AddDP(info.BuildCost);
+
+                Debug.Log(
+                    $"{info.BuildCost}DPを返却しました"
+                );
+            }
+
             Destroy(tile.PlacedObject);
             tile.PlacedObject = null;
         }
@@ -482,6 +518,81 @@ public class BuildManager : MonoBehaviour
         if (previewManager != null)
         {
             previewManager.ClearPreview();
+        }
+    }
+
+    public void UpdatePreviousWaveObjects()
+    {
+        PlacedObjectInfo[] objects =
+            FindObjectsByType<PlacedObjectInfo>(
+                FindObjectsInactive.Exclude
+            );
+
+        foreach (PlacedObjectInfo info in objects)
+        {
+            if (info.PlacedWave < waveManager.currentWaveIndex)
+            {
+                // 前WAVE → 半透明
+                SetObjectTransparency(info.gameObject, 0.7f);
+            }
+            else
+            {
+                // 今WAVE → 通常表示
+                SetObjectTransparency(info.gameObject, 1f);
+            }
+        }
+    }
+
+
+    private void SetObjectTransparency(GameObject obj, float alpha)
+    {
+        Renderer[] renderers =
+            obj.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer renderer in renderers)
+        {
+            Material material = renderer.material;
+
+            Color color = material.color;
+            color.a = alpha;
+
+            material.color = color;
+        }
+    }
+
+    // 侵略モード開始時など、全オブジェクトを通常色に戻す
+    public void ResetAllObjectColors()
+    {
+        foreach (KeyValuePair<Renderer, Color> pair in originalColors)
+        {
+            if (pair.Key == null)
+                continue;
+
+            Material material = pair.Key.material;
+
+            if (material.HasProperty("_BaseColor"))
+            {
+                material.SetColor("_BaseColor", pair.Value);
+            }
+            else if (material.HasProperty("_Color"))
+            {
+                material.SetColor("_Color", pair.Value);
+            }
+        }
+
+        originalColors.Clear();
+    }
+
+    public void ResetObjectTransparency()
+    {
+        PlacedObjectInfo[] objects =
+            FindObjectsByType<PlacedObjectInfo>(
+                FindObjectsInactive.Exclude
+            );
+
+        foreach (PlacedObjectInfo info in objects)
+        {
+            SetObjectTransparency(info.gameObject, 1f);
         }
     }
 }

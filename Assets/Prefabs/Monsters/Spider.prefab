@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 5378804632390156712}
   - component: {fileID: 2101366932651870613}
   - component: {fileID: 8201507244082500838}
+  - component: {fileID: 2965301514671086518}
   m_Layer: 9
   m_Name: Spider
   m_TagString: Untagged
@@ -191,11 +192,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd79b9b65d6b244fa881360ca04d0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
+  monsterType: 0
   MaxHP: 135
   HP: 135
-  Attak: 10
-  Defense: 132
+  Attack: 0
   BuildCost: 10
+  MoveSpeed: 0
+  AttackRange: 0
+  DetectionRange: 0
+  AttackInterval: 0
   damageFlashTime: 0.1
 --- !u!114 &-7713442055171629351
 MonoBehaviour:
@@ -209,8 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7582b88acc79b4a87568ef41c89973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Attack
-  attackRange: 1.5
-  attackInterval: 1
 --- !u!114 &8252673511591375100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b982d3647aaae644b9e7bbc4fda24a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterDetection
-  detectionRange: 5
   intruderLayer:
     serializedVersion: 2
     m_Bits: 1024
@@ -282,15 +284,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017e975c5db666c4199a0bc792da15bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MonsterAI
-  detectionRange: 5
   intruderLayer:
     serializedVersion: 2
     m_Bits: 128
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 1024
-  attackRange: 1.5
-  attackInterval: 1
+--- !u!114 &2965301514671086518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020522979794356724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b90c42187f325b47809a823c70097e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlacedObjectInfo
 --- !u!1 &8911219583310579131
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 3783012784038772292}
   - component: {fileID: 6257584456954006860}
   - component: {fileID: 2250470026479639917}
-  - component: {fileID: 2665651167366821859}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49,8 +48,8 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5074641468253792820}
-  m_Enabled: 1
-  m_CastShadows: 1
+  m_Enabled: 0
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -91,27 +90,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2665651167366821859
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5074641468253792820}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5081957028717652463
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,6 +103,7 @@ GameObject:
   - component: {fileID: -825151269419748182}
   - component: {fileID: 505593339682062317}
   - component: {fileID: 5515537063639401468}
+  - component: {fileID: 8170453823202847068}
   m_Layer: 8
   m_Name: MainTreasure
   m_TagString: Untagged
@@ -145,8 +124,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3783012784038772292}
   - {fileID: 3046914737954479334}
+  - {fileID: 3783012784038772292}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-5638878350267447854
@@ -208,6 +187,18 @@ MonoBehaviour:
   m_IgnoreFromBuild: 0
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &8170453823202847068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5081957028717652463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b90c42187f325b47809a823c70097e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlacedObjectInfo
 --- !u!1001 &3046914737954342502
 PrefabInstance:
   m_ObjectHideFlags: 0

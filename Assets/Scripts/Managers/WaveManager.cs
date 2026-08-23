@@ -170,7 +170,7 @@ public class WaveManager : MonoBehaviour
     {
         currentPhase = GamePhase.PrepPhase;
         Debug.Log($"<color=green>=== 設置フェーズ開始 (Wave {currentWaveIndex + 1} の準備) ===</color>");
-
+        
         // Readyボタンを有効化
         if (readyButton != null)
         {
@@ -181,6 +181,11 @@ public class WaveManager : MonoBehaviour
         if (buildMenu != null)
         {
             buildMenu.SetActive(true);
+        }
+
+        if (buildManager != null)
+        {
+            buildManager.UpdatePreviousWaveObjects();
         }
 
         onPrepPhaseStart?.Invoke();
@@ -236,9 +241,17 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator RunWaveSequence()
     {
+        // ★侵略開始時に必ず通常表示へ
+        if (buildManager != null)
+        {
+            buildManager.ResetObjectTransparency();
+        }
+
         currentPhase = GamePhase.WavePhase;
+
         onWavePhaseStart?.Invoke();
         onPhaseChanged?.Invoke(currentPhase);
+
 
         WaveData currentWave = waveList[currentWaveIndex];
         Debug.Log($"<color=cyan>=== {currentWave.waveName} (Wave {currentWaveIndex + 1}/{waveList.Count}) 戦闘開始！ ===</color>");

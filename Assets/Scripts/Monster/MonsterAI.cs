@@ -178,8 +178,6 @@ public class MonsterAI : MonoBehaviour
             return;
         }
 
-        Debug.Log("侵入者を追跡中");
-
         float distance = Vector3.Distance(
             transform.position,
             currentTarget.transform.position

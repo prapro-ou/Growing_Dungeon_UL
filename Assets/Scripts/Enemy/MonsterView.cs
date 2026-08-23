@@ -6,7 +6,14 @@ public class MonsterView : MonoBehaviour
     [SerializeField] private GameObject top;
     [SerializeField] private GameObject front;
 
+    private Renderer[] topRenderers;
+    private Color[] topOriginalColors;
+
     private WaveManager waveManager;
+    private PlacedObjectInfo placedObjectInfo;
+
+    [Header("建築モード表示")]
+    [SerializeField] private float previousWaveAlpha = 0.9f;
 
     [Header("攻撃モーション")]
     [SerializeField] private float attackDistance = 0.3f;
@@ -22,6 +29,29 @@ public class MonsterView : MonoBehaviour
         {
             frontOriginalPosition = front.transform.localPosition;
         }
+
+        if (top != null)
+        {
+            topRenderers = top.GetComponentsInChildren<Renderer>(true);
+            topOriginalColors = new Color[topRenderers.Length];
+
+            for (int i = 0; i < topRenderers.Length; i++)
+            {
+                Material material = topRenderers[i].material;
+
+                if (material.HasProperty("_BaseColor"))
+                {
+                    topOriginalColors[i] = material.GetColor("_BaseColor");
+                }
+                else if (material.HasProperty("_Color"))
+                {
+                    topOriginalColors[i] = material.GetColor("_Color");
+                }
+            }
+        }
+
+        // 設置情報を取得
+        placedObjectInfo = GetComponent<PlacedObjectInfo>();
 
         waveManager = FindAnyObjectByType<WaveManager>();
 
@@ -46,11 +76,62 @@ public class MonsterView : MonoBehaviour
         {
             top.SetActive(true);
             front.SetActive(false);
+
+            float alpha = 1f;
+
+            // 前WAVEで設置されたモンスターだけ半透明
+            if (placedObjectInfo != null &&
+                waveManager != null &&
+                placedObjectInfo.PlacedWave < waveManager.currentWaveIndex)
+            {
+                alpha = previousWaveAlpha;
+            }
+
+            SetTopTransparency(alpha);
         }
         else if (phase == WaveManager.GamePhase.WavePhase)
         {
             top.SetActive(false);
             front.SetActive(true);
+
+            // 侵略モードでは完全に通常表示
+            SetFrontTransparency(1f);
+        }
+    }
+
+    private void SetTopTransparency(float alpha)
+    {
+        if (top == null)
+            return;
+
+        Renderer[] renderers =
+            top.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer renderer in renderers)
+        {
+            Material material = renderer.material;
+
+            Color color = material.color;
+            color.a = alpha;
+            material.color = color;
+        }
+    }
+
+    private void SetFrontTransparency(float alpha)
+    {
+        if (front == null)
+            return;
+
+        Renderer[] renderers =
+            front.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer renderer in renderers)
+        {
+            Material material = renderer.material;
+
+            Color color = material.color;
+            color.a = alpha;
+            material.color = color;
         }
     }
 
@@ -79,7 +160,6 @@ public class MonsterView : MonoBehaviour
         if (front == null)
             return;
 
-        // ほぼ停止している場合は向きを変えない
         if (Mathf.Abs(velocity.x) < 0.01f)
             return;
 
@@ -87,12 +167,10 @@ public class MonsterView : MonoBehaviour
 
         if (velocity.x > 0)
         {
-            // 右向き
             scale.x = Mathf.Abs(scale.x);
         }
         else if (velocity.x < 0)
         {
-            // 左向き
             scale.x = -Mathf.Abs(scale.x);
         }
 
@@ -108,10 +186,8 @@ public class MonsterView : MonoBehaviour
 
         Vector3 startPosition = frontOriginalPosition;
 
-        // 攻撃対象への方向を計算
         Vector3 worldDirection = targetPosition - transform.position;
 
-        // Y方向は無視してX・Zだけで方向を決める
         worldDirection.y = 0f;
 
         if (worldDirection.sqrMagnitude < 0.001f)
@@ -119,16 +195,11 @@ public class MonsterView : MonoBehaviour
 
         worldDirection.Normalize();
 
-        // ワールド方向をMonsterのローカル方向に変換
         Vector3 localDirection =
             transform.InverseTransformDirection(worldDirection);
 
         localDirection.y = 0f;
         localDirection.Normalize();
-
-        // =========================
-        // 少し後ろに引く
-        // =========================
 
         Vector3 backPosition =
             startPosition - localDirection * 0.12f;
@@ -147,10 +218,6 @@ public class MonsterView : MonoBehaviour
             yield return null;
         }
 
-        // =========================
-        // 攻撃方向へ踏み込む
-        // =========================
-
         Vector3 attackPosition =
             startPosition + localDirection * attackDistance;
 
@@ -168,12 +235,7 @@ public class MonsterView : MonoBehaviour
             yield return null;
         }
 
-        // 少し止める
         yield return new WaitForSeconds(0.05f);
-
-        // =========================
-        // 元の位置に戻る
-        // =========================
 
         timer = 0f;
 

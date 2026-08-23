@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 8848613323523233237}
   - component: {fileID: 8045065856290923677}
   - component: {fileID: 3541748493608348436}
+  - component: {fileID: 6352706728856271233}
   m_Layer: 9
   m_Name: Golem
   m_TagString: Untagged
@@ -403,3 +404,15 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &6352706728856271233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020522979794356724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b90c42187f325b47809a823c70097e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlacedObjectInfo
