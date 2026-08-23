@@ -601,10 +601,59 @@ public class IntruderNavMesh : MonoBehaviour
 
     private void AttackTreasure(Treasure target)
     {
+        if (target == null || isAttacking)
+            return;
+
+        Debug.Log("★ 宝箱攻撃開始");
+
+        StartCoroutine(AttackTreasureCoroutine(target));
+    }
+
+    private IEnumerator AttackTreasureCoroutine(Treasure target)
+    {
+        isAttacking = true;
+
+        Debug.Log("★ 宝箱攻撃コルーチン開始");
+
+        if (target == null)
+        {
+            isAttacking = false;
+            yield break;
+        }
+
+        // 移動停止
+        if (agent != null && agent.isOnNavMesh)
+        {
+            agent.isStopped = true;
+        }
+
+        // 攻撃方向を向く
+        if (intruderView != null)
+        {
+            Debug.Log("★ PlayAttackを実行");
+
+            intruderView.FaceTarget(
+                target.transform.position
+            );
+
+            yield return StartCoroutine(
+                intruderView.PlayAttack(
+                    target.transform.position
+                )
+            );
+
+            Debug.Log("★ PlayAttack終了");
+        }
+
+        // モーション終了後にダメージ
         if (target != null)
         {
             target.TakeDamage(attackPower);
         }
+
+        yield return new WaitForSeconds(attackInterval);
+
+        isAttacking = false;
     }
 
     /// ランダム移動先を決める関数

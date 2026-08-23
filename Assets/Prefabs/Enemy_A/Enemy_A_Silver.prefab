@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 884800991011353432}
   - component: {fileID: 4056155570273654690}
   - component: {fileID: 2461521473561413490}
+  - component: {fileID: 6896119579113986107}
   m_Layer: 0
   m_Name: Enemy_A_Silver
   m_TagString: Enemy
@@ -68,6 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c503947f82307e9488dcbe06520032ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IntruderNavMesh
+  baseRewardDP: 1
   currentRank: 2
   rankName: 
   currentHealth: 0
@@ -79,6 +81,24 @@ MonoBehaviour:
   attackInterval: 0
   wanderRadius: 5
   wanderChangeInterval: 3
+--- !u!114 &6896119579113986107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3185209855928050848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968d43fbda87d69479bee7fdd7a61ff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IntruderView
+  front: {fileID: 9219733858636703737}
+  attackDistance: 0.3
+  attackBackTime: 0.08
+  attackForwardTime: 0.08
+  attackReturnTime: 0.12
+  damageFlashTime: 0.1
 --- !u!1 &5663361354782665536
 GameObject:
   m_ObjectHideFlags: 0
