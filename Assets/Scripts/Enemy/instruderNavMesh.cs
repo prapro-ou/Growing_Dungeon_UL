@@ -21,6 +21,7 @@ public class IntruderNavMesh : MonoBehaviour
 
     [Header("攻撃設定")]
     [SerializeField] private float attackRange = 1.5f;
+    private float treasureAttackRange = 1.8f;
     [SerializeField] private float attackInterval = 1.0f;
 
     // 外部プロパティ
@@ -156,7 +157,7 @@ public class IntruderNavMesh : MonoBehaviour
         );
 
         // 宝箱に十分近づいた
-        if (distance <= attackRange)
+        if (distance <= treasureAttackRange)
         {
             if (agent != null && agent.isOnNavMesh)
             {
@@ -257,7 +258,7 @@ public class IntruderNavMesh : MonoBehaviour
         );
 
         // 宝箱が攻撃範囲内
-        if (treasureDistance <= attackRange)
+        if (treasureDistance <= treasureAttackRange)
         {
             if (agent != null && agent.isOnNavMesh)
             {
@@ -348,7 +349,7 @@ public class IntruderNavMesh : MonoBehaviour
             );
 
             // 宝箱が攻撃範囲内
-            if (treasureDistance <= attackRange)
+            if (treasureDistance <= treasureAttackRange)
             {
                 if (agent != null && agent.isOnNavMesh)
                 {
