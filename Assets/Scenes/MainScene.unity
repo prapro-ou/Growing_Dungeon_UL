@@ -2919,6 +2919,7 @@ MonoBehaviour:
   storyPanel: {fileID: 718405669}
   buildMenu: {fileID: 916519586}
   treasureMenu: {fileID: 251014716}
+  dpTextObject: {fileID: 1138966599}
   storyText: {fileID: 1712118432}
   storyLines:
   - Where am I...? My power... my memories... everything is gone.

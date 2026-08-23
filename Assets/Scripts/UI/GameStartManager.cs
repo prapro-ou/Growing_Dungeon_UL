@@ -9,6 +9,9 @@ public class GameStartManager : MonoBehaviour
     public GameObject buildMenu;     // Canvas内にあるBuildMenuを入れる
     public GameObject treasureMenu;
 
+    [Header("DP Settings")] 
+    public GameObject dpTextObject;
+
     [Header("Story Settings")]
     public TextMeshProUGUI storyText; // セリフ用のText(TMP)を入れる
     
@@ -22,6 +25,11 @@ public class GameStartManager : MonoBehaviour
         // 起動時の初期化
         titlePanel.SetActive(true);
         storyPanel.SetActive(false);
+
+        if (dpTextObject != null)
+        {
+            dpTextObject.SetActive(false);
+        }
         
         // ゲーム開始前は本編のBuildMenuを非表示にしておく
         if (buildMenu != null)
@@ -68,6 +76,11 @@ public class GameStartManager : MonoBehaviour
     private void StartGameplay()
     {
         storyPanel.SetActive(false); // ストーリーパネルを閉じる
+
+        if (dpTextObject != null)
+        {
+            dpTextObject.SetActive(true);
+        }
 
         if (treasureMenu != null)
         {

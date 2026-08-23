@@ -8,19 +8,35 @@ public class DungeonPointUI : MonoBehaviour
 
     private void Start()
     {
-        dungeonPointManager.OnDPChanged += UpdateDPText;
+        if (dungeonPointManager == null)
+        {
+            dungeonPointManager = FindFirstObjectByType<DungeonPointManager>();
+        }
 
-        // 最初の表示
-        UpdateDPText(dungeonPointManager.CurrentDP);
+        if (dungeonPointManager != null)
+        {
+            dungeonPointManager.OnDPChanged += UpdateDPText;
+            UpdateDPText(dungeonPointManager.CurrentDP);
+        }
+        else if (dpText != null)
+        {
+            dpText.text = "DP: 0";
+        }
     }
 
     private void OnDestroy()
     {
-        dungeonPointManager.OnDPChanged -= UpdateDPText;
+        if (dungeonPointManager != null)
+        {
+            dungeonPointManager.OnDPChanged -= UpdateDPText;
+        }
     }
 
     private void UpdateDPText(int currentDP)
     {
-        dpText.text = $"DP: {currentDP}";
+        if (dpText != null)
+        {
+            dpText.text = $"DP: {currentDP}";
+        }
     }
 }

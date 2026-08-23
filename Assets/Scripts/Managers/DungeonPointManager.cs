@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class DungeonPointManager : MonoBehaviour
 {
+    public static DungeonPointManager Instance { get; private set; }
+
     [Header("Dungeon Point")]
     [SerializeField] private int currentDP = 100;
 
@@ -11,6 +13,21 @@ public class DungeonPointManager : MonoBehaviour
 
     // DPが変更されたときに通知する
     public event Action<int> OnDPChanged;
+
+    private void Awake()
+    {
+        // 既に存在する場合は重複（二重生成）を防ぐために自分を破壊する
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        
+        // シーンを切り替えてもこのオブジェクトを破壊しないようにする
+        DontDestroyOnLoad(gameObject);
+    }
 
     private void Start()
     {

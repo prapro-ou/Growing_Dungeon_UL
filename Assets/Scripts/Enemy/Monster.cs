@@ -10,6 +10,8 @@ public class Monster : MonoBehaviour
     public int Defense = 0;
     public int BuildCost = 10;
 
+
+
     private Tile tile;
 
     [Header("ダメージ演出")]
@@ -111,6 +113,7 @@ public class Monster : MonoBehaviour
             $"<color=red>[味方: {gameObject.name}] " +
             $"は倒されて破壊されました！</color>"
         );
+
 
         if (tile != null)
         {

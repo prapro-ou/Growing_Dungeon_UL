@@ -4,7 +4,10 @@ using System.Collections;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class IntruderNavMesh : MonoBehaviour
-{
+{   
+    [Header("DP設定")]
+    [SerializeField] private int baseRewardDP = 1; 
+
     [Header("敵のランク設定")]
     [SerializeField] private AdventurerData.Rank currentRank = AdventurerData.Rank.Iron;
 
@@ -705,6 +708,48 @@ public class IntruderNavMesh : MonoBehaviour
     private void Die()
     {
         Debug.Log($"<color=red>[敵: {rankName}] 撃破されました！</color>");
+        
+        int rewardDP = 1;
+        switch (currentRank)
+        {
+            case AdventurerData.Rank.Iron:
+                rewardDP = 1;
+                break;
+            case AdventurerData.Rank.Bronze:
+                rewardDP = 2;
+                break;
+            case AdventurerData.Rank.Silver:
+                rewardDP = 5;
+                break;
+            case AdventurerData.Rank.Gold:
+                rewardDP = 10;
+                break;
+            case AdventurerData.Rank.Platinum:
+                rewardDP = 20;
+                break;
+            case AdventurerData.Rank.Emerald:
+                rewardDP = 35;
+                break;
+            case AdventurerData.Rank.Diamond:
+                rewardDP = 50;
+                break;
+            case AdventurerData.Rank.Master:
+                rewardDP = 75;
+                break;
+            case AdventurerData.Rank.Grandmaster:
+                rewardDP = 100;
+                break;
+            case AdventurerData.Rank.Challenger:
+                rewardDP = 150;
+                break;
+        }
+
+        DungeonPointManager dpManager = FindFirstObjectByType<DungeonPointManager>();
+        if (dpManager != null)
+        {
+            dpManager.AddDP(rewardDP);
+        }
+
         Destroy(gameObject);
     }
 }
