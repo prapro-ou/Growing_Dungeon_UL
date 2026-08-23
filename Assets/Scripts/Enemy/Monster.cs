@@ -3,14 +3,23 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    [Header("ステータス")]
-    public int MaxHP = 100;
+    [Header("モンスター設定")]
+    [SerializeField] private MonsterData.MonsterType monsterType;
+
+    public MonsterData.MonsterType MonsterType => monsterType;
+
+    [Header("ステータス（MonsterDataから自動設定）")]
+    public int MaxHP;
     public int HP;
-    public int Attak = 20;
-    public int Defense = 0;
-    public int BuildCost = 10;
+    public int Attack;
+    public int BuildCost;
 
+    public float MoveSpeed;
+    public float AttackRange;
+    public float DetectionRange;
+    public float AttackInterval;
 
+    private MonsterData monsterData;
 
     private Tile tile;
 
@@ -31,18 +40,52 @@ public class Monster : MonoBehaviour
         monsterView = GetComponent<MonsterView>();
     }
 
+    private void Awake()
+    {
+        monsterData = FindAnyObjectByType<MonsterData>();
+
+        if (monsterData == null)
+        {
+            Debug.LogError(
+                "シーン内にMonsterDataがありません"
+            );
+
+            return;
+        }
+    }
+
     private void Start()
     {
-        // 初期HPが未設定の場合はMaxHPで開始
-        if (HP <= 0)
+        monsterData = FindAnyObjectByType<MonsterData>();
+
+        if (monsterData != null)
         {
+            MonsterData.MonsterStatus status =
+                monsterData.GetStatus(monsterType);
+
+            MaxHP = status.maxHealth;
             HP = MaxHP;
+            Attack = status.attackPower;
+            BuildCost = status.buildCost;
+
+            MoveSpeed = status.moveSpeed;
+            AttackRange = status.attackRange;
+            DetectionRange = status.detectionRange;
+            AttackInterval = status.attackInterval;
+
+            // NavMeshAgentの速度もモンスターごとに変更
+            UnityEngine.AI.NavMeshAgent agent =
+                GetComponent<UnityEngine.AI.NavMeshAgent>();
+
+            if (agent != null)
+            {
+                agent.speed = status.moveSpeed;
+            }
         }
 
-        // 自分と子オブジェクトのRendererを取得
+        // Renderer取得
         renderers = GetComponentsInChildren<Renderer>();
 
-        // 元の色を保存
         originalColors = new Color[renderers.Length];
 
         for (int i = 0; i < renderers.Length; i++)
@@ -56,13 +99,13 @@ public class Monster : MonoBehaviour
     /// </summary>
     public void TakeDamage(int damage)
     {
-        // 防御力を考慮した実質ダメージ計算（最低1ダメージ）
-        int finalDamage = Mathf.Max(1, damage - Defense);
-        HP -= finalDamage;
+        // 防御力なし
+        HP -= damage;
 
         Debug.Log(
             $"<color=cyan>[味方: {gameObject.name}] " +
-            $"被ダメージ: {finalDamage} (残HP: {HP}/{MaxHP})</color>"
+            $"被ダメージ: {damage} " +
+            $"(残HP: {HP}/{MaxHP})</color>"
         );
 
         // ダメージ演出
@@ -71,7 +114,8 @@ public class Monster : MonoBehaviour
             StopCoroutine(damageFlashCoroutine);
         }
 
-        damageFlashCoroutine = StartCoroutine(DamageFlash());
+        damageFlashCoroutine =
+            StartCoroutine(DamageFlash());
 
         if (HP <= 0)
         {
@@ -87,13 +131,15 @@ public class Monster : MonoBehaviour
             renderers[i].material.color = Color.red;
         }
 
-        // 0.1秒待つ
-        yield return new WaitForSeconds(damageFlashTime);
+        yield return new WaitForSeconds(
+            damageFlashTime
+        );
 
         // 元の色に戻す
         for (int i = 0; i < renderers.Length; i++)
         {
-            renderers[i].material.color = originalColors[i];
+            renderers[i].material.color =
+                originalColors[i];
         }
 
         damageFlashCoroutine = null;
@@ -113,7 +159,6 @@ public class Monster : MonoBehaviour
             $"<color=red>[味方: {gameObject.name}] " +
             $"は倒されて破壊されました！</color>"
         );
-
 
         if (tile != null)
         {

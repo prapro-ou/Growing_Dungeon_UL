@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 884800991011353432}
   - component: {fileID: 4056155570273654690}
   - component: {fileID: -8216603539188359581}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy_A_Master
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!50 &-8216603539188359581
 Rigidbody2D:
   serializedVersion: 5
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8044642902909168952}
   - component: {fileID: 3102602817762919397}
   - component: {fileID: 4794995052618184348}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: front
   m_TagString: Untagged
   m_Icon: {fileID: 0}

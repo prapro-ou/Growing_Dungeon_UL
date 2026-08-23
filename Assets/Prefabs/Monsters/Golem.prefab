@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5457942903355325692}
   - component: {fileID: 2703912092260585378}
   - component: {fileID: 3726250328233722824}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 3527458739386619420}
   - component: {fileID: 7139306728009284701}
   - component: {fileID: 1437908694701368169}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -242,7 +242,10 @@ GameObject:
   - component: {fileID: 5052272819237070975}
   - component: {fileID: 3537343466061928889}
   - component: {fileID: 6257269029391469343}
-  m_Layer: 0
+  - component: {fileID: 8848613323523233237}
+  - component: {fileID: 8045065856290923677}
+  - component: {fileID: 3541748493608348436}
+  m_Layer: 9
   m_Name: Golem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -302,11 +305,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bd79b9b65d6b244fa881360ca04d0b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Monster
+  monsterType: 5
   MaxHP: 215
   HP: 215
-  Attak: 13
-  Defense: 187
+  Attack: 0
   BuildCost: 20
+  MoveSpeed: 0
+  AttackRange: 0
+  DetectionRange: 0
+  AttackInterval: 0
   damageFlashTime: 0.1
 --- !u!114 &3537343466061928889
 MonoBehaviour:
@@ -320,8 +327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7582b88acc79b4a87568ef41c89973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Attack
-  attackRange: 1.5
-  attackInterval: 1
 --- !u!114 &6257269029391469343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -336,3 +341,65 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterView
   top: {fileID: 2382487271092855943}
   front: {fileID: 1522460568603777323}
+  attackDistance: 0.3
+  attackBackTime: 0.08
+  attackForwardTime: 0.08
+  attackReturnTime: 0.12
+--- !u!114 &8848613323523233237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020522979794356724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b982d3647aaae644b9e7bbc4fda24a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterDetection
+  intruderLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!195 &8045065856290923677
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020522979794356724}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 0
+--- !u!114 &3541748493608348436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020522979794356724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017e975c5db666c4199a0bc792da15bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterAI
+  intruderLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1024

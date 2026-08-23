@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4309668011783352858}
   - component: {fileID: 9131720039787922933}
   - component: {fileID: 4921651525225916493}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,8 @@ GameObject:
   - component: {fileID: 4056155570273654690}
   - component: {fileID: 2461521473561413490}
   - component: {fileID: -3850520435236474160}
-  m_Layer: 0
+  - component: {fileID: 1872312124405738805}
+  m_Layer: 10
   m_Name: Enemy_A_Platinum
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -170,7 +171,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &2461521473561413490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,3 +214,24 @@ MonoBehaviour:
   attackForwardTime: 0.08
   attackReturnTime: 0.12
   damageFlashTime: 0.1
+--- !u!65 &1872312124405738805
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3185209855928050848}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 884800991011353432}
   - component: {fileID: 4056155570273654690}
   - component: {fileID: 2461521473561413490}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy_A_Diamond
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -55,7 +55,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!114 &2461521473561413490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,6 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c503947f82307e9488dcbe06520032ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::IntruderNavMesh
+  baseRewardDP: 1
   currentRank: 6
   rankName: 
   currentHealth: 0
@@ -90,7 +91,7 @@ GameObject:
   - component: {fileID: 3436644324034167891}
   - component: {fileID: 7565235563614670790}
   - component: {fileID: 1133891596183855134}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: front
   m_TagString: Untagged
   m_Icon: {fileID: 0}

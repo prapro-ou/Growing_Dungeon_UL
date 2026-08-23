@@ -12,13 +12,13 @@ GameObject:
   - component: {fileID: 6257584456954006860}
   - component: {fileID: 2250470026479639917}
   - component: {fileID: 2665651167366821859}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Object
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3783012784038772292
 Transform:
   m_ObjectHideFlags: 0
@@ -124,7 +124,8 @@ GameObject:
   - component: {fileID: -5638878350267447854}
   - component: {fileID: -825151269419748182}
   - component: {fileID: 505593339682062317}
-  m_Layer: 0
+  - component: {fileID: 5515537063639401468}
+  m_Layer: 8
   m_Name: MainTreasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,6 +188,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56b5da09a21a1384b9e163ec49ce7e6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Highlightable
+--- !u!114 &5515537063639401468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5081957028717652463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshModifier
+  m_SerializedVersion: 0
+  m_OverrideArea: 1
+  m_Area: 1
+  m_OverrideGenerateLinks: 0
+  m_GenerateLinks: 0
+  m_IgnoreFromBuild: 0
+  m_ApplyToChildren: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &3046914737954342502
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -198,6 +219,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
       propertyPath: m_Name
       value: chest_close
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 4b1205a7235860c479fc94aefe26ebf1, type: 3}
       propertyPath: m_LocalScale.x

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5457942903355325692}
   - component: {fileID: 2703912092260585378}
   - component: {fileID: 3726250328233722824}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,7 +128,10 @@ GameObject:
   - component: {fileID: 7651863103633142774}
   - component: {fileID: -7713442055171629351}
   - component: {fileID: 8252673511591375100}
-  m_Layer: 0
+  - component: {fileID: 5378804632390156712}
+  - component: {fileID: 2101366932651870613}
+  - component: {fileID: 8201507244082500838}
+  m_Layer: 9
   m_Name: Spider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,6 +225,72 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterView
   top: {fileID: 8911219583310579131}
   front: {fileID: 1522460568603777323}
+  attackDistance: 0.3
+  attackBackTime: 0.08
+  attackForwardTime: 0.08
+  attackReturnTime: 0.12
+--- !u!114 &5378804632390156712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020522979794356724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b982d3647aaae644b9e7bbc4fda24a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterDetection
+  detectionRange: 5
+  intruderLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!195 &2101366932651870613
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020522979794356724}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 0
+--- !u!114 &8201507244082500838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4020522979794356724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017e975c5db666c4199a0bc792da15bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MonsterAI
+  detectionRange: 5
+  intruderLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  attackRange: 1.5
+  attackInterval: 1
 --- !u!1 &8911219583310579131
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +302,7 @@ GameObject:
   - component: {fileID: 3395566315653379125}
   - component: {fileID: 8417905870247849333}
   - component: {fileID: 7688632320254638069}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}

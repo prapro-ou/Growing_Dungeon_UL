@@ -74,6 +74,31 @@ public class MonsterView : MonoBehaviour
         front.transform.localScale = scale;
     }
 
+    public void UpdateDirection(Vector3 velocity)
+    {
+        if (front == null)
+            return;
+
+        // ほぼ停止している場合は向きを変えない
+        if (Mathf.Abs(velocity.x) < 0.01f)
+            return;
+
+        Vector3 scale = front.transform.localScale;
+
+        if (velocity.x > 0)
+        {
+            // 右向き
+            scale.x = Mathf.Abs(scale.x);
+        }
+        else if (velocity.x < 0)
+        {
+            // 左向き
+            scale.x = -Mathf.Abs(scale.x);
+        }
+
+        front.transform.localScale = scale;
+    }
+
     public IEnumerator PlayAttack(Vector3 targetPosition)
     {
         if (front == null)

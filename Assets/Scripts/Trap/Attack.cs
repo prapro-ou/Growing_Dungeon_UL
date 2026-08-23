@@ -1,22 +1,18 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    [Header("攻撃設定")]
-    [Tooltip("攻撃範囲")]
-    [SerializeField] private float attackRange = 1.5f;
-
-    [Tooltip("攻撃間隔（秒）")]
-    [SerializeField] private float attackInterval = 1.0f;
+    private Monster monsterData;
+    private MonsterView monsterView;
 
     private float attackTimer = 0f;
-    private Monster monsterData;
+
+    // 現在の攻撃対象
+    private IntruderNavMesh target;
 
     // 攻撃中か
     private bool isAttacking = false;
-
-    private MonsterView monsterView;
 
     private void Awake()
     {
@@ -26,75 +22,73 @@ public class Attack : MonoBehaviour
 
     private void Update()
     {
-        attackTimer += Time.deltaTime;
-
-        // 一番近い敵を探す
-        IntruderNavMesh target = FindNearestEnemy();
+        if (monsterData == null)
+            return;
 
         if (target == null)
             return;
 
-        // 敵との距離を確認
         float distance = Vector3.Distance(
             transform.position,
             target.transform.position
         );
 
-        // 攻撃範囲内なら攻撃
-        if (distance <= attackRange)
+        // 攻撃範囲外なら何もしない
+        if (distance > monsterData.AttackRange)
+            return;
+
+        attackTimer += Time.deltaTime;
+
+        // MonsterDataの攻撃間隔を使用
+        if (attackTimer >= monsterData.AttackInterval &&
+            !isAttacking)
         {
-            if (attackTimer >= attackInterval && !isAttacking)
-            {
-                AttackTarget(target);
-                attackTimer = 0f;
-            }
+            AttackTarget();
+            attackTimer = 0f;
         }
     }
 
-    private IntruderNavMesh FindNearestEnemy()
+    // =========================
+    // 攻撃対象を設定
+    // =========================
+
+    public void SetTarget(IntruderNavMesh newTarget)
     {
-        IntruderNavMesh[] enemies =
-            FindObjectsByType<IntruderNavMesh>(
-                FindObjectsInactive.Exclude
-            );
-
-        IntruderNavMesh nearestEnemy = null;
-        float nearestDistance = Mathf.Infinity;
-
-        foreach (IntruderNavMesh enemy in enemies)
-        {
-            if (enemy == null)
-                continue;
-
-            float distance = Vector3.Distance(
-                transform.position,
-                enemy.transform.position
-            );
-
-            if (distance < nearestDistance)
-            {
-                nearestDistance = distance;
-                nearestEnemy = enemy;
-            }
-        }
-
-        return nearestEnemy;
+        target = newTarget;
     }
 
-    private void AttackTarget(IntruderNavMesh target)
+    // =========================
+    // 攻撃対象を解除
+    // =========================
+
+    public void ClearTarget()
+    {
+        target = null;
+    }
+
+    // =========================
+    // 攻撃開始
+    // =========================
+
+    private void AttackTarget()
     {
         if (target == null || isAttacking)
             return;
 
-        StartCoroutine(AttackCoroutine(target));
+        StartCoroutine(AttackCoroutine());
     }
 
-    private IEnumerator AttackCoroutine(IntruderNavMesh target)
+    // =========================
+    // 攻撃モーション
+    // =========================
+
+    private IEnumerator AttackCoroutine()
     {
         isAttacking = true;
 
-        // 攻撃対象が消えていたら終了
-        if (target == null)
+        IntruderNavMesh attackTarget = target;
+
+        if (attackTarget == null)
         {
             isAttacking = false;
             yield break;
@@ -104,43 +98,45 @@ public class Attack : MonoBehaviour
         if (monsterView != null)
         {
             monsterView.FaceTarget(
-                target.transform.position
+                attackTarget.transform.position
             );
 
             // 攻撃モーション
             yield return StartCoroutine(
                 monsterView.PlayAttack(
-                    target.transform.position
+                    attackTarget.transform.position
                 )
             );
         }
         else
         {
-            // MonsterViewがない場合
             yield return new WaitForSeconds(0.1f);
         }
 
-        // モーション終了後にダメージ
-        if (target != null)
+        // モーション中に対象が消えていなければダメージ
+        if (attackTarget != null)
         {
-            int damage = monsterData != null
-                ? monsterData.Attak
-                : 20;
-
-            target.TakeDamage(damage);
+            attackTarget.TakeDamage(
+                monsterData.Attack
+            );
         }
 
         isAttacking = false;
     }
 
-    // エディタ上で攻撃範囲を表示
     private void OnDrawGizmosSelected()
     {
+        if (monsterData == null)
+            monsterData = GetComponent<Monster>();
+
+        if (monsterData == null)
+            return;
+
         Gizmos.color = Color.red;
 
         Gizmos.DrawWireSphere(
             transform.position,
-            attackRange
+            monsterData.AttackRange
         );
     }
 }

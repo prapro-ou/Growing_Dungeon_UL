@@ -18,10 +18,26 @@ public class Treasure : MonoBehaviour
         currentHP = maxHP;
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, IntruderNavMesh attacker)
     {
         if (isDead)
             return;
+
+    if (isMainTreasure && attacker != null)
+    {
+        Debug.Log(
+            $"<color=red>[メイン宝箱] {attacker.gameObject.name} に攻撃された！</color>"
+        );
+
+        MonsterAI[] monsters = FindObjectsByType<MonsterAI>(
+            FindObjectsInactive.Exclude
+        );
+
+        foreach (MonsterAI monster in monsters)
+        {
+            monster.DefendChest(attacker);
+        }
+    }
 
         currentHP -= damage;
 

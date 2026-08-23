@@ -31,27 +31,141 @@ public class AdventurerData : MonoBehaviour
     {
         public Rank rank;
         public string rankName;
+
         public int maxHealth;
         public float moveSpeed;
         public int attackPower;
         public float attackInterval;
+
         public EnemyAIType aiType;
+
+        // 撃破時に獲得するDP
+        public int rewardDP;
+
         public GameObject prefab;
     }
 
-    [Header("全ランクのステータスデータ（10種類）")]
     public List<RankStatus> rankStatuses = new List<RankStatus>()
     {
-        new RankStatus { rank = Rank.Iron,        rankName = "アイアン",       maxHealth = 100,  moveSpeed = 3.5f, attackPower = 10,  attackInterval = 1.2f, aiType = EnemyAIType.Aggressive },
-        new RankStatus { rank = Rank.Bronze,      rankName = "ブロンズ",       maxHealth = 150,  moveSpeed = 3.6f, attackPower = 15,  attackInterval = 1.1f, aiType = EnemyAIType.Aggressive },
-        new RankStatus { rank = Rank.Silver,      rankName = "シルバー",       maxHealth = 220,  moveSpeed = 3.7f, attackPower = 22,  attackInterval = 1.0f, aiType = EnemyAIType.TreasureHunter },
-        new RankStatus { rank = Rank.Gold,        rankName = "ゴールド",       maxHealth = 320,  moveSpeed = 3.8f, attackPower = 32,  attackInterval = 0.95f, aiType = EnemyAIType.TreasureHunter },
-        new RankStatus { rank = Rank.Platinum,    rankName = "プラチナ",       maxHealth = 450,  moveSpeed = 3.9f, attackPower = 45,  attackInterval = 0.9f, aiType = EnemyAIType.TreasureHunter },
-        new RankStatus { rank = Rank.Emerald,     rankName = "エメラルド",     maxHealth = 600,  moveSpeed = 4.0f, attackPower = 60,  attackInterval = 0.85f, aiType = EnemyAIType.TreasureHunter },
-        new RankStatus { rank = Rank.Diamond,     rankName = "ダイヤモンド",   maxHealth = 800,  moveSpeed = 4.1f, attackPower = 80,  attackInterval = 0.8f, aiType = EnemyAIType.TreasureHunter },
-        new RankStatus { rank = Rank.Master,      rankName = "マスター",       maxHealth = 1100, moveSpeed = 4.2f, attackPower = 110, attackInterval = 0.75f, aiType = EnemyAIType.TreasureHunter },
-        new RankStatus { rank = Rank.Grandmaster, rankName = "グラマス",       maxHealth = 1500, moveSpeed = 4.3f, attackPower = 150, attackInterval = 0.7f, aiType = EnemyAIType.TreasureHunter },
-        new RankStatus { rank = Rank.Challenger,  rankName = "チャレンジャー", maxHealth = 2000, moveSpeed = 4.5f, attackPower = 200, attackInterval = 0.6f, aiType = EnemyAIType.TreasureHunter }
+        new RankStatus
+        {
+            rank = Rank.Iron,
+            rankName = "アイアン",
+            maxHealth = 100,
+            moveSpeed = 3.5f,
+            attackPower = 10,
+            attackInterval = 1.2f,
+            aiType = EnemyAIType.Aggressive,
+            rewardDP = 1
+        },
+
+        new RankStatus
+        {
+            rank = Rank.Bronze,
+            rankName = "ブロンズ",
+            maxHealth = 150,
+            moveSpeed = 3.6f,
+            attackPower = 15,
+            attackInterval = 1.1f,
+            aiType = EnemyAIType.Aggressive,
+            rewardDP = 2
+        },
+
+        new RankStatus
+        {
+            rank = Rank.Silver,
+            rankName = "シルバー",
+            maxHealth = 220,
+            moveSpeed = 3.7f,
+            attackPower = 22,
+            attackInterval = 1.0f,
+            aiType = EnemyAIType.TreasureHunter,
+            rewardDP = 5
+        },
+
+        new RankStatus
+        {
+            rank = Rank.Gold,
+            rankName = "ゴールド",
+            maxHealth = 320,
+            moveSpeed = 3.8f,
+            attackPower = 32,
+            attackInterval = 0.95f,
+            aiType = EnemyAIType.TreasureHunter,
+            rewardDP = 10
+        },
+
+        new RankStatus
+        {
+            rank = Rank.Platinum,
+            rankName = "プラチナ",
+            maxHealth = 450,
+            moveSpeed = 3.9f,
+            attackPower = 45,
+            attackInterval = 0.9f,
+            aiType = EnemyAIType.TreasureHunter,
+            rewardDP = 20
+        },
+
+        new RankStatus
+        {
+            rank = Rank.Emerald,
+            rankName = "エメラルド",
+            maxHealth = 600,
+            moveSpeed = 4.0f,
+            attackPower = 60,
+            attackInterval = 0.85f,
+            aiType = EnemyAIType.TreasureHunter,
+            rewardDP = 35
+        },
+
+        new RankStatus
+        {
+            rank = Rank.Diamond,
+            rankName = "ダイヤモンド",
+            maxHealth = 800,
+            moveSpeed = 4.1f,
+            attackPower = 80,
+            attackInterval = 0.8f,
+            aiType = EnemyAIType.TreasureHunter,
+            rewardDP = 50
+        },
+
+        new RankStatus
+        {
+            rank = Rank.Master,
+            rankName = "マスター",
+            maxHealth = 1100,
+            moveSpeed = 4.2f,
+            attackPower = 110,
+            attackInterval = 0.75f,
+            aiType = EnemyAIType.TreasureHunter,
+            rewardDP = 75
+        },
+
+        new RankStatus
+        {
+            rank = Rank.Grandmaster,
+            rankName = "グラマス",
+            maxHealth = 1500,
+            moveSpeed = 4.3f,
+            attackPower = 150,
+            attackInterval = 0.7f,
+            aiType = EnemyAIType.TreasureHunter,
+            rewardDP = 100
+        },
+
+        new RankStatus
+        {
+            rank = Rank.Challenger,
+            rankName = "チャレンジャー",
+            maxHealth = 2000,
+            moveSpeed = 4.5f,
+            attackPower = 200,
+            attackInterval = 0.6f,
+            aiType = EnemyAIType.TreasureHunter,
+            rewardDP = 150
+        }
     };
 
     /// <summary>

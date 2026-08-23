@@ -5,7 +5,6 @@ TagManager:
   serializedVersion: 3
   tags:
   - Enemy
-  tags: []
   layers:
   - Default
   - TransparentFX
@@ -14,10 +13,10 @@ TagManager:
   - Water
   - UI
   - Floor
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Treasure
+  - Monster
+  - Intruder
   - 
   - 
   - 
