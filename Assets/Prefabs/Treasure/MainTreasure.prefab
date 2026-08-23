@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 3168382033533506714}
   - component: {fileID: -5638878350267447854}
   - component: {fileID: -825151269419748182}
+  - component: {fileID: 505593339682062317}
   m_Layer: 0
   m_Name: MainTreasure
   m_TagString: Untagged
@@ -174,6 +175,18 @@ MonoBehaviour:
   isMainTreasure: 1
   maxHP: 500
   currentHP: 0
+--- !u!114 &505593339682062317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5081957028717652463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b5da09a21a1384b9e163ec49ce7e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Highlightable
 --- !u!1001 &3046914737954342502
 PrefabInstance:
   m_ObjectHideFlags: 0

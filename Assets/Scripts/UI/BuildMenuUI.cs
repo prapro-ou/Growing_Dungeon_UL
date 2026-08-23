@@ -8,6 +8,7 @@ public class BuildMenuUI : MonoBehaviour
 
     [Header("Manager")]
     [SerializeField] private BuildManager buildManager;
+    [SerializeField] private PreviewManager previewManager;
 
     [Header("Build Buttons")]
     [SerializeField] private Button wallButton;
@@ -33,6 +34,7 @@ public class BuildMenuUI : MonoBehaviour
     public void Wall()
     {
         buildManager.SetBuildMode(BuildMode.Wall);
+        previewManager.SetWallPreview();
         UpdateButtonColors();
     }
 

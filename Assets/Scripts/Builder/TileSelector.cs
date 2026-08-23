@@ -96,6 +96,10 @@ public class TileSelector : MonoBehaviour
         if (tile.CanPlace(buildManager.CurrentMode))
         {
             previewManager.MovePreview(tile.transform.position);
+
+            bool canPlace = buildManager.CanPlacePreview(tile);
+
+            previewManager.SetPreviewValid(canPlace);
         }
         else
         {
@@ -176,8 +180,19 @@ public class TileSelector : MonoBehaviour
         // 削除対象のハイライト
         // =========================
 
-        Highlightable highlight =
-            hit.collider.GetComponentInParent<Highlightable>();
+        PlaceableObject placeable =
+            hit.collider.GetComponentInParent<PlaceableObject>();
+
+        Highlightable highlight = null;
+
+        if (placeable != null && placeable.Tile != null)
+        {
+            if (placeable.Tile.Type != TileType.Treasure)
+            {
+                highlight =
+                    hit.collider.GetComponentInParent<Highlightable>();
+            }
+        }
 
         if (highlight != currentHighlight)
         {
@@ -190,14 +205,16 @@ public class TileSelector : MonoBehaviour
                 currentHighlight.Highlight();
         }
 
+
+        // =========================
+        // 削除処理
+        // =========================
+
         if (!Mouse.current.leftButton.isPressed)
         {
             lastTile = null;
             return;
         }
-
-        PlaceableObject placeable =
-            hit.collider.GetComponentInParent<PlaceableObject>();
 
         if (placeable == null)
             return;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using NUnit.Framework.Constraints;
 
 public class WaveManager : MonoBehaviour
 {
@@ -119,6 +120,9 @@ public class WaveManager : MonoBehaviour
         Debug.Log("=== 初期宝箱設置完了 ===");
 
         currentWaveIndex = 0;
+
+        // BuildMondeをNoneにする
+        buildManager.SetBuildMode(BuildMode.None);
 
         // メニューボタンの表示変更
         if (buildMenu != null)

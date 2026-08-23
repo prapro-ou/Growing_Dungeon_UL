@@ -13,5 +13,5 @@ AssetOrigin:
   productId: 295430
   packageName: Dungeon Modular Pack
   packageVersion: 1.0
-  assetPath: Assets/DungeonModularPack/Shaders/DungeonKitShader.shadergraph
+  assetPath: Assets/AssetStore/DungeonModularPack/Shaders/DungeonKitShader.shadergraph
   uploadId: 694981

@@ -138,35 +138,7 @@ public class BuildManager : MonoBehaviour
 
         Vector3 position = tile.transform.position;
 
-        GameObject monsterPrefab = null;
-
-        // MonsterTypeにあわせたPrefabに変更
-        switch(CurrentMonsterType)
-        {
-            case MonsterType.Spider:
-                monsterPrefab = spiderPrefab;
-                break;
-
-            case MonsterType.Goblin:
-                monsterPrefab = goblinPrefab;
-                break;
-
-            case MonsterType.Gargoyle:
-                monsterPrefab = gargoylePrefab;
-                break;
-
-            case MonsterType.Skeleton:
-                monsterPrefab = skeletonPrefab;
-                break;
-
-            case MonsterType.Daemon:
-                monsterPrefab = daemonPrefab;
-                break;
-
-            case MonsterType.Golem:
-                monsterPrefab = golemPrefab;
-                break;
-        }
+        GameObject monsterPrefab = GetCurrentMonsterPrefab();
 
         if (monsterPrefab == null)
             return;
@@ -346,6 +318,116 @@ public class BuildManager : MonoBehaviour
 
         tile.Type = TileType.Floor;
         tile.IsWalkable = true;
+    }
+
+    public bool CanPlacePreview(Tile tile)
+    {
+        if (tile == null)
+            return false;
+
+        // =========================
+        // 壁
+        // =========================
+        if (CurrentMode == BuildMode.Wall)
+        {
+            if (!tile.CanPlace(BuildMode.Wall))
+                return false;
+
+            Wall wallData = wallPrefab.GetComponent<Wall>();
+
+            if (wallData == null)
+                return false;
+
+            return dungeonPointManager.CanSpendDP(wallData.BuildCost);
+        }
+
+
+        // =========================
+        // モンスター
+        // =========================
+        if (CurrentMode == BuildMode.Monster)
+        {
+            if (!tile.CanPlace(BuildMode.Monster))
+                return false;
+
+            GameObject monsterPrefab = GetCurrentMonsterPrefab();
+
+            if (monsterPrefab == null)
+                return false;
+
+            Monster monsterData = monsterPrefab.GetComponent<Monster>();
+
+            if (monsterData == null)
+                return false;
+
+            return dungeonPointManager.CanSpendDP(monsterData.BuildCost);
+        }
+
+
+        // =========================
+        // 宝箱
+        // =========================
+        if (CurrentMode == BuildMode.Treasure)
+        {
+            if (!tile.CanPlace(BuildMode.Treasure))
+                return false;
+
+            Treasure[] treasures = FindObjectsByType<Treasure>(
+                FindObjectsInactive.Exclude
+            );
+
+            int mainTreasureCount = 0;
+            int subTreasureCount = 0;
+
+            foreach (Treasure treasure in treasures)
+            {
+                if (treasure.isMainTreasure)
+                    mainTreasureCount++;
+                else
+                    subTreasureCount++;
+            }
+
+            if (CurrentTreasureType == TreasureType.MainTreasure)
+            {
+                return mainTreasureCount < 1;
+            }
+
+            if (CurrentTreasureType == TreasureType.SubTreasure)
+            {
+                return subTreasureCount < 3;
+            }
+
+            return false;
+        }
+
+        return false;
+    }
+
+    private GameObject GetCurrentMonsterPrefab()
+    {
+        switch (CurrentMonsterType)
+        {
+            case MonsterType.Spider:
+                return spiderPrefab;
+
+            case MonsterType.Goblin:
+                return goblinPrefab;
+
+            case MonsterType.Gargoyle:
+                return gargoylePrefab;
+
+            case MonsterType.Skeleton:
+                return skeletonPrefab;
+
+            case MonsterType.Daemon:
+                return daemonPrefab;
+
+            case MonsterType.Golem:
+                return golemPrefab;
+
+            default:
+                return null;
+        }
     }
 
     public void SetBuildMode(BuildMode mode)

@@ -7,6 +7,7 @@ public class MonsterMenuUI : MonoBehaviour
 
     [Header("Manager")]
     [SerializeField] private BuildManager buildManager;
+    [SerializeField] private PreviewManager previewManager;
 
     [Header("Monster Buttons")]
     [SerializeField] private Button spiderButton;
@@ -28,42 +29,52 @@ public class MonsterMenuUI : MonoBehaviour
     public void Spider()
     {
         buildManager.SetMonsterType(MonsterType.Spider);
+        previewManager.SetMonsterPreview(MonsterType.Spider);
         UpdateButtonColors();
     }
 
     public void Goblin()
     {
         buildManager.SetMonsterType(MonsterType.Goblin);
+        previewManager.SetMonsterPreview(MonsterType.Goblin);
         UpdateButtonColors();
     }
 
     public void Gargoyle()
     {
         buildManager.SetMonsterType(MonsterType.Gargoyle);
+        previewManager.SetMonsterPreview(MonsterType.Gargoyle);
         UpdateButtonColors();
     }
 
     public void Skeleton()
     {
         buildManager.SetMonsterType(MonsterType.Skeleton);
+        previewManager.SetMonsterPreview(MonsterType.Skeleton);
         UpdateButtonColors();
     }
 
     public void Daemon()
     {
         buildManager.SetMonsterType(MonsterType.Daemon);
+        previewManager.SetMonsterPreview(MonsterType.Daemon);
         UpdateButtonColors();
     }
 
     public void Golem()
     {
         buildManager.SetMonsterType(MonsterType.Golem);
+        previewManager.SetMonsterPreview(MonsterType.Golem);
         UpdateButtonColors();
     }
 
     public void Return()
     {
         buildManager.SetMonsterType(MonsterType.None);
+
+        if (previewManager != null)
+            previewManager.ClearPreview();
+
         changeMenuUI.ShowBuildMenu();
     }
 

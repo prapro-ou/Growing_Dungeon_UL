@@ -7,6 +7,7 @@ public class TreasureMenuUI : MonoBehaviour
 
     [Header("Manager")]
     [SerializeField] private BuildManager buildManager;
+    [SerializeField] private PreviewManager previewManager;
 
     [Header("Treasure Buttons")]
     [SerializeField] private Button MainTreasureButton;
@@ -25,12 +26,20 @@ public class TreasureMenuUI : MonoBehaviour
     public void MainTreasure()
     {
         buildManager.SetTreasureType(TreasureType.MainTreasure);
+        buildManager.SetBuildMode(BuildMode.Treasure);
+
+        previewManager.SetTreasurePreview(TreasureType.MainTreasure);
+
         UpdateButtonColors();
     }
 
     public void SubTreasure()
     {
         buildManager.SetTreasureType(TreasureType.SubTreasure);
+        buildManager.SetBuildMode(BuildMode.Treasure);
+
+        previewManager.SetTreasurePreview(TreasureType.SubTreasure);
+
         UpdateButtonColors();
     }
 
@@ -38,6 +47,9 @@ public class TreasureMenuUI : MonoBehaviour
     {
         buildManager.SetTreasureType(TreasureType.None);
         buildManager.SetBuildMode(BuildMode.Erase);
+
+        previewManager.ClearPreview();
+
         UpdateButtonColors();
     }
 
@@ -53,9 +65,9 @@ public class TreasureMenuUI : MonoBehaviour
         if (button == null) return;
 
         button.image.color =
-            (buildManager != null && buildManager.CurrentTreasureType == type)
+            (buildManager != null &&
+             buildManager.CurrentTreasureType == type)
             ? selectedColor
             : normalColor;
     }
 }
-

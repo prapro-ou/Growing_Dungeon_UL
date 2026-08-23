@@ -562,9 +562,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TreasureMenuUI
   changeMenuUI: {fileID: 827461599}
   buildManager: {fileID: 1846025067}
+  previewManager: {fileID: 1271326314}
   MainTreasureButton: {fileID: 1674830649}
   SubTreasureButton: {fileID: 1907525649}
-  TreasureEraseButton: {fileID: 0}
+  TreasureEraseButton: {fileID: 1740844514}
   normalColor: {r: 1, g: 1, b: 1, a: 1}
   selectedColor: {r: 0.3, g: 0.7, b: 1, a: 1}
 --- !u!4 &297214880 stripped
@@ -1574,6 +1575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MonsterMenuUI
   changeMenuUI: {fileID: 827461599}
   buildManager: {fileID: 1846025067}
+  previewManager: {fileID: 1271326314}
   spiderButton: {fileID: 1916972583}
   GoblinButton: {fileID: 1113893777}
   GargoyleButton: {fileID: 1679285900}
@@ -3587,6 +3589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildMenuUI
   changeMenuUI: {fileID: 827461599}
   buildManager: {fileID: 1846025067}
+  previewManager: {fileID: 1271326314}
   wallButton: {fileID: 1953730001}
   trapButton: {fileID: 46446492}
   monsterButton: {fileID: 1266422220}
@@ -5223,8 +5226,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e73786c1e470ae4b885fec40d1c9ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PreviewManager
-  wallPreviewPrefab: {fileID: 1512272929115360418, guid: 5e69f736530f4e543a0475c2c6364433, type: 3}
-  monsterPreviewPrefab: {fileID: 4020522979794356724, guid: 2e582b1c6bc574f49b4345477d900b60, type: 3}
+  wallPreviewPrefab: {fileID: 719779850188982710, guid: bc52b758d8e930c44af000eda5ff1073, type: 3}
+  monsterPreviewPrefabs:
+  - {fileID: 4020522979794356724, guid: d2b6abcc86c8e13408c9888f9f5f7674, type: 3}
+  - {fileID: 4020522979794356724, guid: 414c1b0d988d94a4b96932e3bb53d124, type: 3}
+  - {fileID: 4020522979794356724, guid: d958c39af4e6c6f47b05f92c9725875b, type: 3}
+  - {fileID: 4020522979794356724, guid: 7e2a64376c096804aa7c7cea3e8a1290, type: 3}
+  - {fileID: 4020522979794356724, guid: da55cf000b534e4468f093e76e836cc6, type: 3}
+  - {fileID: 4020522979794356724, guid: 0a6bafe2d08bc4f4881ef2c8df456b6a, type: 3}
+  treasurePreviewPrefabs:
+  - {fileID: 5081957028717652463, guid: 5f344676a1b84c34bba84469ba6b7572, type: 3}
+  - {fileID: 592814285072341432, guid: fcb0394c8eb932f4bbee9f4faa9b5016, type: 3}
 --- !u!4 &1271326315
 Transform:
   m_ObjectHideFlags: 0
