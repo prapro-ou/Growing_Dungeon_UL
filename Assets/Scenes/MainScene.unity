@@ -1276,61 +1276,61 @@ MonoBehaviour:
     monsterName: "\u30B9\u30D1\u30A4\u30C0\u30FC"
     maxHealth: 80
     moveSpeed: 3.5
-    attackPower: 15
+    attackPower: 30
     attackRange: 2
     detectionRange: 6
     attackInterval: 0.7
-    buildCost: 10
+    buildCost: 50
     prefab: {fileID: 4020522979794356724, guid: cafcea8a394479a4b9939afd7865adc3, type: 3}
   - monsterType: 1
     monsterName: "\u30B4\u30D6\u30EA\u30F3"
     maxHealth: 100
     moveSpeed: 3
-    attackPower: 20
+    attackPower: 35
     attackRange: 2
     detectionRange: 5
     attackInterval: 1
-    buildCost: 15
+    buildCost: 50
     prefab: {fileID: 4020522979794356724, guid: 6dc694570bfa581458fdad98f7126903, type: 3}
   - monsterType: 2
     monsterName: "\u30AC\u30FC\u30B4\u30A4\u30EB"
     maxHealth: 150
     moveSpeed: 2.5
-    attackPower: 25
+    attackPower: 65
     attackRange: 2
     detectionRange: 5
     attackInterval: 1.2
-    buildCost: 25
+    buildCost: 75
     prefab: {fileID: 4020522979794356724, guid: 2b19aecf710fd34469bc4d934f3425d5, type: 3}
   - monsterType: 3
     monsterName: "\u30B9\u30B1\u30EB\u30C8\u30F3"
-    maxHealth: 120
+    maxHealth: 180
     moveSpeed: 2.8
-    attackPower: 30
+    attackPower: 55
     attackRange: 2
     detectionRange: 6
     attackInterval: 1
-    buildCost: 20
+    buildCost: 75
     prefab: {fileID: 4020522979794356724, guid: 51dbcc36c995c0c4e9ef50f23ca43c45, type: 3}
   - monsterType: 4
     monsterName: "\u30C7\u30FC\u30E2\u30F3"
-    maxHealth: 180
+    maxHealth: 750
     moveSpeed: 2.2
-    attackPower: 40
+    attackPower: 150
     attackRange: 2
     detectionRange: 7
     attackInterval: 1.5
-    buildCost: 35
+    buildCost: 400
     prefab: {fileID: 4020522979794356724, guid: ed315b777e6c3994aa1585b17f181483, type: 3}
   - monsterType: 5
     monsterName: "\u30B4\u30FC\u30EC\u30E0"
-    maxHealth: 300
+    maxHealth: 1000
     moveSpeed: 1.5
-    attackPower: 60
+    attackPower: 120
     attackRange: 2
     detectionRange: 5
     attackInterval: 2
-    buildCost: 50
+    buildCost: 400
     prefab: {fileID: 4020522979794356724, guid: a33d7c60aaae34a46bfd6de519c272bc, type: 3}
 --- !u!4 &430210472
 Transform:
@@ -4264,57 +4264,57 @@ MonoBehaviour:
   rankStatuses:
   - rank: 0
     rankName: "\u6226\u58EB"
-    maxHealth: 100
+    maxHealth: 225
     moveSpeed: 3.5
-    attackPower: 10
+    attackPower: 20
     attackInterval: 1.2
     aiType: 2
-    rewardDP: 1
+    rewardDP: 15
     prefab: {fileID: 3185209855928050848, guid: 7047fd6c763aaa54bad6c0ebd1d97d1a, type: 3}
   - rank: 1
     rankName: "\u30B7\u30FC\u30D5"
-    maxHealth: 150
+    maxHealth: 300
     moveSpeed: 3.6
-    attackPower: 15
+    attackPower: 30
     attackInterval: 1.1
     aiType: 0
-    rewardDP: 2
+    rewardDP: 30
     prefab: {fileID: 3185209855928050848, guid: e4a95326cc251114a936d12b2304347f, type: 3}
   - rank: 2
     rankName: "\u5F13\u624B"
-    maxHealth: 220
+    maxHealth: 330
     moveSpeed: 3.7
-    attackPower: 22
+    attackPower: 45
     attackInterval: 1
     aiType: 1
-    rewardDP: 5
+    rewardDP: 75
     prefab: {fileID: 3185209855928050848, guid: f81c8acbc9ec79448bc00075314bb02d, type: 3}
   - rank: 3
     rankName: "\u30A2\u30B5\u30B7\u30F3"
-    maxHealth: 320
+    maxHealth: 330
     moveSpeed: 3.8
-    attackPower: 32
+    attackPower: 55
     attackInterval: 0.95
     aiType: 0
-    rewardDP: 10
+    rewardDP: 90
     prefab: {fileID: 3185209855928050848, guid: 61aaaa798160a6443892e99323630837, type: 3}
   - rank: 4
     rankName: "\u5F93\u4ED5"
-    maxHealth: 450
+    maxHealth: 375
     moveSpeed: 3.9
-    attackPower: 45
+    attackPower: 80
     attackInterval: 0.9
     aiType: 1
-    rewardDP: 20
+    rewardDP: 120
     prefab: {fileID: 3185209855928050848, guid: 572d04a696fa6ba49a1bdeeae682c032, type: 3}
   - rank: 5
     rankName: "\u9A0E\u58EB"
-    maxHealth: 600
+    maxHealth: 1125
     moveSpeed: 4
-    attackPower: 60
+    attackPower: 120
     attackInterval: 0.85
     aiType: 1
-    rewardDP: 35
+    rewardDP: 150
     prefab: {fileID: 3185209855928050848, guid: 045a88d2caa02f34b952536878fb9398, type: 3}
   - rank: 6
     rankName: "\u30C0\u30A4\u30E4\u30E2\u30F3\u30C9"
@@ -4323,7 +4323,7 @@ MonoBehaviour:
     attackPower: 80
     attackInterval: 0.8
     aiType: 0
-    rewardDP: 50
+    rewardDP: 180
     prefab: {fileID: 3185209855928050848, guid: db6722f9d6fad5d47be2421f28274ce2, type: 3}
   - rank: 7
     rankName: "\u30DE\u30B9\u30BF\u30FC"
@@ -4332,7 +4332,7 @@ MonoBehaviour:
     attackPower: 110
     attackInterval: 0.75
     aiType: 0
-    rewardDP: 75
+    rewardDP: 210
     prefab: {fileID: 3185209855928050848, guid: 4ab8dd9411c6c254aa02bc7ca96473dd, type: 3}
   - rank: 8
     rankName: "\u30B0\u30E9\u30DE\u30B9"
@@ -4341,7 +4341,7 @@ MonoBehaviour:
     attackPower: 150
     attackInterval: 0.7
     aiType: 0
-    rewardDP: 100
+    rewardDP: 250
     prefab: {fileID: 3185209855928050848, guid: 9ba94c5946d6c5f47b8cf19164a8fafb, type: 3}
   - rank: 9
     rankName: "\u30C1\u30E3\u30EC\u30F3\u30B8\u30E3\u30FC"
@@ -4350,7 +4350,7 @@ MonoBehaviour:
     attackPower: 200
     attackInterval: 0.6
     aiType: 0
-    rewardDP: 150
+    rewardDP: 500
     prefab: {fileID: 3185209855928050848, guid: 8d25fe3bd61806a4bbf646bbaaadab31, type: 3}
 --- !u!4 &1099553152
 Transform:
