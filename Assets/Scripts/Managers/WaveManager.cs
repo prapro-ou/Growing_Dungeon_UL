@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using NUnit.Framework.Constraints;
+using UnityEngine.AI;
 
 public class WaveManager : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class WaveManager : MonoBehaviour
     {
         InitialSetup,  // 最初の宝箱設置
         PrepPhase,     // Waveの建築
-        WavePhase    // Waveの侵略
+        WavePhase      // Waveの侵略
     }
 
     [System.Serializable]
@@ -47,7 +47,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private PreviewManager previewManager;
     [SerializeField] private EnemySpawner spawner;
     [SerializeField] private Button readyButton;
-    [SerializeField] private GameObject buildMenu; // 設置メニュー全体のオブジェクト（MonsterMenuなど）
+    [SerializeField] private GameObject buildMenu;
     [SerializeField] private GameObject treasureMenu;
 
     [Header("ウェーブ設定")]
@@ -64,6 +64,7 @@ public class WaveManager : MonoBehaviour
 
     // フェーズが変更されたときに通知
     public event Action<GamePhase> onPhaseChanged;
+
 
     private void Start()
     {
@@ -89,6 +90,7 @@ public class WaveManager : MonoBehaviour
         onPhaseChanged?.Invoke(currentPhase);
     }
 
+
     private bool EnsureSpawnerReference()
     {
         if (spawner == null)
@@ -98,14 +100,21 @@ public class WaveManager : MonoBehaviour
 
         if (spawner == null)
         {
-            Debug.LogError($"[{gameObject.name}] EnemySpawner がシーン内に見つかりません！");
+            Debug.LogError(
+                $"[{gameObject.name}] EnemySpawner がシーン内に見つかりません！"
+            );
+
             return false;
         }
 
         return true;
     }
 
-    // 宝箱設置完了後呼び出す
+
+    // =========================================================
+    // 初期宝箱設置
+    // =========================================================
+
     public void FinishInitialSetup()
     {
         if (currentPhase != GamePhase.InitialSetup)
@@ -113,7 +122,10 @@ public class WaveManager : MonoBehaviour
 
         if (!IsInitialTreasureSetupComplete())
         {
-            Debug.LogWarning("メイン宝箱1個、サブ宝箱3個を設置してください。");
+            Debug.LogWarning(
+                "メイン宝箱1個、サブ宝箱3個を設置してください。"
+            );
+
             return;
         }
 
@@ -121,24 +133,31 @@ public class WaveManager : MonoBehaviour
 
         currentWaveIndex = 0;
 
-        // BuildMondeをNoneにする
-        buildManager.SetBuildMode(BuildMode.None);
+        // BuildModeをNoneにする
+        if (buildManager != null)
+        {
+            buildManager.SetBuildMode(BuildMode.None);
+        }
 
         // メニューボタンの表示変更
         if (buildMenu != null)
         {
             buildMenu.SetActive(true);
         }
+
         if (treasureMenu != null)
         {
             treasureMenu.SetActive(false);
         }
 
-
         EnterPrepPhase();
     }
 
-    // 宝箱の設置上限を確かめる
+
+    // =========================================================
+    // 初期宝箱の数を確認
+    // =========================================================
+
     private bool IsInitialTreasureSetupComplete()
     {
         Treasure[] treasures = FindObjectsByType<Treasure>(
@@ -163,9 +182,11 @@ public class WaveManager : MonoBehaviour
         return mainCount == 1 && subCount == 3;
     }
 
-    /// <summary>
-    /// 設置フェーズに入る（Waveクリア時やゲーム開始時）
-    /// </summary>
+
+    // =========================================================
+    // 建築フェーズ開始
+    // =========================================================
+
     public void EnterPrepPhase()
     {
         currentPhase = GamePhase.PrepPhase;
@@ -175,15 +196,18 @@ public class WaveManager : MonoBehaviour
             BGMManager.Instance.PlayBuildBGM();
         }
 
-        Debug.Log($"<color=green>=== 設置フェーズ開始 (Wave {currentWaveIndex + 1} の準備) ===</color>");
-        
+        Debug.Log(
+            $"<color=green>=== 設置フェーズ開始 " +
+            $"(Wave {currentWaveIndex + 1} の準備) ===</color>"
+        );
+
         // Readyボタンを有効化
         if (readyButton != null)
         {
             readyButton.interactable = true;
         }
 
-        // 設置メニューを再表示・有効化する
+        // 設置メニューを表示
         if (buildMenu != null)
         {
             buildMenu.SetActive(true);
@@ -198,56 +222,229 @@ public class WaveManager : MonoBehaviour
         onPhaseChanged?.Invoke(currentPhase);
     }
 
-    /// <summary>
-    /// Readyボタンから呼び出されるメソッド（戦闘開始）
-    /// </summary>
+
+    // =========================================================
+    // Readyボタン → 侵略開始
+    // =========================================================
+
     public void StartNextWave()
     {
-        if (currentPhase == GamePhase.WavePhase) return;
+        if (currentPhase == GamePhase.WavePhase)
+            return;
 
         if (currentWaveIndex >= waveList.Count)
         {
-            Debug.Log("<color=gold>すべてのウェーブをすでにクリアしています！</color>");
+            Debug.Log(
+                "<color=gold>" +
+                "すべてのウェーブをすでにクリアしています！" +
+                "</color>"
+            );
+
             return;
         }
 
-        if (!EnsureSpawnerReference()) return;
+        if (!EnsureSpawnerReference())
+            return;
+
+
+        // -----------------------------------------------------
+        // 一旦Readyボタンを無効化
+        // -----------------------------------------------------
 
         if (readyButton != null)
         {
             readyButton.interactable = false;
         }
 
-        // 戦闘中は設置メニューを非表示にする
-        if (buildMenu != null)
-        {
-            buildMenu.SetActive(false);
-        }
-        
-        // 壁の配置に合わせて NavMesh を再構築
+
+        // -----------------------------------------------------
+        // NavMeshを再構築
+        // -----------------------------------------------------
+
         if (gridManager != null)
         {
             gridManager.RebuildNavMesh();
         }
 
-        // 準備完了：建築モード解除＆プレビュー消去
-        if (buildManager != null) buildManager.ClearBuildSelection();
-        if (previewManager != null) previewManager.ClearPreview();
+
+        // -----------------------------------------------------
+        // 宝箱へのアクセスチェック
+        // -----------------------------------------------------
+
+        if (!CanAccessAllTreasures())
+        {
+            Debug.LogWarning(
+                "================================================\n" +
+                "❌ 侵略を開始できません！\n" +
+                "アクセスできない宝箱があります。\n" +
+                "壁を確認してください。\n" +
+                "================================================"
+            );
+
+            // Readyボタンをもう一度押せるようにする
+            if (readyButton != null)
+            {
+                readyButton.interactable = true;
+            }
+
+            return;
+        }
+
+
+        // -----------------------------------------------------
+        // ここまで来たら侵略開始可能
+        // -----------------------------------------------------
+
+        // 戦闘中は設置メニューを非表示
+        if (buildMenu != null)
+        {
+            buildMenu.SetActive(false);
+        }
+
+        // 建築モード解除
+        if (buildManager != null)
+        {
+            buildManager.ClearBuildSelection();
+        }
+
+        // プレビュー消去
+        if (previewManager != null)
+        {
+            previewManager.ClearPreview();
+        }
 
         StartCoroutine(RunWaveSequence());
     }
 
-    /// <summary>
-    /// GameManager 互換用の呼び出しメソッド
-    /// </summary>
+
+    // =========================================================
+    // 宝箱へのアクセス可能判定
+    // =========================================================
+
+    private bool CanAccessAllTreasures()
+    {
+        Treasure[] treasures = FindObjectsByType<Treasure>(
+            FindObjectsInactive.Exclude
+        );
+
+        if (treasures.Length == 0)
+        {
+            Debug.LogWarning("宝箱が1つも見つかりません。");
+            return false;
+        }
+
+        // EnemySpawnerの位置 = 敵のスポーン地点
+        Vector3 spawnPosition = spawner.transform.position;
+
+        if (!NavMesh.SamplePosition(
+            spawnPosition,
+            out NavMeshHit startHit,
+            0.5f,
+            NavMesh.AllAreas))
+        {
+            Debug.LogWarning(
+                "敵のスポーン地点がNavMesh上にありません。"
+            );
+
+            return false;
+        }
+
+        foreach (Treasure treasure in treasures)
+        {
+            if (treasure == null)
+                continue;
+
+            bool accessible = false;
+
+            // 宝箱の周囲を8方向チェック
+            Vector3 center = treasure.transform.position;
+
+            float checkRadius = 1.5f;
+
+            Vector3[] checkPositions =
+            {
+                center + Vector3.forward * checkRadius,
+                center + Vector3.back * checkRadius,
+                center + Vector3.left * checkRadius,
+                center + Vector3.right * checkRadius,
+
+                center + (Vector3.forward + Vector3.right).normalized * checkRadius,
+                center + (Vector3.forward + Vector3.left).normalized * checkRadius,
+                center + (Vector3.back + Vector3.right).normalized * checkRadius,
+                center + (Vector3.back + Vector3.left).normalized * checkRadius
+            };
+
+            foreach (Vector3 checkPosition in checkPositions)
+            {
+                // 近くのNavMeshを探す
+                if (!NavMesh.SamplePosition(
+                    checkPosition,
+                    out NavMeshHit targetHit,
+                    0.4f,
+                    NavMesh.AllAreas))
+                {
+                    continue;
+                }
+
+                // スポーン地点からチェック地点まで経路を計算
+                NavMeshPath path = new NavMeshPath();
+
+                bool foundPath = NavMesh.CalculatePath(
+                    startHit.position,
+                    targetHit.position,
+                    NavMesh.AllAreas,
+                    path
+                );
+
+                if (foundPath &&
+                    path.status == NavMeshPathStatus.PathComplete)
+                {
+                    accessible = true;
+                    break;
+                }
+            }
+
+            if (!accessible)
+            {
+                Debug.LogWarning(
+                    $"❌ 宝箱「{treasure.name}」へアクセスできません！"
+                );
+
+                return false;
+            }
+
+            Debug.Log(
+                $"✅ 宝箱「{treasure.name}」へアクセス可能"
+            );
+        }
+
+        Debug.Log(
+            "<color=green>" +
+            "✅ すべての宝箱へアクセス可能です。" +
+            "</color>"
+        );
+
+        return true;
+    }
+
+
+    // =========================================================
+    // GameManager互換
+    // =========================================================
+
     public void StartWaveSystem()
     {
         StartNextWave();
     }
 
+
+    // =========================================================
+    // Wave実行
+    // =========================================================
+
     private IEnumerator RunWaveSequence()
     {
-        // ★侵略開始時に必ず通常表示へ
+        // 侵略開始時に通常表示へ
         if (buildManager != null)
         {
             buildManager.ResetObjectTransparency();
@@ -265,48 +462,109 @@ public class WaveManager : MonoBehaviour
 
 
         WaveData currentWave = waveList[currentWaveIndex];
-        Debug.Log($"<color=cyan>=== {currentWave.waveName} (Wave {currentWaveIndex + 1}/{waveList.Count}) 戦闘開始！ ===</color>");
 
-        for (int subIndex = 0; subIndex < currentWave.subWaves.Count; subIndex++)
+        Debug.Log(
+            $"<color=cyan>" +
+            $"=== {currentWave.waveName} " +
+            $"(Wave {currentWaveIndex + 1}/{waveList.Count}) " +
+            $"戦闘開始！ ===" +
+            $"</color>"
+        );
+
+
+        // =====================================================
+        // SubWave
+        // =====================================================
+
+        for (
+            int subIndex = 0;
+            subIndex < currentWave.subWaves.Count;
+            subIndex++
+        )
         {
-            EnemySubWave subWave = currentWave.subWaves[subIndex];
+            EnemySubWave subWave =
+                currentWave.subWaves[subIndex];
 
-            float spawnInterval = subWave.enemiesPerMinute > 0 
-                ? 60f / subWave.enemiesPerMinute 
+
+            float spawnInterval =
+                subWave.enemiesPerMinute > 0
+                ? 60f / subWave.enemiesPerMinute
                 : 1f;
+
 
             int spawnedCount = 0;
 
-            while (spawnedCount < subWave.totalEnemiesToSpawn)
+
+            while (
+                spawnedCount <
+                subWave.totalEnemiesToSpawn
+            )
             {
-                spawner.SpawnEnemyByRank(subWave.enemyRank);
+                spawner.SpawnEnemyByRank(
+                    subWave.enemyRank
+                );
+
                 spawnedCount++;
 
-                if (spawnedCount < subWave.totalEnemiesToSpawn)
+
+                if (
+                    spawnedCount <
+                    subWave.totalEnemiesToSpawn
+                )
                 {
-                    yield return new WaitForSeconds(spawnInterval);
+                    yield return new WaitForSeconds(
+                        spawnInterval
+                    );
                 }
             }
 
-            if (subWave.delayBeforeNextSubWave > 0f)
+
+            if (
+                subWave.delayBeforeNextSubWave > 0f
+            )
             {
-                yield return new WaitForSeconds(subWave.delayBeforeNextSubWave);
+                yield return new WaitForSeconds(
+                    subWave.delayBeforeNextSubWave
+                );
             }
         }
 
-        Debug.Log($"[{currentWave.waveName}] 全ての敵の生成が完了しました。残敵の全滅を待っています...");
 
-        // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
-        // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
-        // フィールド上の敵（IntruderNavMesh）が全滅するまで待機
-        while (UnityEngine.Object.FindObjectsByType<IntruderNavMesh>().Length > 0)
+        // =====================================================
+        // 全敵生成完了
+        // =====================================================
+
+        Debug.Log(
+            $"[{currentWave.waveName}] " +
+            "全ての敵の生成が完了しました。" +
+            "残敵の全滅を待っています..."
+        );
+
+
+        // フィールド上の敵が全滅するまで待機
+        while (
+            UnityEngine.Object.FindObjectsByType<
+                IntruderNavMesh
+            >().Length > 0
+        )
         {
             yield return new WaitForSeconds(0.5f);
         }
 
-        Debug.Log($"<color=yellow>=== Wave {currentWaveIndex + 1} クリア！ ===</color>");
+
+        // =====================================================
+        // Waveクリア
+        // =====================================================
+
+        Debug.Log(
+            $"<color=yellow>" +
+            $"=== Wave {currentWaveIndex + 1} クリア！ ===" +
+            $"</color>"
+        );
+
 
         currentWaveIndex++;
+
 
         if (currentWaveIndex < waveList.Count)
         {
@@ -314,7 +572,12 @@ public class WaveManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("<color=gold>=== 全ウェーブ完全クリア！ ===</color>");
+            Debug.Log(
+                "<color=gold>" +
+                "=== 全ウェーブ完全クリア！ ===" +
+                "</color>"
+            );
+
             onAllWavesCleared?.Invoke();
 
             GameManager.Instance.GameClear();

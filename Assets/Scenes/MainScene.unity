@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbef40cb33bae4543949333d895ec9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  titleSceneName: TitleScene
+  mainSceneName: MainScene
   gameOverSceneName: GameOverScene
   gameClearSceneName: GameClearScene
 --- !u!4 &84218092
@@ -644,7 +644,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
