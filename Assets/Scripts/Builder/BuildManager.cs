@@ -26,6 +26,7 @@ public class BuildManager : MonoBehaviour
     [SerializeField] private PreviewManager previewManager;
     [SerializeField] private DungeonPointManager dungeonPointManager;
     [SerializeField] private WaveManager waveManager;
+    [SerializeField] private MonsterData monsterData;
 
     [Header("Mode and Type")]
     public BuildMode CurrentMode = BuildMode.None;
@@ -42,7 +43,7 @@ public class BuildManager : MonoBehaviour
     }
 
     /// <summary>
-    ///  タイルがクリックされたときのBuildMode検出
+    /// タイルがクリックされたときのBuildMode検出
     /// </summary>
     /// <param name="tile"></param>
     public void OnTileClicked(Tile tile)
@@ -148,32 +149,30 @@ public class BuildManager : MonoBehaviour
         if (!tile.CanPlace(BuildMode.Monster))
             return;
 
-        Vector3 position = tile.transform.position;
+        // いま選択している MonsterType を MonsterData 用に変換する
+        MonsterData.MonsterType targetType = GetMonsterTypeFromCurrent();
 
-        GameObject monsterPrefab = GetCurrentMonsterPrefab();
-
-        if (monsterPrefab == null)
-            return;
-
-        // Monsterコンポーネントを取得
-        Monster monsterData = monsterPrefab.GetComponent<Monster>();
-        if (monsterData == null)
-        {
-            Debug.LogError("MonsterコンポーネントがPrefabについていません");
-            return;
-        }
+        // MonsterDataから直接ステータス（コスト等）を取得する
+        MonsterData.MonsterStatus status = monsterData.GetStatus(targetType);
 
         // DPが足りるか確認
-        if (!dungeonPointManager.CanSpendDP(monsterData.BuildCost))
+        if (!dungeonPointManager.CanSpendDP(status.buildCost))
         {
             Debug.Log("DPが足りません");
             return;
         }
 
         // DPを消費
-        dungeonPointManager.SpendDP(monsterData.BuildCost);
+        dungeonPointManager.SpendDP(status.buildCost);
 
         tile.Type = TileType.Monster;
+
+        Vector3 position = tile.transform.position;
+
+        GameObject monsterPrefab = GetCurrentMonsterPrefab();
+
+        if (monsterPrefab == null)
+            return;
 
         GameObject monster = Instantiate(
             monsterPrefab,
@@ -192,11 +191,11 @@ public class BuildManager : MonoBehaviour
         {
             info.Initialize(
                 waveManager.currentWaveIndex,
-                monsterData.BuildCost
+                status.buildCost // MonsterDataのコストを渡す
             );
         }
 
-    tile.PlacedObject = monster;
+        tile.PlacedObject = monster;
     }
 
     private void PlaceTrap(Tile tile)
@@ -386,17 +385,12 @@ public class BuildManager : MonoBehaviour
             if (!tile.CanPlace(BuildMode.Monster))
                 return false;
 
-            GameObject monsterPrefab = GetCurrentMonsterPrefab();
+            MonsterData.MonsterType targetType = GetMonsterTypeFromCurrent();
 
-            if (monsterPrefab == null)
-                return false;
+            // MonsterDataからコストを取得して判定
+            MonsterData.MonsterStatus status = monsterData.GetStatus(targetType);
 
-            Monster monsterData = monsterPrefab.GetComponent<Monster>();
-
-            if (monsterData == null)
-                return false;
-
-            return dungeonPointManager.CanSpendDP(monsterData.BuildCost);
+            return dungeonPointManager.CanSpendDP(status.buildCost);
         }
 
 
@@ -466,6 +460,21 @@ public class BuildManager : MonoBehaviour
         }
     }
 
+    // BuildManager側の MonsterType を MonsterData.MonsterType に変換する補助メソッド
+    private MonsterData.MonsterType GetMonsterTypeFromCurrent()
+    {
+        switch (CurrentMonsterType)
+        {
+            case MonsterType.Spider: return MonsterData.MonsterType.Spider;
+            case MonsterType.Goblin: return MonsterData.MonsterType.Goblin;
+            case MonsterType.Gargoyle: return MonsterData.MonsterType.Gargoyle;
+            case MonsterType.Skeleton: return MonsterData.MonsterType.Skeleton;
+            case MonsterType.Daemon: return MonsterData.MonsterType.Daemon;
+            case MonsterType.Golem: return MonsterData.MonsterType.Golem;
+            default: return MonsterData.MonsterType.Spider;
+        }
+    }
+    
     public void SetBuildMode(BuildMode mode)
     {
         CurrentMode = mode;
