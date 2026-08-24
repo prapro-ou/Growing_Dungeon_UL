@@ -16,7 +16,7 @@ public class TreasureMenuUI : MonoBehaviour
 
     [Header("Button Colors")]
     [SerializeField] private Color normalColor = Color.white;
-    [SerializeField] private Color selectedColor = new Color(0.3f, 0.7f, 1f);
+    [SerializeField] private Color selectedColor = new Color(1f, 1f, 0f);
 
     private void OnEnable()
     {
