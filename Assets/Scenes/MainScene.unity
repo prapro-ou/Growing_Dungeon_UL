@@ -4264,7 +4264,7 @@ MonoBehaviour:
   rankStatuses:
   - rank: 0
     rankName: "\u6226\u58EB"
-    maxHealth: 300
+    maxHealth: 225
     moveSpeed: 3.5
     attackPower: 20
     attackInterval: 1.2
@@ -4273,7 +4273,7 @@ MonoBehaviour:
     prefab: {fileID: 3185209855928050848, guid: 7047fd6c763aaa54bad6c0ebd1d97d1a, type: 3}
   - rank: 1
     rankName: "\u30B7\u30FC\u30D5"
-    maxHealth: 400
+    maxHealth: 300
     moveSpeed: 3.6
     attackPower: 30
     attackInterval: 1.1
@@ -4282,7 +4282,7 @@ MonoBehaviour:
     prefab: {fileID: 3185209855928050848, guid: e4a95326cc251114a936d12b2304347f, type: 3}
   - rank: 2
     rankName: "\u5F13\u624B"
-    maxHealth: 450
+    maxHealth: 330
     moveSpeed: 3.7
     attackPower: 45
     attackInterval: 1
@@ -4291,7 +4291,7 @@ MonoBehaviour:
     prefab: {fileID: 3185209855928050848, guid: f81c8acbc9ec79448bc00075314bb02d, type: 3}
   - rank: 3
     rankName: "\u30A2\u30B5\u30B7\u30F3"
-    maxHealth: 450
+    maxHealth: 330
     moveSpeed: 3.8
     attackPower: 55
     attackInterval: 0.95
@@ -4300,7 +4300,7 @@ MonoBehaviour:
     prefab: {fileID: 3185209855928050848, guid: 61aaaa798160a6443892e99323630837, type: 3}
   - rank: 4
     rankName: "\u5F93\u4ED5"
-    maxHealth: 500
+    maxHealth: 375
     moveSpeed: 3.9
     attackPower: 80
     attackInterval: 0.9
@@ -4309,7 +4309,7 @@ MonoBehaviour:
     prefab: {fileID: 3185209855928050848, guid: 572d04a696fa6ba49a1bdeeae682c032, type: 3}
   - rank: 5
     rankName: "\u9A0E\u58EB"
-    maxHealth: 1500
+    maxHealth: 1125
     moveSpeed: 4
     attackPower: 120
     attackInterval: 0.85
