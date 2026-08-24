@@ -1298,23 +1298,23 @@ MonoBehaviour:
     prefab: {fileID: 4020522979794356724, guid: 6dc694570bfa581458fdad98f7126903, type: 3}
   - monsterType: 2
     monsterName: "\u30AC\u30FC\u30B4\u30A4\u30EB"
-    maxHealth: 150
+    maxHealth: 400
     moveSpeed: 2.5
-    attackPower: 65
-    attackRange: 2
+    attackPower: 70
+    attackRange: 3
     detectionRange: 5
-    attackInterval: 1.2
-    buildCost: 75
+    attackInterval: 1.5
+    buildCost: 100
     prefab: {fileID: 4020522979794356724, guid: 2b19aecf710fd34469bc4d934f3425d5, type: 3}
   - monsterType: 3
     monsterName: "\u30B9\u30B1\u30EB\u30C8\u30F3"
-    maxHealth: 180
+    maxHealth: 300
     moveSpeed: 2.8
-    attackPower: 55
+    attackPower: 70
     attackRange: 2
     detectionRange: 6
     attackInterval: 1
-    buildCost: 75
+    buildCost: 100
     prefab: {fileID: 4020522979794356724, guid: 51dbcc36c995c0c4e9ef50f23ca43c45, type: 3}
   - monsterType: 4
     monsterName: "\u30C7\u30FC\u30E2\u30F3"
@@ -1324,17 +1324,17 @@ MonoBehaviour:
     attackRange: 2
     detectionRange: 7
     attackInterval: 1.5
-    buildCost: 400
+    buildCost: 200
     prefab: {fileID: 4020522979794356724, guid: ed315b777e6c3994aa1585b17f181483, type: 3}
   - monsterType: 5
     monsterName: "\u30B4\u30FC\u30EC\u30E0"
-    maxHealth: 1000
+    maxHealth: 1200
     moveSpeed: 1.5
     attackPower: 120
     attackRange: 2
     detectionRange: 5
     attackInterval: 2
-    buildCost: 400
+    buildCost: 200
     prefab: {fileID: 4020522979794356724, guid: a33d7c60aaae34a46bfd6de519c272bc, type: 3}
 --- !u!4 &430210472
 Transform:
@@ -3981,6 +3981,7 @@ MonoBehaviour:
   onAllWavesCleared:
     m_PersistentCalls:
       m_Calls: []
+  baseDpReward: 50
 --- !u!4 &971810667
 Transform:
   m_ObjectHideFlags: 0

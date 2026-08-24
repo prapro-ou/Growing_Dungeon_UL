@@ -187,6 +187,9 @@ public class WaveManager : MonoBehaviour
     // 建築フェーズ開始
     // =========================================================
 
+    [Header("DP設定")]
+    [SerializeField] private int baseDpReward = 50; // 基準となるDP（50固定）
+
     public void EnterPrepPhase()
     {
         currentPhase = GamePhase.PrepPhase;
