@@ -51,10 +51,10 @@ public class GameStartManager : MonoBehaviour
     public void OnClickStartButton()
     {
         titlePanel.SetActive(false);
-        storyPanel.SetActive(true);
+        storyPanel.SetActive(false);
         buildMenu.SetActive(false);
         currentLineIndex = 0;
-        ShowCurrentLine();
+        StartGameplay();
     }
 
     // ストーリー画面をクリックして次に進む時
@@ -93,5 +93,10 @@ public class GameStartManager : MonoBehaviour
         }
         
         Debug.Log("Game Started!");
+
+        if (BGMManager.Instance != null)
+            {
+                BGMManager.Instance.PlayBuildBGM();
+            }
     }
 }

@@ -191,11 +191,6 @@ public class WaveManager : MonoBehaviour
     {
         currentPhase = GamePhase.PrepPhase;
 
-        if (BGMManager.Instance != null)
-        {
-            BGMManager.Instance.PlayBuildBGM();
-        }
-
         Debug.Log(
             $"<color=green>=== 設置フェーズ開始 " +
             $"(Wave {currentWaveIndex + 1} の準備) ===</color>"
@@ -211,6 +206,11 @@ public class WaveManager : MonoBehaviour
         if (buildMenu != null)
         {
             buildMenu.SetActive(true);
+        }
+
+        if (BGMManager.Instance != null)
+        {
+            BGMManager.Instance.PlayBuildBGM();
         }
 
         if (buildManager != null)
