@@ -8176,6 +8176,7 @@ MonoBehaviour:
   previewManager: {fileID: 1271326314}
   dungeonPointManager: {fileID: 1830692715}
   waveManager: {fileID: 971810666}
+  monsterData: {fileID: 430210471}
   CurrentMode: 1
   CurrentMonsterType: 0
   CurrentTreasureType: 0
