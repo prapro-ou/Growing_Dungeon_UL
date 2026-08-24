@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("シーン設定")]
+    [SerializeField] private string mainSceneName = "MainScene";
     [SerializeField] private string gameOverSceneName = "GameOverScene";
     [SerializeField] private string gameClearSceneName = "GameClearScene";
 
@@ -51,6 +52,11 @@ public class GameManager : MonoBehaviour
         Debug.Log($"プレイ時間: {PlayTime:F1}秒");
 
         SceneManager.LoadScene(gameOverSceneName);
+
+        if (BGMManager.Instance != null)
+        {
+            BGMManager.Instance.PlayGameoverBGM();
+        }
     }
 
     /// <summary>
@@ -67,5 +73,22 @@ public class GameManager : MonoBehaviour
         Debug.Log($"プレイ時間: {PlayTime:F1}秒");
 
         SceneManager.LoadScene(gameClearSceneName);
+
+        if (BGMManager.Instance != null)
+        {
+            BGMManager.Instance.PlayGameclearBGM();
+        }
+    }
+
+    /// <summary>
+    /// タイトル画面へ戻る
+    /// </summary>
+    public void ReturnToTitle()
+    {
+        IsGameFinished = true;
+
+        Debug.Log("=== TITLEへ戻る ===");
+
+        SceneManager.LoadScene(mainSceneName);
     }
 }

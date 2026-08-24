@@ -169,6 +169,12 @@ public class WaveManager : MonoBehaviour
     public void EnterPrepPhase()
     {
         currentPhase = GamePhase.PrepPhase;
+
+        if (BGMManager.Instance != null)
+        {
+            BGMManager.Instance.PlayBuildBGM();
+        }
+
         Debug.Log($"<color=green>=== 設置フェーズ開始 (Wave {currentWaveIndex + 1} の準備) ===</color>");
         
         // Readyボタンを有効化
@@ -248,6 +254,11 @@ public class WaveManager : MonoBehaviour
         }
 
         currentPhase = GamePhase.WavePhase;
+
+        if (BGMManager.Instance != null)
+        {
+            BGMManager.Instance.PlayAttackBGM();
+        }
 
         onWavePhaseStart?.Invoke();
         onPhaseChanged?.Invoke(currentPhase);

@@ -89,6 +89,7 @@
     <Compile Include="Assets\Scripts\Builder\Treasure.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
     <Compile Include="Assets\Scripts\UI\GameStartManager.cs" />
+    <Compile Include="Assets\Scripts\UI\GameoverButton.cs" />
     <Compile Include="Assets\Scripts\UI\TreasureMenuUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
     <Compile Include="Assets\Scripts\Managers\Highlightable.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
     <Compile Include="Assets\Scripts\UI\ChangeMenuUI.cs" />
     <Compile Include="Assets\Scripts\Enemy\AdventureData.cs" />
+    <Compile Include="Assets\Scripts\Managers\BGMManager.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
     <Compile Include="Assets\Scripts\Managers\DungeonPointManager.cs" />

@@ -40,6 +40,11 @@ public class GameStartManager : MonoBehaviour
         {
             treasureMenu.SetActive(false);
         }
+
+        if (BGMManager.Instance != null)
+        {
+        BGMManager.Instance.PlayTitleBGM();
+        }
     }
 
     // 「GAME START」ボタンを押した時
